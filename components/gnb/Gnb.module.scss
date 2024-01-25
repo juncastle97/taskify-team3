@@ -1,0 +1,32 @@
+.gnb {
+  position: sticky;
+  top: 0;
+  padding: 1.6rem 8rem;
+  background-color: $white;
+  color: $black-200;
+  font-size: 1.6rem;
+  z-index: 1;
+}
+
+.gnbContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.2rem 0 0.4rem;
+}
+
+.logoText {
+  @media (max-width: 766px) {
+    display: none;
+  }
+}
+
+.authContainer {
+  display: flex;
+  gap: 3.6rem;
+}
