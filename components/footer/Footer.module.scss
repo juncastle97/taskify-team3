@@ -1,0 +1,22 @@
+.footer {
+  width: 100%;
+  padding: 4rem 14rem;
+  color: $gray-400;
+  font-size: 1.6rem;
+  background-color: $black-400;
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info {
+  display: flex;
+  gap: 3.2rem;
+}
+
+.link {
+  display: flex;
+  gap: 1.4rem;
+}

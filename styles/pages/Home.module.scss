@@ -1,0 +1,212 @@
+.main {
+  font-family: nth($font-main, 1);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin: 0 2.8rem;
+}
+
+.headerImage {
+  width: 100%;
+  max-width: 722px;
+  height: 52vw;
+  max-height: 423px;
+}
+
+.title {
+  font-size: 7.6rem;
+  font-weight: 700;
+  text-align: center;
+
+  @media (min-width: 375px) and (max-width: 766px) {
+    font-size: 4.8rem;
+  }
+}
+
+.titlePurple {
+  color: $violet-200;
+}
+
+.login {
+  width: 28rem;
+  padding: 1.5rem 0;
+  font-size: 1.6rem;
+  color: $white;
+  background-color: $violet-200;
+  border-radius: 0.8rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+  margin: 3rem;
+  align-items: center;
+
+  @media (min-width: 375px) and (max-width: 1200px) {
+    margin: 1.6rem;
+  }
+}
+
+.mainCard1 {
+  display: flex;
+  justify-content: space-between;
+  margin: 4rem 0;
+  padding-top: 10rem;
+  border-radius: 0.8rem;
+  background-color: $violet-100;
+  width: 120rem;
+
+  @media (min-width: 375px) and (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    width: 100%;
+  }
+}
+
+.mainCard2 {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  margin: 4rem 0;
+  padding-top: 10rem;
+  border-radius: 0.8rem;
+  background-color: $violet-100;
+  width: 120rem;
+
+  @media (min-width: 375px) and (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    gap: 10rem;
+    width: 100%;
+  }
+}
+
+.mainCardText {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+  margin-left: 10rem;
+
+  @media (min-width: 375px) and (max-width: 766px) {
+    margin: auto;
+  }
+}
+
+.point {
+  color: $gray-500;
+  font-size: 2.2rem;
+}
+
+.description {
+  font-size: 4.8rem;
+  font-weight: 700;
+
+  @media (min-width: 375px) and (max-width: 766px) {
+    font-size: 3.6rem;
+    text-align: center;
+  }
+}
+
+.mainImage1 {
+  width: 80vw;
+  height: 65vw;
+  max-width: 594px;
+  max-height: 497px;
+  @media (min-width: 375px) and (max-width: 1200px) {
+    float: right;
+  }
+}
+
+.mainImage2 {
+  width: 58vw;
+  height: 64vw;
+  max-width: 436px;
+  max-height: 502px;
+
+  @media (min-width: 375px) and (max-width: 1200px) {
+    float: none;
+    margin: auto;
+  }
+}
+
+.config {
+  display: flex;
+  flex-direction: column;
+  gap: 3.3rem;
+  padding-bottom: 9rem;
+}
+
+.configTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-align: left;
+
+  @media (min-width: 375px) and (max-width: 1200px) {
+    text-align: center;
+  }
+}
+
+.configCards {
+  display: flex;
+  gap: 3.3rem;
+
+  @media (min-width: 375px) and (max-width: 1200px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.configContainer {
+  display: flex;
+  align-items: center;
+  gap: 3.3rem;
+}
+
+.configCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.configCardImageContainer {
+  position: relative;
+  background-color: $gray-200;
+  width: 37.8rem;
+  height: 26rem;
+  border-radius: 0.8rem 0.8rem 0 0;
+
+  @media (min-width: 375px) and (max-width: 766px) {
+    width: 34.3rem;
+  }
+}
+
+.configCardImage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.configDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 3.2rem;
+  background-color: $violet-100;
+  border-radius: 0 0 0.8rem 0.8rem;
+}
+
+.configSubTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.configDescription {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
