@@ -47,7 +47,7 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
           placeholder={"이름을 입력해 주세요"}
           onClick={toggleDropdown}
           onChange={handleInputChange}
-          value={searchTerm}
+          value={selectedItem?.assignee.nickname}
         />
         <button onClick={toggleDropdown}>
           <Image
@@ -58,7 +58,7 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
             height={26}
           />
         </button>
-        {selectedItem && (
+        {/* {selectedItem && (
           <div key={selectedItem.assignee.id} className={clsx(styles.Assignee)}>
             <Image
               className={clsx(styles.ProfileImg)}
@@ -71,7 +71,7 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
               {selectedItem.assignee.nickname}
             </span>
           </div>
-        )}
+        )} */}
       </div>
       {isOpen && (
         <ul>
