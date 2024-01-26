@@ -1,0 +1,95 @@
+.Container {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    width: 21.6rem;
+    border-radius: 0.6rem;
+    border: 0.1rem solid $gray-300;
+    background-color: $white;
+    box-shadow: $dropdown-shadow;
+    padding: 1.3rem 0;
+    position: absolute;
+    top: 5rem;
+  }
+
+  li {
+    display: flex;
+    cursor: pointer;
+
+    &:hover .CheckImage {
+      display: inline;
+    }
+  }
+}
+
+.Wrapper {
+  position: relative;
+}
+
+.InputContainer {
+  width: 21.7rem;
+  height: 4.8rem;
+  border-radius: 0.6rem;
+  border: 0.1rem solid $gray-300;
+  background-color: $white;
+  padding: 1.4rem 1.6rem;
+  color: $black-200;
+  font-size: $font-size-16;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  outline: none;
+
+  &::placeholder {
+    color: $gray-400;
+  }
+
+  &:hover {
+    border: 0.1rem solid $violet-200;
+  }
+}
+
+.Arrow {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.RotateArrow {
+  transform: rotate(180deg);
+}
+
+.Assignee {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.2rem;
+  margin-left: 3rem;
+  border-radius: 1.1rem;
+  position: relative;
+}
+
+.ProfileImg {
+  border-radius: 99rem;
+}
+
+.Nickname {
+  text-align: center;
+  font-size: $font-size-16;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: $black-200;
+}
+
+.CheckImage {
+  display: none;
+  position: absolute;
+  right: 7.5rem;
+}

@@ -1,0 +1,72 @@
+.Wrapper {
+  width: 21.7rem;
+  height: 4.8rem;
+  border-radius: 0.6rem;
+  border: 0.1rem solid $gray-300;
+  background-color: $white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    border: 0.1rem solid $violet-200;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    width: 21.6rem;
+    border-radius: 0.6rem;
+    border: 0.1rem solid $gray-300;
+    background-color: $white;
+    box-shadow: $dropdown-shadow;
+    padding: 1.3rem 0;
+    position: absolute;
+    top: 5rem;
+  }
+
+  li {
+    display: flex;
+    cursor: pointer;
+
+    &:hover .CheckImage {
+      display: inline;
+    }
+  }
+}
+
+.Arrow {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.RotateArrow {
+  transform: rotate(180deg);
+}
+
+.Chip {
+  text-align: center;
+  font-size: $font-size-12;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  height: 2.2rem;
+  margin-left: 3rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 1.1rem;
+  color: $white;
+}
+
+.UlWrapper {
+  position: relative;
+}
+
+.CheckImage {
+  display: none;
+  position: absolute;
+  left: 0.7rem;
+}

@@ -1,14 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/pages/Home.module.scss";
-
 import Footer from "@/components/footer/Footer";
 import Link from "next/link";
-
 export default function Home() {
   return (
     <main className={styles.main}>
       <Head>
+        {" "}
         <title>Taskify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -66,7 +65,6 @@ export default function Home() {
             />
           </div>
         </div>
-
         <div className={styles.config}>
           <div className={styles.configTitle}>
             생산성을 높이는 다양한 설정 ⚡️
