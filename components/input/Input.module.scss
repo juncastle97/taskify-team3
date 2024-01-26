@@ -1,0 +1,21 @@
+.input {
+  padding: 15px 16px;
+  width: 52rem;
+  height: 5rem;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  border: 1px solid $gray-300;
+  background: $white;
+  font-size: 16px;
+}
+.input:focus {
+  outline: 1px solid $violet-200;
+}
+.placeholder {
+  color: $gray-400;
+}
+.active {
+  width: 2.4rem;
+  height: 2.4rem;
+}
