@@ -1,0 +1,161 @@
+@mixin text-style-12-light() {
+  font-size: $font-size-12;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@mixin text-style-12-middle() {
+  font-size: $font-size-12;
+  font-weight: 500;
+  line-height: normal;
+}
+
+@mixin text-style-12-bold() {
+  font-size: $font-size-12;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@mixin text-style-14-light() {
+  font-size: $font-size-14;
+  font-weight: 400;
+  line-height: normal;
+}
+@mixin text-style-14-middle() {
+  font-size: $font-size-14;
+  font-weight: 500;
+  line-height: normal;
+}
+
+@mixin text-style-14-bold() {
+  font-size: $font-size-14;
+  font-weight: 600;
+  line-height: normal;
+}
+
+@mixin text-style-16-light() {
+  font-size: $font-size-16;
+  font-weight: 400;
+  line-height: normal;
+}
+@mixin text-style-16-middle() {
+  font-size: $font-size-16;
+  font-weight: 500;
+  line-height: normal;
+}
+@mixin text-style-16-bold() {
+  font-size: $font-size-16;
+  font-weight: 600;
+  line-height: normal;
+}
+@mixin text-style-18-light() {
+  font-size: $font-size-18;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@mixin text-style-18-middle() {
+  font-size: $font-size-18;
+  font-weight: 500;
+  line-height: normal;
+}
+
+@mixin text-style-18-bold() {
+  font-size: $font-size-18;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@mixin text-style-20-light() {
+  font-size: $font-size-20;
+  font-weight: 500;
+  line-height: normal;
+}
+@mixin text-style-20-bold() {
+  font-size: $font-size-20;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@mixin text-style-22() {
+  font-size: $font-size-22;
+  font-weight: 500;
+  line-height: normal;
+}
+
+@mixin text-style-24() {
+  font-size: $font-size-24;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.024rem;
+}
+
+@mixin text-style-28() {
+  font-size: $font-size-28;
+  font-weight: 700;
+  line-height: normal;
+}
+
+@mixin text-style-30() {
+  font-size: $font-size-32;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.03rem;
+}
+
+@mixin text-style-32() {
+  font-size: $font-size-32;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@mixin text-style-48() {
+  font-size: $font-size-48;
+  font-weight: 700;
+  line-height: 6.4rem;
+}
+
+@mixin text-style-76() {
+  font-size: $font-size-32;
+  font-weight: 700;
+  line-height: 10rem;
+  letter-spacing: -0.2rem;
+}
+
+@mixin text-style($size, $weight: 400, $color: false) {
+  @if ($size == 12) {
+    @include text-style-12;
+  }
+  @if ($size == 14) {
+    @include text-style-14;
+  }
+  @if ($size == 16) {
+    @include text-style-16;
+  }
+  @if ($size == 18) {
+    @include text-style-18;
+  }
+  @if ($size == 24) {
+    @include text-style-24;
+  }
+  @if ($size == 30) {
+    @include text-style-30;
+  }
+  @if ($size == 32) {
+    @include text-style-32;
+  }
+
+  @if ($weight == 400) {
+    font-weight: 400;
+  }
+  @if ($weight == 500) {
+    font-weight: 500;
+  }
+  @if ($weight == 700) {
+    font-weight: 700;
+  }
+
+  @if (type-of($color) == color) {
+    color: $color;
+  }
+}
