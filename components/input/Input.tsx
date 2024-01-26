@@ -3,7 +3,7 @@ import styles from "./Input.module.scss";
 import clsx from "clsx";
 
 interface InputProps {
-  value: string;
+  value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: "email" | "password";
   placeholder?: string;
