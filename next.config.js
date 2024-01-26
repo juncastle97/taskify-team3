@@ -5,7 +5,10 @@ const nextConfig = {
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
-    prependData: `@import "styles/main.scss";`, // prependData 옵션 추가
+    prependData: `@import "styles/main.scss";`,
+  },
+  images: {
+    domains: ['upload.wikimedia.org'],
   },
 };
 
