@@ -1,0 +1,22 @@
+.button {
+  width: 4rem;
+  height: 4rem;
+  background-color: $white;
+  border: 1px solid $gray-300;
+  @include inline-flexbox();
+}
+
+.left {
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+}
+
+.right {
+  border-top-right-radius: 0.4rem;
+  border-bottom-right-radius: 0.4rem;
+}
+
+.small {
+  width: 3.6rem;
+  height: 3.6rem;
+}

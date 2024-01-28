@@ -1,0 +1,13 @@
+.button {
+  border-radius: 8px;
+  border: 1px solid $gray-300;
+  width: 32rem;
+  height: 6.2rem;
+  @include text-style-18-middle();
+}
+
+.small {
+  width: 28.4rem;
+  height: 5.2rem;
+  @include text-style-16-middle();
+}
