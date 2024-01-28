@@ -3,11 +3,11 @@ import Image from "next/image";
 import styles from "@/styles/pages/Home.module.scss";
 import Footer from "@/components/footer/Footer";
 import Link from "next/link";
+
 export default function Home() {
   return (
     <main className={styles.main}>
       <Head>
-        {" "}
         <title>Taskify</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
