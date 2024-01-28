@@ -1,0 +1,47 @@
+{
+  "totalCount": 2,
+  "invitations": [
+    {
+      "id": 1,
+      "inviter": {
+        "nickname": "test inviter",
+        "email": "inviter@test.com",
+        "id": 1
+      },
+      "teamId": "3-3",
+      "dashboard": {
+        "title": "test dashboard",
+        "id": 1
+      },
+      "invitee": {
+        "nickname": "test invitee",
+        "email": "invitee@test.com",
+        "id": 1
+      },
+      "inviteAccepted": true,
+      "createdAt": "2024-01-27T11:25:02.824Z",
+      "updatedAt": "2024-01-27T11:25:02.824Z"
+    },
+    {
+      "id": 2,
+      "inviter": {
+        "nickname": "test inviter2",
+        "email": "inviter2@test.com",
+        "id": 2
+      },
+      "teamId": "3-3",
+      "dashboard": {
+        "title": "test dashboard2",
+        "id": 2
+      },
+      "invitee": {
+        "nickname": "test invitee2",
+        "email": "invitee2@test.com",
+        "id": 2
+      },
+      "inviteAccepted": true,
+      "createdAt": "2024-01-28T11:25:02.824Z",
+      "updatedAt": "2024-01-28T11:25:02.824Z"
+    }
+  ]
+}
