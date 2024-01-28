@@ -6,7 +6,7 @@ interface DeleteButtonProps {
   small?: boolean;
 }
 
-function DeleteButton({ onClick, small }: DeleteButtonProps) {
+const DeleteButton = ({ onClick, small }: DeleteButtonProps) => {
   return (
     <button
       className={clsx(styles.button, small && styles.small)}
@@ -15,6 +15,6 @@ function DeleteButton({ onClick, small }: DeleteButtonProps) {
       대시보드 삭제하기
     </button>
   );
-}
+};
 
 export default DeleteButton;

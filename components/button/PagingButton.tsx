@@ -21,7 +21,7 @@ interface PagingButtonProps {
   small?: boolean;
 }
 
-function PagingButton({ onClick, disabled, small }: PagingButtonProps) {
+const PagingButton = ({ onClick, disabled, small }: PagingButtonProps) => {
   return (
     <div>
       <button
@@ -60,6 +60,6 @@ function PagingButton({ onClick, disabled, small }: PagingButtonProps) {
       </button>
     </div>
   );
-}
+};
 
 export default PagingButton;
