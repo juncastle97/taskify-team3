@@ -4,28 +4,33 @@ import Image from "next/image";
 import styles from "./PlusBtn.module.scss";
 
 interface PlusBtnProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   type?: "button";
   size?: string;
+  textStyle?: string;
 }
 
 const PlusBtn: React.FC<PlusBtnProps> = ({
   children,
   type = "button",
   size,
+  textStyle,
 
   ...props
 }) => {
   const plusBtnProps = { type, ...props };
 
-  const className = clsx(styles["btn"], size && styles[`btn-size-${size}`]);
+  const btnSize = clsx(styles["btn"], size && styles[`btn-size-${size}`]);
+  const textSize = clsx(textStyle && styles[`btn-text-${textStyle}`]);
 
   return (
-    <button className={className} {...plusBtnProps}>
+    <button className={btnSize} {...plusBtnProps}>
       <div className={clsx(styles["btn-contents"])}>
-        <div className={clsx(styles["btn-text"])}>
-          <span>{children}</span>
-        </div>
+        {children && (
+          <div className={textSize}>
+            <span>{children}</span>
+          </div>
+        )}
         <Image
           src="/button-icon/plus.png"
           alt="플러스 아이콘"

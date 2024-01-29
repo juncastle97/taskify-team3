@@ -48,6 +48,11 @@
   font-weight: 600;
   line-height: normal;
 }
+@mixin text-style-16-colum() {
+  font-size: $font-size-16;
+  font-weight: 700;
+  line-height: normal;
+}
 @mixin text-style-18-light() {
   font-size: $font-size-18;
   font-weight: 400;
