@@ -1,17 +1,18 @@
+import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Footer.module.scss";
 
 function Footer() {
   return (
-    <div className={styles.footer}>
-      <div className={styles.footerContainer}>
+    <div className={clsx(styles.footer)}>
+      <div className={clsx(styles.footerContainer)}>
         <p>@codeit - 2023</p>
-        <div className={styles.info}>
+        <div className={clsx(styles.info)}>
           <p>Privacy Policy</p>
           <p>FAQ</p>
         </div>
-        <div className={styles.link}>
+        <div className={clsx(styles.link)}>
           <Link
             href="mailto:test@codeit.com"
             target="_blank"
