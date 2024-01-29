@@ -20,8 +20,8 @@ function DashboardEdit({ dashboardId }: DashboardEditProps) {
         <div>
           <ReturnButton url={`dashboard/${dashboardId}`} />
         </div>
-        <EditDashboardTable />
-        <MembersDashboardTable />
+        <EditDashboardTable data={null} />
+        <MembersDashboardTable assigneeData={null} />
         <InviteDashboardTable />
         <div className={clsx(styles["delete-button"])}>
           <DeleteButton onClick={handleDeleteClick} />

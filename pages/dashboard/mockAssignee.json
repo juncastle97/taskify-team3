@@ -33,5 +33,12 @@
       "nickname": "전소은",
       "id": 4
     }
+  },
+  {
+    "assignee": {
+      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Zinnia_elegans_01.jpg/600px-Zinnia_elegans_01.jpg",
+      "nickname": "test1",
+      "id": 5
+    }
   }
 ]
