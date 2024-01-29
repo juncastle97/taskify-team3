@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {!isAuthRoute && <Gnb />}
+      {/* {!isAuthRoute && <Gnb />} */}
       <Component {...pageProps} />
     </>
   );

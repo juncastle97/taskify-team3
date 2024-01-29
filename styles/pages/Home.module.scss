@@ -10,7 +10,7 @@
   margin: 0 2.8rem;
 }
 
-.headerImage {
+.header-image {
   width: 100%;
   max-width: 722px;
   height: 52vw;
@@ -27,7 +27,7 @@
   }
 }
 
-.titlePurple {
+.title-purple {
   color: $violet-200;
 }
 
@@ -52,7 +52,7 @@
   }
 }
 
-.mainCard1 {
+.main-card-1 {
   display: flex;
   justify-content: space-between;
   margin: 4rem 0;
@@ -69,7 +69,7 @@
   }
 }
 
-.mainCard2 {
+.main-card-2 {
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
@@ -87,7 +87,7 @@
   }
 }
 
-.mainCardText {
+.main-card-text {
   display: flex;
   flex-direction: column;
   gap: 8rem;
@@ -113,7 +113,7 @@
   }
 }
 
-.mainImage1 {
+.main-image-1 {
   width: 80vw;
   height: 65vw;
   max-width: 594px;
@@ -123,7 +123,7 @@
   }
 }
 
-.mainImage2 {
+.main-image-2 {
   width: 58vw;
   height: 64vw;
   max-width: 436px;
@@ -142,7 +142,7 @@
   padding-bottom: 9rem;
 }
 
-.configTitle {
+.config-title {
   font-size: 2.8rem;
   font-weight: 700;
   text-align: left;
@@ -152,7 +152,7 @@
   }
 }
 
-.configCards {
+.config-cards {
   display: flex;
   gap: 3.3rem;
 
@@ -162,18 +162,18 @@
   }
 }
 
-.configContainer {
+.config-container {
   display: flex;
   align-items: center;
   gap: 3.3rem;
 }
 
-.configCard {
+.config-card {
   display: flex;
   flex-direction: column;
 }
 
-.configCardImageContainer {
+.config-card-image-container {
   position: relative;
   background-color: $gray-200;
   width: 37.8rem;
@@ -185,14 +185,14 @@
   }
 }
 
-.configCardImage {
+.config-card-image {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
-.configDescriptionContainer {
+.config-description-container {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -201,12 +201,12 @@
   border-radius: 0 0 0.8rem 0.8rem;
 }
 
-.configSubTitle {
+.config-sub-title {
   font-size: 1.8rem;
   font-weight: 700;
 }
 
-.configDescription {
+.config-description {
   font-size: 1.6rem;
   font-weight: 600;
 }
