@@ -14,6 +14,7 @@ const Button: React.FC<ButtonProps> = ({
   type = "button",
   disabled = false,
   small = false,
+  
   ...props
 }) => {
   const buttonProps = { type, disabled, ...props };

@@ -1,37 +1,32 @@
-import DashboardBtn from "@/components/button/DashboardBtn/DashboardBtn";
-
-const mockData = [
-  {
-    id: 0,
-    title: "비브리지",
-    color: "orange",
-    createdByMe: true,
-  },
-  {
-    id: 1,
-    title: "테스트입니다",
-    color: "green",
-    createdByMe: false,
-  },
-  {
-    id: 2,
-    title: "혼공컴운",
-    color: "blue",
-    createdByMe: true,
-  },
-  {
-    id: 3,
-    title: "대시보드테스트",
-    color: "red",
-    createdByMe: false,
-  },
-];
+import clsx from "clsx";
+import styles from "@/styles/pages/myPage.module.scss";
+import Image from "next/image";
 
 function MyPage() {
   return (
-    <>
-      <DashboardBtn data={mockData} />
-    </>
+    <div className={clsx(styles.PageContainer)}>
+      <nav className={clsx(styles.nav)}>
+        <span>계정관리</span>
+      </nav>
+      <main>
+        <section>
+          <div>프로필</div>
+          <div>
+            <Image
+              src="/myPage/addImage.png"
+              alt="이미지 추가 버튼"
+              width={182}
+              height={182}
+              priority
+            />
+            <input></input>
+            <input></input>
+            <button>버튼</button>
+          </div>
+        </section>
+        <section></section>
+      </main>
+    </div>
   );
 }
 
