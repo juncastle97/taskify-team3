@@ -14,7 +14,7 @@
         "id": 1
       },
       "invitee": {
-        "nickname": "test invitee",
+        "nickname": "invitee",
         "email": "invitee@test.com",
         "id": 1
       },
@@ -35,13 +35,34 @@
         "id": 2
       },
       "invitee": {
-        "nickname": "test invitee2",
-        "email": "invitee2@test.com",
-        "id": 2
+        "nickname": "invitee",
+        "email": "invitee@test.com",
+        "id": 1
       },
       "inviteAccepted": true,
       "createdAt": "2024-01-28T11:25:02.824Z",
       "updatedAt": "2024-01-28T11:25:02.824Z"
+    },
+    {
+      "id": 3,
+      "inviter": {
+        "nickname": "CheeseB",
+        "email": "cheeseball@naver.com",
+        "id": 3
+      },
+      "teamId": "3-3",
+      "dashboard": {
+        "title": "cheeseb's board",
+        "id": 3
+      },
+      "invitee": {
+        "nickname": "invitee",
+        "email": "invitee@test.com",
+        "id": 1
+      },
+      "inviteAccepted": false,
+      "createdAt": "2024-01-29T11:25:02.824Z",
+      "updatedAt": "2024-01-29T11:25:02.824Z"
     }
   ]
 }
