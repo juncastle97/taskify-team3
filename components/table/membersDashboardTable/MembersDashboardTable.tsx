@@ -3,10 +3,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import styles from "./MembersDashboardTable.module.scss";
 import PagingButton from "@/components/button/PagingButton";
-import { GetMemberListResponseType } from "@/types/members";
 import assigneeMockData from "@/pages/dashboard/mockAssignee.json";
-
-import ModalContainer from "@/components/modal/ModalContainer";
 import Button from "@/components/button/BaseButton/BaseButton";
 
 interface Assignee {
@@ -51,6 +48,11 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPage));
   };
 
+  const handleDeleteMember = (memberId: number) => {
+    // 데이터 삭제 기능
+    console.log(`Deleting member with ID: ${memberId}`);
+  };
+
   useEffect(() => {
     if (totalPage !== 0 && totalPage < currentPage)
       setCurrentPage(prev => prev - 1);
@@ -89,9 +91,9 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
         </div>
       </div>
       <div className={clsx(styles.label)}>이름</div>
-      <div>
+      <ul>
         {currentPageData?.map((member, index) => (
-          <div key={member.assignee.id}>
+          <li key={member.assignee.id}>
             <div className={clsx(styles.memberListWrapper)}>
               <Image
                 className={clsx(styles.memberProfileImage)}
@@ -114,19 +116,26 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
                   />
                 ) : (
                   // 버튼 컴포넌트 구현되면 사용
-                  <button
-                    type="button"
-                    className={clsx(styles.deleteButton)}
-                    onClick={() => ModalContainer}
-                  >
-                    삭제
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      className={clsx(styles.deleteButton)}
+                      onClick={() => {
+                        alert(
+                          `${member.assignee.nickname}님을 구성원에서 삭제하겠습니까?`,
+                        );
+                        handleDeleteMember(member.assignee.id);
+                      }}
+                    >
+                      삭제
+                    </button>
+                  </>
                 )}
               </div>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </form>
   );
 };
