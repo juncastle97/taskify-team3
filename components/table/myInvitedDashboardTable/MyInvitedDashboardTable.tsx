@@ -1,10 +1,10 @@
 import Image from "next/image";
 import styles from "./MyInvitedDashboardTable.module.scss";
 import { MappedInvitations } from "@/types/invitations";
-import noInvitationIcon from "@/public/icons/noInvitation.svg";
 import SearchBar from "@/components/input/SearchBar";
 
 const NO_INVITATION_ICON_SIZE = 100;
+const NO_INVITATION_ICON_PATH = "/icons/noInvitation.svg";
 
 interface MyInvitedDashboardTableProps {
   totalCount: number;
@@ -15,7 +15,7 @@ const NoInvitation = () => {
   return (
     <div className={styles.noInvitation}>
       <Image
-        src={noInvitationIcon}
+        src={NO_INVITATION_ICON_PATH}
         alt="No Invitation"
         width={NO_INVITATION_ICON_SIZE}
         height={NO_INVITATION_ICON_SIZE}
