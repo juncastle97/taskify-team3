@@ -1,38 +1,34 @@
-.table-form {
+.tableForm {
   width: 62rem;
   height: 47.7rem;
   border-radius: 0.8rem;
   background-color: $white;
-  display: flex;
-  flex-direction: column;
   gap: 3rem;
   padding: 2.8rem;
+  @include column-flexbox(start, between);
 }
 
-.dashboard-title {
+.dashboardTitle {
   font-size: 2rem;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flexbox(between);
 }
 
-.page-number {
+.pageNumber {
   font-size: 1.4rem;
   font-weight: 400;
-  display: flex;
   gap: 1.6rem;
-  align-items: center;
+  @include flexbox;
 }
 
-.invite-button {
+.inviteButton {
   width: 10.5rem;
   height: 3.2rem;
 }
 
-.button-text {
-  display: flex;
+.buttonText {
   gap: 0.5rem;
+  @include flexbox;
 }
 
 .label {

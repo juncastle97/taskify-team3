@@ -23,10 +23,10 @@ function InviteDashboardTable() {
   }, [totalPage]);
 
   return (
-    <form className={clsx(styles["table-form"])}>
-      <div className={clsx(styles["dashboard-title"])}>
+    <form className={clsx(styles.tableForm)}>
+      <div className={clsx(styles.dashboardTitle)}>
         <div>초대 내역</div>
-        <div className={clsx(styles["page-number"])}>
+        <div className={clsx(styles.pageNumber)}>
           {`${totalPage} 페이지 중 ${currentPage}`}
           <PagingButton
             onClick={{
@@ -39,9 +39,9 @@ function InviteDashboardTable() {
             }}
             small
           />
-          <div className={clsx(styles["invite-button"])}>
+          <div className={clsx(styles.inviteButton)}>
             <Button small>
-              <div className={clsx(styles["button-text"])}>
+              <div className={clsx(styles.buttonText)}>
                 <Image
                   src="/icons/addImage.svg"
                   width={16}
@@ -54,7 +54,7 @@ function InviteDashboardTable() {
           </div>
         </div>
       </div>
-      <div className={clsx(styles["label"])}>이메일</div>
+      <div className={clsx(styles.label)}>이메일</div>
     </form>
   );
 }

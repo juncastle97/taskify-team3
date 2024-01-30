@@ -1,0 +1,57 @@
+.container {
+  gap: 10px;
+  @include inline-flexbox;
+}
+
+.colorBox {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+  @include flexbox;
+}
+
+.input {
+  width: 220px;
+  padding: 10px;
+  border: 1px solid $gray-300;
+  border-radius: 15px;
+
+  &:focus-within {
+    border-color: $violet-100;
+  }
+}
+
+.error {
+  border-color: $red;
+}
+
+.inputWrapper {
+  height: 60px;
+  gap: 10px;
+  @include flexbox(center, start);
+}
+
+.errorMsg {
+  padding-left: 5px;
+  color: $red;
+  font-size: 12px;
+}
+
+.button {
+  margin-top: 1px;
+  width: 50px;
+  height: 38px;
+  background-color: $violet-200;
+  color: $white;
+  @include flexbox;
+
+  &:disabled {
+    background-color: $gray-400;
+  }
+}
+
+.errorWrapper {
+  gap: 5px;
+  @include column-flexbox(center, start);
+}
