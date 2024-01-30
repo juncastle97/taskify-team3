@@ -1,12 +1,12 @@
 import Image from "next/image";
-import styles from "./InvitedDashboardTable.module.scss";
+import styles from "./MyInvitedDashboardTable.module.scss";
 import { MappedInvitations } from "@/types/invitations";
-import noInvitationIcon from "@/public/icons/noInvitation.svg";
 import SearchBar from "@/components/input/SearchBar";
 
 const NO_INVITATION_ICON_SIZE = 100;
+const NO_INVITATION_ICON_PATH = "/icons/noInvitation.svg";
 
-interface InvitedDashboardTableProps {
+interface MyInvitedDashboardTableProps {
   totalCount: number;
   invitations: MappedInvitations;
 }
@@ -15,7 +15,7 @@ const NoInvitation = () => {
   return (
     <div className={styles.noInvitation}>
       <Image
-        src={noInvitationIcon}
+        src={NO_INVITATION_ICON_PATH}
         alt="No Invitation"
         width={NO_INVITATION_ICON_SIZE}
         height={NO_INVITATION_ICON_SIZE}
@@ -25,10 +25,10 @@ const NoInvitation = () => {
   );
 };
 
-const InvitedDashboardTable = ({
+const MyInvitedDashboardTable = ({
   totalCount,
   invitations,
-}: InvitedDashboardTableProps) => {
+}: MyInvitedDashboardTableProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>초대받은 대시보드</div>
@@ -62,4 +62,4 @@ const InvitedDashboardTable = ({
   );
 };
 
-export default InvitedDashboardTable;
+export default MyInvitedDashboardTable;

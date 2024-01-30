@@ -3,7 +3,7 @@ import EditDashboardTable from "@/components/table/editDashboardTable/editDashbo
 import clsx from "clsx";
 import styles from "@/styles/pages/DashboardEdit.module.scss";
 import MembersDashboardTable from "@/components/table/membersDashboardTable/MembersDashboardTable";
-import DeleteButton from "@/components/button/DeleteButton";
+import DeleteButton from "@/components/button/deleteButton/DeleteButton";
 import InviteDashboardTable from "@/components/table/inviteDashboardTable/InviteDashboardTable";
 
 interface DashboardEditProps {

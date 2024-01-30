@@ -2,12 +2,11 @@ import clsx from "clsx";
 import styles from "./PagingButton.module.scss";
 import Image from "next/image";
 
-import leftArrow from "@/public/icons/leftArrow.svg";
-import disabledLeftArrow from "@/public/icons/disabledLeftArrow.svg";
-import rightArrow from "@/public/icons/rightArrow.svg";
-import disabledRightArrow from "@/public/icons/disabledRightArrow.svg";
-
 const ARROW_SIZE = 16;
+const LEFT_ARROW_PATH = "/icons/leftArrow.svg";
+const DISABLED_LEFT_ARROW_PATH = "/icons/disabledLeftArrow.svg";
+const RIGHT_ARROW_PATH = "/icons/rightArrow.svg";
+const DISABLED_RIGHT_ARROW_PATH = "/icons/disabledRightArrow.svg";
 
 interface PagingButtonProps {
   onClick: {
@@ -35,7 +34,7 @@ const PagingButton = ({ onClick, disabled, small }: PagingButtonProps) => {
         disabled={disabled.left}
       >
         <Image
-          src={disabled.left ? disabledLeftArrow : leftArrow}
+          src={disabled.left ? DISABLED_LEFT_ARROW_PATH : LEFT_ARROW_PATH}
           alt="leftArrow"
           width={ARROW_SIZE}
           height={ARROW_SIZE}
@@ -52,7 +51,7 @@ const PagingButton = ({ onClick, disabled, small }: PagingButtonProps) => {
         disabled={disabled.right}
       >
         <Image
-          src={disabled.right ? disabledRightArrow : rightArrow}
+          src={disabled.right ? DISABLED_RIGHT_ARROW_PATH : RIGHT_ARROW_PATH}
           alt="rightArrow"
           width={ARROW_SIZE}
           height={ARROW_SIZE}

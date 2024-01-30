@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import styles from "./MembersDashboardTable.module.scss";
-import PagingButton from "@/components/button/PagingButton";
+import PagingButton from "@/components/button/pagingButton/PagingButton";
 
 function MembersDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);
