@@ -1,0 +1,15 @@
+.container {
+  width: 100%;
+  padding: 2rem;
+  border-radius: 0.6rem;
+  border: 1px solid $gray-300;
+  background-color: $white;
+
+  @include tablet {
+    //blabla
+  }
+
+  @include mobile {
+    padding: 1.2rem;
+  }
+}
