@@ -1,0 +1,28 @@
+.wrapper {
+  position: relative;
+}
+
+.inputBox {
+  width: 100%;
+  height: 4rem;
+  border-radius: 0.6rem;
+  border: 1px solid $gray-300;
+  padding-left: 4.8rem;
+  padding-right: 1rem;
+  @include text-style-16-light();
+}
+
+.inputBox::placeholder {
+  color: $gray-400;
+  @include text-style-16-light();
+}
+
+.inputBox:focus {
+  outline: none;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 0.9rem;
+  left: 1.7rem;
+}

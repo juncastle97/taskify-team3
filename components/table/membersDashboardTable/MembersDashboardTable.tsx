@@ -21,10 +21,10 @@ function MembersDashboardTable() {
   }, [totalPage]);
 
   return (
-    <form className={clsx(styles["table-form"])}>
-      <div className={clsx(styles["dashboard-title"])}>
+    <form className={clsx(styles.tableForm)}>
+      <div className={clsx(styles.dashboardTitle)}>
         <div>구성원</div>
-        <div className={clsx(styles["page-number"])}>
+        <div className={clsx(styles.pageNumber)}>
           {`${totalPage} 페이지 중 ${currentPage}`}
           <PagingButton
             onClick={{
@@ -39,7 +39,7 @@ function MembersDashboardTable() {
           />
         </div>
       </div>
-      <div className={clsx(styles["label"])}>이름</div>
+      <div className={clsx(styles.label)}>이름</div>
     </form>
   );
 }
