@@ -13,11 +13,34 @@
   line-height: normal;
 }
 
-.no-invitation {
+.noInvitation {
   @include column-flexbox();
   @include text-style-18-light();
   width: 100%;
   gap: 2.4rem;
   color: $gray-400;
   margin-top: 6.6rem;
+}
+
+.tableArea {
+  margin-top: 20px;
+  @include column-flexbox(start, stretch);
+  gap: 2.4rem;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+  vertical-align: middle;
+  @include text-style-16-light();
+
+  th {
+    color: $gray-400;
+  }
+
+  td {
+    height: 7.2rem;
+    color: $black-200;
+    border-bottom: 1px solid $gray-200;
+  }
 }
