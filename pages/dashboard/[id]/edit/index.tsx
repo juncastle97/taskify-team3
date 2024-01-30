@@ -22,7 +22,7 @@ function DashboardEdit({ dashboardId }: DashboardEditProps) {
         </div>
         <EditDashboardTable data={null} />
         <MembersDashboardTable assigneeData={null} />
-        <InviteDashboardTable />
+        <InviteDashboardTable totalCount={0} invitations={null} />
         <div className={clsx(styles["delete-button"])}>
           <DeleteButton onClick={handleDeleteClick} />
         </div>

@@ -27,11 +27,10 @@
 }
 
 .memberListWrapper {
-  position: relative;
   gap: 1rem;
   padding: 1rem;
   overflow: hidden;
-  @include flexbox(start);
+  @include flexbox(between, center);
 }
 
 .memberProfileImage {
@@ -43,12 +42,12 @@
   font-weight: 500;
 }
 
-.crownIcon {
-  position: absolute;
-  top: 50%;
-  right: 5%;
-  transform: translateY(-50%);
-}
+// .crownIcon {
+//   position: absolute;
+//   top: 50%;
+//   right: 5%;
+//   transform: translateY(-50%);
+// }
 
 .deleteModal {
   width: 54rem;
@@ -69,6 +68,11 @@
   }
 }
 
+.crownIcon {
+  margin-left: auto;
+  margin-right: 3.4rem;
+}
+
 .modalButtonGroup {
   gap: 2rem;
   @include flexbox(end, center);
@@ -80,9 +84,7 @@
 }
 
 .deleteButton {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  margin-left: auto;
   width: 8.4rem;
   height: 3.2rem;
   border-radius: 0.4rem;

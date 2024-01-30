@@ -11,7 +11,7 @@ interface InvitedDashboardTableProps {
   invitations: MappedInvitations;
 }
 
-const NoInvitation = () => {
+export const NoInvitation = () => {
   return (
     <div className={styles.noInvitation}>
       <Image

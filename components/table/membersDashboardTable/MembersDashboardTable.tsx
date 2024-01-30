@@ -28,12 +28,9 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
   //   totalCount: 0,
   // });
 
-  const ITEMS_PER_PAGE = 4; // 페이지 당 보여지는 assignee의 수
+  const ITEMS_PER_PAGE = 4;
+  const totalPage = Math.ceil((assigneeData?.length || 1) / ITEMS_PER_PAGE);
 
-  // 총 페이지 수 계산
-  const totalPage = Math.ceil((assigneeData?.length || 0) / ITEMS_PER_PAGE);
-
-  // 현재 페이지에 해당하는 assignee 데이터 선택
   const currentPageData = assigneeData?.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
@@ -102,36 +99,33 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
                 width={38}
                 height={38}
               />
-              <div>
-                <div className={clsx(styles.memberNickname)}>
-                  {member.assignee.nickname}
-                </div>
-                {index === 0 && currentPage === 1 ? (
-                  <Image
-                    className={clsx(styles.crownIcon)}
-                    src="/button-icon/crown_icon.png"
-                    width={16}
-                    height={16}
-                    alt="crown icon"
-                  />
-                ) : (
-                  // 버튼 컴포넌트 구현되면 사용
-                  <>
-                    <button
-                      type="button"
-                      className={clsx(styles.deleteButton)}
-                      onClick={() => {
-                        alert(
-                          `${member.assignee.nickname}님을 구성원에서 삭제하겠습니까?`,
-                        );
-                        handleDeleteMember(member.assignee.id);
-                      }}
-                    >
-                      삭제
-                    </button>
-                  </>
-                )}
+
+              <div className={clsx(styles.memberNickname)}>
+                {member.assignee.nickname}
               </div>
+              {index === 0 && currentPage === 1 ? (
+                <Image
+                  className={clsx(styles.crownIcon)}
+                  src="/button-icon/crown_icon.png"
+                  width={16}
+                  height={16}
+                  alt="crown icon"
+                />
+              ) : (
+                // 버튼 컴포넌트 구현되면 사용
+                <button
+                  type="button"
+                  className={clsx(styles.deleteButton)}
+                  onClick={() => {
+                    alert(
+                      `${member.assignee.nickname}님을 구성원에서 삭제하겠습니까?`,
+                    );
+                    handleDeleteMember(member.assignee.id);
+                  }}
+                >
+                  삭제
+                </button>
+              )}
             </div>
           </li>
         ))}
