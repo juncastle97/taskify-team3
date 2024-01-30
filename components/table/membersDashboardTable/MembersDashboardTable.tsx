@@ -113,15 +113,14 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
                     alt="crown icon"
                   />
                 ) : (
-                  <div>
-                    <button
-                      type="button"
-                      className={clsx(styles.deleteButton)}
-                      onClick={() => ModalContainer}
-                    >
-                      삭제
-                    </button>
-                  </div>
+                  // 버튼 컴포넌트 구현되면 사용
+                  <button
+                    type="button"
+                    className={clsx(styles.deleteButton)}
+                    onClick={() => ModalContainer}
+                  >
+                    삭제
+                  </button>
                 )}
               </div>
             </div>
