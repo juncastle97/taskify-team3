@@ -1,29 +1,12 @@
-import Image from "next/image";
 import styles from "./MyInvitedDashboardTable.module.scss";
 import { MappedInvitations } from "@/types/invitations";
 import SearchBar from "@/components/input/SearchBar";
-
-const NO_INVITATION_ICON_SIZE = 100;
-const NO_INVITATION_ICON_PATH = "/icons/noInvitation.svg";
+import NoInvitation from "@/components/table/myInvitedDashboardTable/NoInvitation";
 
 interface MyInvitedDashboardTableProps {
   totalCount: number;
   invitations: MappedInvitations;
 }
-
-const NoInvitation = () => {
-  return (
-    <div className={styles.noInvitation}>
-      <Image
-        src={NO_INVITATION_ICON_PATH}
-        alt="No Invitation"
-        width={NO_INVITATION_ICON_SIZE}
-        height={NO_INVITATION_ICON_SIZE}
-      />
-      <span>아직 초대받은 대시보드가 없어요</span>
-    </div>
-  );
-};
 
 const MyInvitedDashboardTable = ({
   totalCount,
