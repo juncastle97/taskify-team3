@@ -1,0 +1,85 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: $gray-100;
+}
+.header {
+  display: flex;
+  width: 200px;
+  height: 279px;
+  padding: 0px 0px 3.947px 1.14px;
+  margin: 223px 860px 38px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+.wrapHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 30.071px;
+  @media screen and (max-width: 375px) {
+    margin: 0 3.2rem 0 3.7rem;
+  }
+}
+.hello {
+  width: 18.9rem;
+  height: 2.4rem;
+  padding: 1rem 0.5rem 0;
+  color: $black-200;
+  text-align: center;
+  @include text-style-18-light();
+  @media (min-width: 375px) and (max-width: 1200px) {
+    padding: 0.8rem 0.5rem 0 0.6rem;
+  }
+}
+
+.logo {
+  width: 16.4rem;
+  height: 18.9rem;
+  float: right;
+  @media screen and (max-width: 375px) {
+    width: 9.8rem;
+    height: 11.3rem;
+  }
+}
+.taskify {
+  width: 19.8rem;
+  height: 5.5rem;
+  @media screen and (max-width: 375px) {
+    width: 11.9rem;
+    height: 3.3rem;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  @media screen and (max-width: 375px) {
+    width: 35.1rem;
+  }
+}
+.loginText {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 153px;
+  gap: 5px;
+  text-decoration: underline;
+  @media screen and (max-width: 375px) {
+    width: 100%;
+    height: 1.9rem;
+    padding: 2.4rem 6.8rem 0rem;
+    @include text-style-16-light();
+  }
+}
+.signup {
+  color: $violet-200;
+}

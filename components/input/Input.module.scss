@@ -13,12 +13,16 @@
   border: 1px solid $gray-300;
   background: $white;
   font-size: 16px;
-  
+
   &:focus {
     outline: 1px solid $violet-200;
   }
   &.error {
     outline: 1px solid $red;
+  }
+  @media screen and (max-width: 375px) {
+    width: 35.1rem;
+    gap: 8px;
   }
 }
 .inputWrapper {
@@ -35,4 +39,3 @@
 .placeholder {
   color: $gray-400;
 }
-
