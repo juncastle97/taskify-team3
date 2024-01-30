@@ -9,6 +9,7 @@ interface MyInvitedDashboardTableProps {
   invitations: MappedInvitations;
 }
 
+/** @TODO mydashboard 페이지에서 데이터 api로 받기 (/{teamId}/invitations) */
 const MyInvitedDashboardTable = ({
   totalCount,
   invitations: initialInvitations,
