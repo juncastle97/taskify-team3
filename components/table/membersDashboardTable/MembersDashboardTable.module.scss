@@ -1,11 +1,10 @@
 .tableForm {
   width: 62rem;
-  height: 40.4rem;
   border-radius: 0.8rem;
   background-color: $white;
-  gap: 3rem;
+  gap: 1rem;
   padding: 2.8rem;
-  @include column-flexbox(start, between);
+  @include column-flexbox(start, stratch);
 }
 
 .dashboardTitle {
@@ -25,4 +24,71 @@
   font-size: 1.6rem;
   font-weight: 400;
   color: $gray-400;
+}
+
+.memberListWrapper {
+  gap: 1rem;
+  padding: 1rem;
+  overflow: hidden;
+  @include flexbox(between, center);
+}
+
+.memberProfileImage {
+  border-radius: 99px;
+}
+
+.memberNickname {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+// .crownIcon {
+//   position: absolute;
+//   top: 50%;
+//   right: 5%;
+//   transform: translateY(-50%);
+// }
+
+.deleteModal {
+  width: 54rem;
+  padding: 4rem;
+  border-radius: 0.8rem;
+  border-color: transparent;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  gap: 2rem;
+  @include column-flexbox(center, stratch);
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 1.6rem;
+  }
+}
+
+.crownIcon {
+  margin-left: auto;
+  margin-right: 3.4rem;
+}
+
+.modalButtonGroup {
+  gap: 2rem;
+  @include flexbox(end, center);
+}
+
+.modalButton {
+  width: 8.4rem;
+  height: 3.2rem;
+}
+
+.deleteButton {
+  margin-left: auto;
+  width: 8.4rem;
+  height: 3.2rem;
+  border-radius: 0.4rem;
+  border: 0.1rem solid $gray-300;
+  color: $violet-200;
+  font-size: 1.2rem;
 }
