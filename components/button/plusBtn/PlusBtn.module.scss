@@ -1,0 +1,68 @@
+.btn {
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  background: $white;
+  width: 33.2rem;
+  height: 7rem;
+  color: $black-200;
+  text-align: center;
+  @include text-style-16-bold();
+
+  .btn-contents {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+  }
+}
+
+.btn-size {
+  //새로운 대시보드 버튼 피그마 순서대로
+  &-middle {
+    width: 24.7rem;
+    height: 6.8rem;
+  }
+  &-small {
+    width: 26rem;
+    height: 5.8rem;
+  }
+  //새로운 컬럼 추가하기 버튼 피그마 순서대로
+  &-colum1 {
+    width: 35.4rem;
+    height: 7rem;
+  }
+  &-colum2 {
+    width: 54.4rem;
+    height: 7rem;
+  }
+  &-colum3 {
+    width: 28.4rem;
+    height: 6rem;
+  }
+  //플러스 아이콘만 있는 버튼 피그마 순서대로
+  &-plus1 {
+    width: 31.4rem;
+    height: 4rem;
+  }
+  &-plus2 {
+    width: 54.4rem;
+    height: 4rem;
+  }
+  &-plus3 {
+    width: 28.4rem;
+    height: 3.2rem;
+  }
+}
+
+.btn-text {
+  //새로운 컬럼 추가하기
+  &-colum16 {
+    @include  text-style-16-colum();
+  }
+  &-colum18 {
+    @include  text-style-18-bold();
+  }
+  //새로운 대시보드
+  &-dsah14 {
+    @include  text-style-14-bold();
+  }
+}

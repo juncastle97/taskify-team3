@@ -1,0 +1,21 @@
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.8rem;
+  background: $violet-200;
+
+  &:disabled {
+    background: $gray-400;
+  }
+}
+
+.button-text {
+  color: white;
+  @include text-style-18-middle();
+  text-align: center;
+}
+
+.small {
+  font-size: 1.4rem;
+}
