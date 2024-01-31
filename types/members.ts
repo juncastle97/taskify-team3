@@ -9,7 +9,7 @@ export interface MemberListType {
   isOwner: boolean;
 }
 
-export interface GetMemberListResponseType {
+export interface GetMemberListType {
   members: MemberListType[];
   totalCount: number;
 }
