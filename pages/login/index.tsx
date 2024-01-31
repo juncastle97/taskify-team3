@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import Input from "@/components/input/Input";
 import Image from "next/image";
 import Head from "next/head";
