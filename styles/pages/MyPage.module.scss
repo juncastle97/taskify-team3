@@ -1,4 +1,5 @@
 .all {
+  @include background();
   display: flex;
   .sideBar {
     width: 30rem;
@@ -19,10 +20,10 @@
       }
     }
     main {
-      padding: 0 100.8rem 1.2rem 2rem;
+      padding: 0 0 12.5rem 2rem;
 
       .back {
-        margin: 2rem 158rem 2.5rem 2rem;
+        margin: 2rem 0 2.5rem 2rem;
         display: flex;
         gap: 0.6rem;
 

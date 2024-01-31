@@ -13,11 +13,7 @@ function MyPage() {
 
   return (
     <div className={clsx(styles.all)}>
-      <div className={clsx(styles.sideBar)}>사이드바</div>
       <div className={clsx(styles.PageContainer)}>
-        <nav className={clsx(styles.nav)}>
-          <span>계정관리</span>
-        </nav>
         <main>
           <div className={clsx(styles.back)}>
             <Image
