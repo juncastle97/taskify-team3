@@ -4,6 +4,9 @@
   width: 32rem;
   height: 6.2rem;
   @include text-style-18-middle();
+  @include mobile {
+    width: 284px;
+  }
 }
 
 .small {

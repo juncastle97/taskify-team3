@@ -2,12 +2,9 @@ import clsx from "clsx";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import styles from "./MembersDashboardTable.module.scss";
-
 import PagingButton from "@/components/button/pagingButton/PagingButton";
-
 import assigneeMockData from "@/pages/dashboard/mockAssignee.json";
 import Button from "@/components/button/BaseButton/BaseButton";
-
 
 interface Assignee {
   assignee: {
@@ -39,7 +36,6 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
     currentPage * ITEMS_PER_PAGE,
   );
 
-  // 페이지 이동 처리
   const handleLeftButtonClick = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
   };

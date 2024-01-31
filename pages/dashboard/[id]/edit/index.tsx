@@ -5,14 +5,19 @@ import styles from "@/styles/pages/DashboardEdit.module.scss";
 import MembersDashboardTable from "@/components/table/membersDashboardTable/MembersDashboardTable";
 import DeleteButton from "@/components/button/deleteButton/DeleteButton";
 import InviteDashboardTable from "@/components/table/inviteDashboardTable/InviteDashboardTable";
+import { useRouter } from "next/router";
 
 interface DashboardEditProps {
   dashboardId: string;
 }
 
 function DashboardEdit({ dashboardId }: DashboardEditProps) {
+  const router = useRouter();
+
   const handleDeleteClick = () => {
+    // [id] 삭제 기능, 삭제 후 "/dashboard"로 이동 로직
     console.log("대시보드가 삭제되었습니다.");
+    router.push("/dashboard");
   };
   return (
     <div className={clsx(styles["layout"])}>
@@ -22,7 +27,7 @@ function DashboardEdit({ dashboardId }: DashboardEditProps) {
         </div>
         <EditDashboardTable data={null} />
         <MembersDashboardTable assigneeData={null} />
-        <InviteDashboardTable totalCount={0} invitations={null} />
+        <InviteDashboardTable totalCount={0} />
         <div className={clsx(styles["delete-button"])}>
           <DeleteButton onClick={handleDeleteClick} />
         </div>

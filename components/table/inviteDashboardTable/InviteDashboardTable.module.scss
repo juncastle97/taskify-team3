@@ -1,29 +1,54 @@
 .tableForm {
-  width: 62rem;
+  max-width: 62rem;
   height: 47.7rem;
   border-radius: 0.8rem;
   background-color: $white;
   gap: 3rem;
   padding: 2.8rem;
   @include column-flexbox(start, between);
+  @include mobile {
+    min-width: 284px;
+  }
 }
 
 .dashboardTitle {
-  font-size: 2rem;
-  font-weight: 700;
   @include flexbox(between);
+  @include text-style-20-bold;
 }
 
 .pageNumber {
-  font-size: 1.4rem;
-  font-weight: 400;
   gap: 1.6rem;
   @include flexbox;
+  @include text-style-14-light;
+
+  p {
+    @include mobile {
+      display: none;
+    }
+  }
+}
+
+.buttonGroup {
+  gap: 1.6rem;
+  @include flexbox;
+  @media (max-width: 470px) {
+    gap: 1rem;
+    @include column-flexbox(start, end);
+  }
 }
 
 .inviteButton {
   width: 10.5rem;
   height: 3.2rem;
+  @include mobile {
+    width: 7.2rem;
+  }
+
+  img {
+    @include mobile {
+      display: none;
+    }
+  }
 }
 
 .buttonText {
@@ -32,9 +57,8 @@
 }
 
 .label {
-  font-size: 1.6rem;
-  font-weight: 400;
   color: $gray-400;
+  @include text-style-16-light;
 }
 
 .inviteListWrapper {
@@ -44,8 +68,7 @@
   @include flexbox(between, center);
 
   .invitedEmail {
-    font-size: 1.6rem;
-    font-weight: 400;
+    @include text-style-16-light;
   }
 }
 
@@ -57,5 +80,5 @@
   border-radius: 0.4rem;
   border: 0.1rem solid $gray-300;
   color: $violet-200;
-  font-size: 1.2rem;
+  @include text-style-12-middle;
 }

@@ -39,6 +39,7 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
   const OnFocusInputHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     event.stopPropagation();
     setEditName("");
+    setIsNotActive(true);
   };
 
   const fetchDashboardData = async () => {

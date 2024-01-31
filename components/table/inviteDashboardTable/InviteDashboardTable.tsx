@@ -5,7 +5,7 @@ import PagingButton from "@/components/button/pagingButton/PagingButton";
 import Button from "@/components/button/BaseButton/BaseButton";
 import Image from "next/image";
 import mockInvitations from "@/pages/mydashboard/mockInvitations.json";
-import { NoInvitation } from "../InvitedDashboardTable";
+import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
 import { InitialInvitations } from "@/types/invitations";
 
 interface Invitee {
@@ -78,30 +78,32 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
       <div className={clsx(styles.dashboardTitle)}>
         <div>초대 내역</div>
         <div className={clsx(styles.pageNumber)}>
-          {`${totalPage} 페이지 중 ${currentPage}`}
-          <PagingButton
-            onClick={{
-              left: handleLeftButtonClick,
-              right: handleRightButtonClick,
-            }}
-            disabled={{
-              left: currentPage === 1,
-              right: currentPage === totalPage,
-            }}
-            small
-          />
-          <div className={clsx(styles.inviteButton)}>
-            <Button small>
-              <div className={clsx(styles.buttonText)}>
-                <Image
-                  src="/icons/addImage.svg"
-                  width={16}
-                  height={16}
-                  alt="add image"
-                />
-                {"초대하기"}
-              </div>
-            </Button>
+          <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
+          <div className={clsx(styles.buttonGroup)}>
+            <PagingButton
+              onClick={{
+                left: handleLeftButtonClick,
+                right: handleRightButtonClick,
+              }}
+              disabled={{
+                left: currentPage === 1,
+                right: currentPage === totalPage,
+              }}
+              small
+            />
+            <div className={clsx(styles.inviteButton)}>
+              <Button small>
+                <div className={clsx(styles.buttonText)}>
+                  <Image
+                    src="/icons/addImage.svg"
+                    width={16}
+                    height={16}
+                    alt="add image"
+                  />
+                  {"초대하기"}
+                </div>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

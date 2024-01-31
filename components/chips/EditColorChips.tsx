@@ -20,11 +20,6 @@ const colorCodeRules = {
   },
 };
 
-/**
- * @param selectedColor 현재 선택된 색상.
- * @param setSelectedColor 색상을 선택할 때 호출되는 함수. 선택된 색상을 인수로 받습니다.
- */
-
 function EditColorChips({
   theme,
   selectedColor,
