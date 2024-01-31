@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import styles from "./EditColorChips.module.scss";
 import { COLORS } from "@/constants/color";
 import Image from "next/image";
+import BaseButton from "../button/baseButton/BaseButton";
 
 interface EditColorChipsProps {
   theme: "color" | "custom" | string;
@@ -45,7 +46,7 @@ function EditColorChips({
     <div className={clsx(styles.inputWrapper)}>
       <div className={clsx(styles.errorWrapper)}>
         <input
-          className={clsx(styles.input, isError && styles.error)}
+          className={clsx(isError && styles.error)}
           {...register("customColor", colorCodeRules)}
           placeholder="#FFFFFF 형식으로 입력하세요"
         />
@@ -55,30 +56,25 @@ function EditColorChips({
           >{`${errors.customColor.message}`}</div>
         )}
       </div>
-      <div className={clsx(styles.buttonWrapper)}>
-        <button
-          type="button"
-          className={clsx(styles.button)}
-          disabled={
-            isError || !customColorCode || selectedColor === customColorCode
-          }
-          onClick={() => {
-            setSelectedColor(customColorCode);
-          }}
-        >
-          확인
-        </button>
-      </div>
+      <BaseButton
+        type="button"
+        disabled={
+          isError || !customColorCode || selectedColor === customColorCode
+        }
+        onClick={() => {
+          setSelectedColor(customColorCode);
+        }}
+        small
+      >
+        확인
+      </BaseButton>
     </div>
   ) : (
     <div className={clsx(styles.container)}>
       {colors.map(color => (
         <div
           key={color}
-          className={clsx(
-            styles.colorBox,
-            selectedColor === color && styles.selected,
-          )}
+          className={clsx(styles.colorBox)}
           onClick={() => setSelectedColor(color)}
           style={{
             backgroundColor: color,

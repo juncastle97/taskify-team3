@@ -2,11 +2,12 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import styles from "./InviteDashboardTable.module.scss";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
-import Button from "@/components/button/baseButton/BaseButton";
+
 import Image from "next/image";
 import mockInvitations from "@/pages/mydashboard/mockInvitations.json";
 import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
 import { InitialInvitations } from "@/types/invitations";
+import BaseButton from "@/components/button/baseButton/BaseButton";
 
 interface Invitee {
   nickname: string;
@@ -91,8 +92,8 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
               }}
               small
             />
-            <div className={clsx(styles.inviteButton)}>
-              <Button small>
+            <div className={clsx(styles.button)}>
+              <BaseButton small>
                 <div className={clsx(styles.buttonText)}>
                   <Image
                     src="/icons/addImage.svg"
@@ -102,7 +103,7 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
                   />
                   {"초대하기"}
                 </div>
-              </Button>
+              </BaseButton>
             </div>
           </div>
         </div>
@@ -119,23 +120,24 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
               )
               .map(invitation => (
                 <li key={invitation.invitee.email}>
-                  {invitation.inviteAccepted && (
+                  {invitation.invitee && (
                     <div className={clsx(styles.inviteListWrapper)}>
                       <div className={clsx(styles.invitedEmail)}>
                         {invitation.invitee.email}
                       </div>
-                      <button
+                      <BaseButton
                         type="button"
-                        className={clsx(styles.cancelButton)}
                         onClick={() => {
                           alert(
                             `${invitation.invitee.nickname}님 초대를 취소하겠습니까?`,
                           );
                           handleCancelInvitation(invitation.id);
                         }}
+                        small
+                        white
                       >
                         취소
-                      </button>
+                      </BaseButton>
                     </div>
                   )}
                 </li>

@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import styles from "./editDashboardTable.module.scss";
-import EditButton from "@/components/button/editButton/EditButton";
-import SelectColorChip from "@/components/chips/SelectColorChip";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import mockData from "@/pages/dashboard/mock.json";
 import Image from "next/image";
 import { COLORS } from "@/constants/color";
+import BaseButton from "@/components/button/baseButton/BaseButton";
+import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
 
 interface DropdownItem {
   id: number;
@@ -95,39 +95,27 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
             alt="dropdown icon"
           />
           {isOpen && (
-            <div className={clsx(styles.popupWrapper)}>
-              <div className={clsx(styles.popup)}>
-                <SelectColorChip
-                  type="edit"
-                  color={selectedColor}
-                  setColor={setSelectedColor}
-                />
-                <button onClick={handlePopupClose}>
-                  <Image
-                    className={clsx(styles.close)}
-                    src="/icons/close.svg"
-                    width={10}
-                    height={10}
-                    alt="close"
-                  />
-                </button>
-              </div>
-            </div>
+            <SelectChipDropdown
+              onClick={handlePopupClose}
+              selectedColor={selectedColor}
+              setSelectedColor={setSelectedColor}
+            />
           )}
         </div>
       </div>
       <div className={clsx(styles.dashboardInputBox)}>
-        <label className={clsx(styles.label)}>대시보드 이름</label>
+        <label>대시보드 이름</label>
         <input
-          className={clsx(styles.dashboardInput)}
           placeholder="뉴 프로젝트"
           value={editName}
           onChange={OnNameChangeHandler}
           onFocus={OnFocusInputHandler}
         />
       </div>
-      <div className={clsx(styles.editButton)}>
-        <EditButton disabled={isNotActive} />
+      <div className={clsx(styles.button)}>
+        <BaseButton type="submit" disabled={isNotActive} small>
+          변경
+        </BaseButton>
       </div>
     </form>
   );

@@ -1,86 +1,59 @@
 .tableForm {
+  @include column-flexbox(center, between);
   max-width: 62rem;
   height: 25.6rem;
   border-radius: 0.8rem;
   background-color: $white;
   gap: 3rem;
   padding: 2.8rem;
-  @include column-flexbox(center, between);
-  @include mobile {
-    min-width: 284px;
+
+  .currentDashboardTitle {
+    cursor: pointer;
+    @include flexbox(between);
+    @include text-style-20-bold;
+
+    .dashboardTitle {
+      gap: 2rem;
+      @include flexbox;
+
+      .chip {
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+      }
+    }
+
+    .editColorOption {
+      @include flexbox;
+      @include text-style-16-middle;
+      position: relative;
+    }
   }
-}
+  .dashboardInputBox {
+    @include column-flexbox(center, start);
+    gap: 1rem;
 
-.currentDashboardTitle {
-  cursor: pointer;
-  @include flexbox(between);
-  @include text-style-20-bold;
-}
+    label {
+      @include text-style-18-middle;
+    }
 
-.dashboardTitle {
-  gap: 2rem;
-  @include flexbox;
-}
-
-.chip {
-  width: 15px;
-  height: 15px;
-  border-radius: 100%;
-}
-
-.editColorOption {
-  position: relative;
-  @include flexbox;
-  @include text-style-16-middle;
-}
-
-.popupWrapper {
-  padding: 0.1rem;
-  position: absolute;
-  top: 3rem;
-  background-color: $white;
-  border: 0.1rem solid $gray-200;
-  width: 26rem;
-  height: 13rem;
-  border-radius: 1rem;
-  @include text-style-14-light;
-  @include tablet {
-    right: 0;
+    input {
+      @include text-style-16-light;
+      width: 100%;
+      height: 4.8rem;
+      border-radius: 0.6rem;
+      border: 1px solid $gray-200;
+      background-color: $white;
+      padding-left: 1.6rem;
+    }
   }
-  @include mobile {
-    right: 0;
+
+  .button {
+    @include flexbox(end);
+
+    button {
+      width: 8.4rem;
+      height: 3.2rem;
+    }
   }
-}
-
-.popup {
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-
-.dashboardInputBox {
-  gap: 1rem;
-  @include column-flexbox(center, start);
-}
-
-.label {
-  @include text-style-18-middle;
-}
-
-.dashboardInput {
-  width: 100%;
-  height: 4.8rem;
-  border-radius: 0.6rem;
-  border: 1px solid $gray-200;
-  background-color: $white;
-  padding-left: 1.6rem;
-  @include text-style-16-light;
-}
-
-.editButton {
-  @include flexbox(end);
 }

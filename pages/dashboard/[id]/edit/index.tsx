@@ -7,11 +7,7 @@ import DeleteButton from "@/components/button/deleteButton/DeleteButton";
 import InviteDashboardTable from "@/components/table/inviteDashboardTable/InviteDashboardTable";
 import { useRouter } from "next/router";
 
-interface DashboardEditProps {
-  dashboardId: string;
-}
-
-function DashboardEdit({ dashboardId }: DashboardEditProps) {
+function DashboardEdit() {
   const router = useRouter();
 
   const handleDeleteClick = () => {
@@ -23,7 +19,7 @@ function DashboardEdit({ dashboardId }: DashboardEditProps) {
     <div className={clsx(styles["layout"])}>
       <div className={clsx(styles["tables"])}>
         <div>
-          <ReturnButton url={`dashboard/${dashboardId}`} />
+          <ReturnButton />
         </div>
         <EditDashboardTable data={null} />
         <MembersDashboardTable assigneeData={null} />

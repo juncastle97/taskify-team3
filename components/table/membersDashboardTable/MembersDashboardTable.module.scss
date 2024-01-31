@@ -1,66 +1,85 @@
 .tableForm {
+  @include column-flexbox(start, stratch);
   max-width: 62rem;
   border-radius: 0.8rem;
   background-color: $white;
   gap: 1rem;
   padding: 2.8rem;
-  @include column-flexbox(start, stratch);
-  @include mobile {
-    min-width: 284px;
+
+  .dashboardTitle {
+    @include flexbox(between, center);
+    @include text-style-20-bold;
+
+    .pageNumber {
+      @include flexbox;
+      @include text-style-14-light;
+      gap: 1.6rem;
+    }
   }
-}
+  .label {
+    @include text-style-14-light;
+    color: $gray-400;
+  }
 
-.dashboardTitle {
-  @include flexbox(between, center);
-  @include text-style-20-bold;
-}
+  .memberListWrapper {
+    @include flexbox(between, center);
+    gap: 1rem;
+    padding: 1rem;
 
-.pageNumber {
-  gap: 1.6rem;
-  @include flexbox;
-  @include text-style-14-light;
-}
+    img {
+      border-radius: 99px;
+    }
 
-.label {
-  color: $gray-400;
-  @include text-style-14-light;
-}
+    .memberNickname {
+      @include text-style-16-middle;
+    }
+  }
 
-.memberListWrapper {
-  gap: 1rem;
-  padding: 1rem;
-  @include flexbox(between, center);
-}
+  .memberNickname {
+    @include text-style-16-middle;
+  }
 
-.memberProfileImage {
-  border-radius: 99px;
-}
+  .crownIcon {
+    margin-left: auto;
+    margin-right: 3.4rem;
+  }
 
-.memberNickname {
-  @include text-style-16-middle;
-}
+  .label {
+    @include text-style-14-light;
+    color: $gray-400;
+  }
 
-.crownIcon {
-  margin-left: auto;
-  margin-right: 3.4rem;
-}
+  .memberListWrapper {
+    @include flexbox(between, center);
+    gap: 1rem;
+    padding: 1rem;
 
-.modalButtonGroup {
-  gap: 2rem;
-  @include flexbox(end, center);
-}
+    img {
+      border-radius: 99px;
+    }
 
-.modalButton {
-  width: 8.4rem;
-  height: 3.2rem;
-}
+    .memberNickname {
+      @include text-style-16-middle;
+    }
+  }
 
-.deleteButton {
-  margin-left: auto;
-  width: 8.4rem;
-  height: 3.2rem;
-  border-radius: 0.4rem;
-  border: 0.1rem solid $gray-300;
-  color: $violet-200;
-  @include text-style-12-middle;
+  .memberNickname {
+    @include text-style-16-middle;
+  }
+
+  .crownIcon {
+    margin-left: auto;
+    margin-right: 3.4rem;
+  }
+
+  .button {
+    margin-left: auto;
+    width: 8.4rem;
+    height: 3.2rem;
+
+    button {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }

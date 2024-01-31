@@ -5,6 +5,7 @@ import styles from "./MembersDashboardTable.module.scss";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import assigneeMockData from "@/pages/dashboard/mockAssignee.json";
 import Button from "@/components/button/baseButton/BaseButton";
+import BaseButton from "@/components/button/baseButton/BaseButton";
 
 interface Assignee {
   assignee: {
@@ -92,7 +93,6 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
           <li key={member.assignee.id}>
             <div className={clsx(styles.memberListWrapper)}>
               <Image
-                className={clsx(styles.memberProfileImage)}
                 src={`${member.assignee.profileImageUrl as string}`}
                 alt="프로필 이미지"
                 width={38}
@@ -111,19 +111,20 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
                   alt="crown icon"
                 />
               ) : (
-                // 버튼 컴포넌트 구현되면 사용
-                <button
-                  type="button"
-                  className={clsx(styles.deleteButton)}
-                  onClick={() => {
-                    alert(
-                      `${member.assignee.nickname}님을 구성원에서 삭제하겠습니까?`,
-                    );
-                    handleDeleteMember(member.assignee.id);
-                  }}
-                >
-                  삭제
-                </button>
+                <div className={clsx(styles.button)}>
+                  <BaseButton
+                    onClick={() => {
+                      alert(
+                        `${member.assignee.nickname}님을 구성원에서 삭제하겠습니까?`,
+                      );
+                      handleDeleteMember(member.assignee.id);
+                    }}
+                    small
+                    white
+                  >
+                    삭제
+                  </BaseButton>
+                </div>
               )}
             </div>
           </li>

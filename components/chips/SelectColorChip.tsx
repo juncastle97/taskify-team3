@@ -10,11 +10,11 @@ interface SetColorChipProps {
   setColor: Dispatch<SetStateAction<string>>;
 }
 
-function SelectColorChip({
+const SelectColorChip: React.FC<SetColorChipProps> = ({
   type = "create",
   color,
   setColor,
-}: SetColorChipProps) {
+}) => {
   const [colorTheme, setColorTheme] = useState("color");
   return (
     <div className={clsx(styles.selectColorWrapper)}>
@@ -45,5 +45,5 @@ function SelectColorChip({
       />
     </div>
   );
-}
+};
 export default SelectColorChip;

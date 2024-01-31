@@ -1,0 +1,22 @@
+.popupWrapper {
+  @include text-style-14-light;
+  padding: 0.1rem;
+  position: absolute;
+  top: 3rem;
+  right: 0;
+  background-color: $white;
+  border: 0.1rem solid $gray-200;
+  width: 26rem;
+  height: 13rem;
+  border-radius: 1rem;
+
+  .popup {
+    position: relative;
+
+    .button {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+}
