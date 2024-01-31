@@ -1,17 +1,17 @@
-import React from "react";
-import clsx from "clsx";
+import { ReactNode, MouseEvent } from "react";
 import styles from "./BaseButton.module.scss";
+import clsx from "clsx";
 
-interface ButtonProps {
-  children: React.ReactNode;
+interface BaseButtonProps {
+  children: ReactNode;
   type?: "button" | "submit";
   disabled?: boolean;
   small?: boolean;
   white?: boolean;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void; // 새로 추가된 프로퍼티
 }
 
-const Button: React.FC<ButtonProps> = ({
+const BaseButton: React.FC<BaseButtonProps> = ({
   children,
   type = "button",
   disabled = false,
@@ -34,6 +34,7 @@ const Button: React.FC<ButtonProps> = ({
           white && styles.white,
         )}
         onClick={onClick}
+        {...buttonProps}
       >
         {children}
       </span>
@@ -41,4 +42,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default BaseButton;
