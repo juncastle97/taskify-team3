@@ -1,19 +1,12 @@
 import Image from "next/image";
 import styles from "./returnButton.module.scss";
 import { MouseEvent } from "react";
-import { useRouter } from "next/router";
 import clsx from "clsx";
 
-interface returnButtonProps {
-  url: string;
-}
-
-function ReturnButton({ url }: returnButtonProps) {
-  const router = useRouter();
-
+function ReturnButton() {
   function handleReturnClick(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    router.push(`/${url}`);
+    window.history.back();
   }
 
   return (
