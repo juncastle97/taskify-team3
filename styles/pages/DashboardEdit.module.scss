@@ -1,6 +1,6 @@
 .layout {
+  @include background();
   font-family: nth($font-main, 1);
-  background-color: $gray-100;
 }
 
 .tables {

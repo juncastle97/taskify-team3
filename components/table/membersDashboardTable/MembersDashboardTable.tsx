@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./MembersDashboardTable.module.scss";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import assigneeMockData from "@/pages/dashboard/mockAssignee.json";
-import Button from "@/components/button/BaseButton/BaseButton";
+import Button from "@/components/button/baseButton/BaseButton";
 
 interface Assignee {
   assignee: {

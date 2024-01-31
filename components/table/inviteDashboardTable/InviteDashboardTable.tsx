@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import styles from "./InviteDashboardTable.module.scss";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
-import Button from "@/components/button/BaseButton/BaseButton";
+import Button from "@/components/button/baseButton/BaseButton";
 import Image from "next/image";
 import mockInvitations from "@/pages/mydashboard/mockInvitations.json";
 import NoInvitation from "../myInvitedDashboardTable/NoInvitation";

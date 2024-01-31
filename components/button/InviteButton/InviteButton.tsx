@@ -7,7 +7,6 @@ import styles from "./InviteButton.module.scss";
 interface InvitebuttonProps {
   children: React.ReactNode;
   type?: "accept" | "deny";
-  disabled?: boolean;
   small?: boolean;
   large?: boolean;
   onAccept?: () => void;
@@ -17,7 +16,6 @@ interface InvitebuttonProps {
 const InviteButton: React.FC<InvitebuttonProps> = ({
   children,
   type = "accept",
-  disabled = false,
   small,
   large,
   onAccept,
@@ -45,7 +43,7 @@ const InviteButton: React.FC<InvitebuttonProps> = ({
     }
   };
 
-  const handleDisabledClick = () => {
+  const handleClick = () => {
     setIsAccepted(!isAccepted);
     setIsDenied(!isDenied);
   };
@@ -54,20 +52,10 @@ const InviteButton: React.FC<InvitebuttonProps> = ({
     <button
       className={clsx(
         styles.button,
-        {
-          [styles.selected]: disabled,
-        },
         small && styles.small,
         large && styles.large,
       )}
-      onClick={
-        disabled
-          ? handleDisabledClick
-          : type === "accept"
-            ? handleAcceptClick
-            : handleDenyClick
-      }
-      disabled={disabled}
+      onClick={type === "accept" ? handleAcceptClick : handleDenyClick}
       {...props}
     >
       {children}

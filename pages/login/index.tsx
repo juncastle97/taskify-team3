@@ -4,16 +4,19 @@ import Image from "next/image";
 import Head from "next/head";
 import styles from "@/styles/pages/Login.module.scss";
 import clsx from "clsx";
-import Button from "@/components/button/BaseButton/BaseButton";
+import Button from "@/components/button/baseButton/BaseButton";
 import Link from "next/link";
+import InviteButton from "@/components/button/inviteButton/InviteButton";
 
 export default function Login() {
   return (
-    <div>
+    <>
       <Head>
         <title>Login</title>
       </Head>
       <div className={clsx(styles.body)}>
+        <InviteButton>수락</InviteButton>
+        <InviteButton>거절</InviteButton>
         <header className={clsx(styles.header)}>
           <div className={clsx(styles.wrapHeader)}>
             <Image
@@ -53,6 +56,6 @@ export default function Login() {
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 }

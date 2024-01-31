@@ -19,7 +19,7 @@
   height: 3rem;
 }
 .large {
+  @include text-style-12-middle;
   width: 10.9rem;
   height: 2.8rem;
-  @include text-style-12-middle;
 }

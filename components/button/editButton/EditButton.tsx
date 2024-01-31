@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import styles from "./EditButton.module.scss";
-import Button from "../BaseButton/BaseButton";
+import Button from "../baseButton/BaseButton";
 
 interface ButtonProps {
   disabled?: boolean;
