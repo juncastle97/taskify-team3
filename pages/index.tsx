@@ -5,7 +5,6 @@ import styles from "@/styles/pages/Home.module.scss";
 import Footer from "@/components/footer/Footer";
 import Link from "next/link";
 import Button from "@/components/button/BaseButton/BaseButton";
-
 export default function Home() {
   return (
     <main className={clsx(styles["main"])}>

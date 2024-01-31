@@ -1,0 +1,25 @@
+.button {
+  align-items: center;
+  width: 8.4rem;
+  height: 3.2rem;
+  border-radius: 0.4rem;
+  border: 1px solid $gray-300;
+  background: $white;
+  @include text-style-14-middle;
+  //text-align: center;
+  color: $violet-200;
+  &.selected {
+    background: $violet-200;
+    color: $white;
+  }
+}
+
+.small {
+  width: 7.2rem;
+  height: 3rem;
+}
+.large {
+  width: 10.9rem;
+  height: 2.8rem;
+  @include text-style-12-middle;
+}
