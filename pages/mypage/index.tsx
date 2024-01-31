@@ -11,10 +11,24 @@ function MyPage() {
     register,
     handleSubmit,
     formState: { isSubmitting, errors, isSubmitted },
-    watch,
+    // watch,
     setError,
     clearErrors,
     getValues,
+  } = useForm<FieldValues>({});
+
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: {
+      isSubmitting: isSubmitting2,
+      errors: errors2,
+      isSubmitted: isSubmitted2,
+    },
+    watch,
+    setError: setError2,
+    clearErrors: clearErrors2,
+    getValues: getValues2,
   } = useForm<FieldValues>({});
 
   const passwordInputs = ["currentPassword", "newPassword", "newPasswordCheck"];
@@ -55,14 +69,14 @@ function MyPage() {
 
   useEffect(() => {
     if (newPassword !== newPasswordCheck && newPasswordCheck) {
-      setError("newPasswordCheck", {
+      setError2("newPasswordCheck", {
         type: "manual",
         message: "새 비밀번호가 일치하지 않습니다.",
       });
     } else {
-      clearErrors("newPasswordCheck");
+      clearErrors2("newPasswordCheck");
     }
-  }, [newPassword, newPasswordCheck, setError, clearErrors]);
+  }, [newPassword, newPasswordCheck, setError2, clearErrors2]);
 
   const handleSaveButtonClick = () => {
     // Save 버튼이 클릭되었을 때의 동작 처리
@@ -75,7 +89,7 @@ function MyPage() {
 
   const handleChangeButtonClick = () => {
     // Change 버튼이 클릭되었을 때의 동작 처리
-    handleSubmit(data => {
+    handleSubmit2(data => {
       alert("Change 버튼이 클릭되었습니다. 데이터: " + JSON.stringify(data));
       // Change 버튼에 대한 추가 동작 구현
       // ...
@@ -99,10 +113,7 @@ function MyPage() {
                 priority
               />
               <form
-                onSubmit={e => {
-                  e.preventDefault(); // 기본 동작 막기
-                  handleSubmit(data => alert(JSON.stringify(data)))(e);
-                }}
+                onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}
               >
                 <label htmlFor="email">이메일</label>
                 <input
@@ -145,21 +156,16 @@ function MyPage() {
           </section>
           <section className={clsx(styles.section2)}>
             <div className={clsx(styles.changePassword)}>비밀번호 변경 </div>
-            <form
-              onSubmit={e => {
-                e.preventDefault(); // 기본 동작 막기
-                handleSubmit(data => alert(JSON.stringify(data)))(e);
-              }}
-            >
+            <form onSubmit={handleSubmit2(data => alert(JSON.stringify(data)))}>
               <label htmlFor="currentPassword">현재 비밀번호</label>
               <input
                 className={clsx(styles.currentPassword, {
-                  [styles.error]: errors.currentPassword,
+                  [styles.error]: errors2.currentPassword,
                 })}
                 id="currentPassword"
                 type="password"
                 placeholder="현재 비밀번호 입력"
-                {...register("currentPassword", {
+                {...register2("currentPassword", {
                   required: "현재 비밀번호를 입력해 주세요.",
                   minLength: {
                     value: 8,
@@ -167,16 +173,16 @@ function MyPage() {
                   },
                 })}
                 aria-invalid={
-                  isSubmitted
-                    ? errors.currentPassword
+                  isSubmitted2
+                    ? errors2.currentPassword
                       ? "true"
                       : "false"
                     : undefined
                 }
               />
-              {isSubmitted && errors.currentPassword && (
+              {isSubmitted2 && errors2.currentPassword && (
                 <small key="currentPassword-error" role="alert">
-                  {(errors.currentPassword as FieldError).message}
+                  {(errors2.currentPassword as FieldError).message}
                 </small>
               )}
 
@@ -188,12 +194,12 @@ function MyPage() {
               </label>
               <input
                 className={clsx(styles.newPassword, {
-                  [styles.error]: errors.newPassword,
+                  [styles.error]: errors2.newPassword,
                 })}
                 id="newPassword"
                 type="password"
                 placeholder="새 비밀번호 입력"
-                {...register("newPassword", {
+                {...register2("newPassword", {
                   required: "새 비밀번호를 입력해 주세요.",
                   minLength: {
                     value: 8,
@@ -201,16 +207,16 @@ function MyPage() {
                   },
                 })}
                 aria-invalid={
-                  isSubmitted
-                    ? errors.newPassword
+                  isSubmitted2
+                    ? errors2.newPassword
                       ? "true"
                       : "false"
                     : undefined
                 }
               />
-              {isSubmitted && errors.newPassword && (
-                <small key="newPassword-error" role="alert">
-                  {(errors.newPassword as FieldError).message}
+              {isSubmitted2 && errors2.newPassword && (
+                <small key="newPassword-error2" role="alert">
+                  {(errors2.newPassword as FieldError).message}
                 </small>
               )}
 
@@ -222,15 +228,15 @@ function MyPage() {
               </label>
               <input
                 className={clsx(styles.newPasswordCheck, {
-                  [styles.error]: errors.newPasswordCheck,
+                  [styles.error]: errors2.newPasswordCheck,
                 })}
                 id="newPasswordCheck"
                 type="password"
                 placeholder="새 비밀번호 입력"
-                {...register("newPasswordCheck", {
+                {...register2("newPasswordCheck", {
                   validate: {
                     matchNewPassword: value => {
-                      const { newPassword } = getValues();
+                      const { newPassword } = getValues2();
                       return newPassword === value || "일치하지 않습니다.";
                     },
                   },
@@ -242,22 +248,22 @@ function MyPage() {
                   },
                 })}
                 aria-invalid={
-                  isSubmitted
-                    ? errors.newPasswordCheck
+                  isSubmitted2
+                    ? errors2.newPasswordCheck
                       ? "true"
                       : "false"
                     : undefined
                 }
               />
-              {isSubmitted && errors.newPasswordCheck && (
+              {isSubmitted2 && errors2.newPasswordCheck && (
                 <small key="newPasswordCheck-error" role="alert">
-                  {(errors.newPasswordCheck as FieldError).message}
+                  {(errors2.newPasswordCheck as FieldError).message}
                 </small>
               )}
 
               <Button
-                onClick={() => handleSaveButtonClick()}
-                disabled={isSubmitting || isButtonDisabled}
+                onClick={() => handleChangeButtonClick()}
+                disabled={isSubmitting2 || isButtonDisabled}
               >
                 변경
               </Button>
