@@ -70,6 +70,11 @@
   .invitedEmail {
     @include text-style-16-light;
   }
+
+  Button {
+    width: 8.4rem;
+    height: 3.2rem;
+  }
 }
 
 .cancelButton {

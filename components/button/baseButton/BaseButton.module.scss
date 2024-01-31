@@ -1,4 +1,4 @@
-.button-wrapper {
+.buttonWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,14 +8,22 @@
   &:disabled {
     background: $gray-400;
   }
+
+  &.white {
+    background-color: $white;
+    border: 0.1rem solid $gray-300;
+  }
 }
 
-.button-text {
-  color: white;
+.buttonText {
+  color: $white;
   @include text-style-18-middle();
   text-align: center;
-}
 
-.small {
-  font-size: 1.4rem;
+  &.small {
+    font-size: 1.4rem;
+  }
+  &.white {
+    color: $violet-200;
+  }
 }

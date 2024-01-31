@@ -7,6 +7,8 @@ interface ButtonProps {
   type?: "button" | "submit";
   disabled?: boolean;
   small?: boolean;
+  white?: boolean;
+  onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,13 +16,25 @@ const Button: React.FC<ButtonProps> = ({
   type = "button",
   disabled = false,
   small = false,
+  white = false,
+  onClick,
   ...props
 }) => {
   const buttonProps = { type, disabled, ...props };
 
   return (
-    <button className={clsx(styles["button-wrapper"])} {...buttonProps}>
-      <span className={clsx(styles["button-text"], small && styles.small)}>
+    <button
+      className={clsx(styles.buttonWrapper, white && styles.white)}
+      {...buttonProps}
+    >
+      <span
+        className={clsx(
+          styles.buttonText,
+          small && styles.small,
+          white && styles.white,
+        )}
+        onClick={onClick}
+      >
         {children}
       </span>
     </button>
