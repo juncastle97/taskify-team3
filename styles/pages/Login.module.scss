@@ -9,10 +9,10 @@
 }
 .header {
   display: flex;
-  width: 200px;
-  height: 279px;
-  padding: 0px 0px 3.947px 1.14px;
-  margin: 223px 860px 38px;
+  width: 20rem;
+  height: 27.9rem;
+  padding: 0 0 0.4rem 0.11rem;
+  margin: 10rem;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
@@ -22,7 +22,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  gap: 30.071px;
+  gap: 3rem;
   @media screen and (max-width: 375px) {
     margin: 0 3.2rem 0 3.7rem;
   }
@@ -66,13 +66,13 @@
   align-items: flex-start;
   padding: 0 0 30rem;
   width: 52rem;
-  gap: 16px;
+  gap: 1.6rem;
 
   .cb {
     @include text-style-16-light();
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.8rem;
   }
   .loginBtn {
     Button {
@@ -90,28 +90,29 @@
   width: 52rem;
   height: 5rem;
   align-items: center;
-  gap: 10px;
-  border-radius: 8px;
-  border: 1px solid $gray-300;
+  gap: 1rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $gray-300;
   background: $white;
-  font-size: 16px;
+  font-size: 1.6rem;
+  outline: none;
 
   &:focus {
-    outline: 1px solid $violet-200;
+    border: 0.1rem solid $violet-200;
   }
   &.error {
     width: 52rem;
     height: 5rem;
-    border: 1px solid $red;
+    border: 0.1rem solid $red;
   }
   @media screen and (max-width: 375px) {
     width: 35.1rem;
-    gap: 8px;
+    gap: 0.8rem;
   }
 }
 
 .wrapInput {
-  gap: 8px;
+  gap: 0.8rem;
 }
 .loginText {
   @include text-style-16-light();
@@ -119,9 +120,9 @@
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  padding: 20px 153px;
+  padding: 2rem 15.3rem;
   width: 100%;
-  gap: 5px;
+  gap: 0.5rem;
 
   @media screen and (max-width: 375px) {
     @include text-style-16-light();
@@ -137,9 +138,9 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 20px 153px;
+  padding: 2rem 15.3rem;
   width: 100%;
-  gap: 5px;
+  gap: 0.5rem;
 
   @media screen and (max-width: 375px) {
     @include text-style-16-light();

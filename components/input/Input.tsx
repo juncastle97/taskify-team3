@@ -13,6 +13,7 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: "email" | "password" | "text";
   placeholder?: string;
+  className?: string;
   //disabled?: boolean;
 }
 

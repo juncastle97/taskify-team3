@@ -1,0 +1,75 @@
+{
+  "members": [
+    {
+      "id": 3775,
+      "email": "junseong@email.com",
+      "nickname": "juncastle",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T18:04:15.734Z",
+      "updatedAt": "2024-01-31T18:04:15.734Z",
+      "isOwner": true,
+      "userId": 708
+    },
+    {
+      "id": 3782,
+      "email": "test123@email.com",
+      "nickname": "test테스트",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:01:42.648Z",
+      "updatedAt": "2024-01-31T20:01:42.648Z",
+      "isOwner": false,
+      "userId": 716
+    },
+    {
+      "id": 3787,
+      "email": "test123@email.com",
+      "nickname": "abc",
+      "profileImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Zinnia_elegans_01.jpg/600px-Zinnia_elegans_01.jpg",
+      "createdAt": "2024-01-31T20:04:42.648Z",
+      "updatedAt": "2024-01-31T20:04:42.648Z",
+      "isOwner": false,
+      "userId": 724
+    },
+    {
+      "id": 3792,
+      "email": "test123@email.com",
+      "nickname": "테스트",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:07:42.648Z",
+      "updatedAt": "2024-01-31T20:07:42.648Z",
+      "isOwner": false,
+      "userId": 732
+    },
+    {
+      "id": 3796,
+      "email": "test123@email.com",
+      "nickname": "good",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:10:42.648Z",
+      "updatedAt": "2024-01-31T20:10:42.648Z",
+      "isOwner": false,
+      "userId": 746
+    },
+    {
+      "id": 3801,
+      "email": "test123@email.com",
+      "nickname": "good",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:10:42.648Z",
+      "updatedAt": "2024-01-31T20:10:42.648Z",
+      "isOwner": false,
+      "userId": 748
+    },
+    {
+      "id": 3803,
+      "email": "test123@email.com",
+      "nickname": "good",
+      "profileImageUrl": null,
+      "createdAt": "2024-01-31T20:10:42.648Z",
+      "updatedAt": "2024-01-31T20:10:42.648Z",
+      "isOwner": false,
+      "userId": 752
+    }
+  ],
+  "totalCount": 7
+}

@@ -23,24 +23,50 @@
 
 .manageWrapper {
   display: flex;
+  align-items: center;
+  border-right: 0.1rem solid $gray-300;
+  // padding-right: 3.2rem;
+
+  button {
+    display: flex;
+    gap: 0.8rem;
+    color: $gray-500;
+    padding: 1.1rem 1.6rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid $gray-300;
+    background: $white;
+  }
 }
 
 .manageBtn {
-  display: flex;
-  gap: 0.8rem;
-  padding: 1.1rem 1.6rem;
-  border-radius: 0.8rem;
-  border: 0.1rem solid $gray-300;
-  background: $white;
+  margin-right: 1.6rem;
 }
 
 .inviteBtn {
+  margin-right: 4rem;
+}
+
+.memberWrapper {
+  @include text-style-18-middle();
   display: flex;
-  gap: 0.8rem;
-  padding: 1.1rem 1.6rem;
-  border-radius: 0.8rem;
-  border: 0.1rem solid $gray-300;
-  background: $white;
+  margin-right: 3.2rem;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.8rem;
+    height: 3.8rem;
+    color: $white;
+    border: 0.2rem solid $white;
+    border-radius: 99rem;
+    margin-left: -1rem;
+  }
+
+  .totalCount {
+    background-color: $pink-100;
+    color: $pink;
+  }
 }
 
 .profile {
@@ -48,6 +74,7 @@
   align-items: center;
   gap: 1.2rem;
   position: relative;
+  margin-left: 3.2rem;
 }
 
 .user {
@@ -64,7 +91,7 @@
   top: 5rem;
   width: 10rem;
   padding: 1.3rem;
-  background-color: yellow;
+  background-color: $white;
   border-radius: 0.8rem;
 }
 

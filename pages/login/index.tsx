@@ -17,7 +17,7 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>(); // useForm 제네릭에 FormData를 전달
+  } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = data => {
     alert(JSON.stringify(data));
