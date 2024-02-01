@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useForm, FieldError, FieldValues } from "react-hook-form";
 import Button from "@/components/button/baseButton/BaseButton";
 import ReturnButton from "@/components/button/returnButton/returnButton";
-
+import AddImage from "@/components/mypage/AddImage";
 function MyPage() {
   const {
     register,
@@ -105,13 +105,7 @@ function MyPage() {
           <section className={clsx(styles.section1)}>
             <div className={clsx(styles.profile)}>프로필</div>
             <div className={clsx(styles.section1Contents)}>
-              <Image
-                src="/myPage/addImage.png"
-                alt="이미지 추가 버튼"
-                width={182}
-                height={182}
-                priority
-              />
+              <AddImage />
               <form
                 onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}
               >
