@@ -7,19 +7,27 @@ import Image from "next/image";
 import { COLORS } from "@/constants/color";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
+import { DashboardType } from "@/types/dashboard";
+import { getDashboardInfo } from "@/api/dashboards/getDashboardInfo";
+import { editDashboard } from "@/api/dashboards/editDashboard";
+import { title } from "process";
 
-interface DropdownItem {
-  id: number;
-  title: string;
-  color: string;
+interface Props {
+  dashTitle?: string | undefined;
+  dashColor?: string;
 }
 
-interface DashboardProps {
-  data: DropdownItem[] | null;
-}
+function EditDashboardTable({ dashTitle, dashColor }: Props) {
+  const [dashBoardInfo, setDashBoardInfo] = useState<DashboardType>({
+    id: 0,
+    title: "",
+    color: "",
+    createdAt: "",
+    updatedAt: "",
+    createdByMe: false,
+    userId: 0,
+  });
 
-const EditDashboardTable: React.FC<DashboardProps> = () => {
-  const [data, setData] = useState<DropdownItem[] | null>(null);
   const [selectedColor, setSelectedColor] = useState("");
   const [isNotActive, setIsNotActive] = useState<boolean>(true);
   const [editName, setEditName] = useState("");
@@ -28,7 +36,7 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
-  const initialColor = data?.[dashboardId]?.color || COLORS.GREEN;
+  const initialColor = dashBoardInfo?.color || COLORS.GREEN;
 
   const OnNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -36,19 +44,18 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
     value === "" ? setIsNotActive(true) : setIsNotActive(false);
   };
 
-  const OnFocusInputHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-    event.stopPropagation();
-    setEditName("");
-    setIsNotActive(true);
-  };
+  // const OnFocusInputHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+  //   setEditName("");
+  // };
 
   const fetchDashboardData = async () => {
-    try {
-      const result: DropdownItem[] = await mockData;
-      setData(result);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    const dashBoardData = await getDashboardInfo();
+    setDashBoardInfo(dashBoardData);
+  };
+
+  const handleButtonClick = async () => {
+    const body = { title: editName, color: selectedColor };
+    await editDashboard(body);
   };
 
   const handleEditColorClick = useCallback(
@@ -68,7 +75,7 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
     setSelectedColor(initialColor);
     fetchDashboardData();
     setEditName("");
-  }, [initialColor]);
+  }, [dashBoardInfo.title, dashBoardInfo.color]);
 
   return (
     <form className={clsx(styles.tableForm)}>
@@ -81,7 +88,7 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
               color={selectedColor}
             />
           )}
-          {data?.[dashboardId]?.title}
+          {dashBoardInfo?.title}
         </div>
         <div
           className={clsx(styles.editColorOption)}
@@ -109,15 +116,20 @@ const EditDashboardTable: React.FC<DashboardProps> = () => {
           placeholder="뉴 프로젝트"
           value={editName}
           onChange={OnNameChangeHandler}
-          onFocus={OnFocusInputHandler}
+          // onFocus={OnFocusInputHandler}
         />
       </div>
       <div className={clsx(styles.button)}>
-        <BaseButton type="submit" disabled={isNotActive} small>
+        <BaseButton
+          // type="submit"
+          onClick={handleButtonClick}
+          disabled={isNotActive}
+          small
+        >
           변경
         </BaseButton>
       </div>
     </form>
   );
-};
+}
 export default EditDashboardTable;
