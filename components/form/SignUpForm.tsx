@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import axios from "@/lib/axios";
 import Image from "next/image";
 import styles from "./Form.module.scss";
@@ -23,6 +24,7 @@ const SignUpForm = () => {
     setError,
     formState: { errors, isValid },
   } = useForm<SignForm>({ mode: "onBlur" });
+  const router = useRouter();
   const [passwordInputType, setPasswordInputType] =
     useState<string>("password");
   const [passwordConfirmInputType, setPasswordConfirmInputType] =
@@ -52,14 +54,14 @@ const SignUpForm = () => {
 
   const onSubmit = async (data: SignForm) => {
     try {
-      const response = await axios.post("/users", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      return response;
+      const response = await axios.post("/users", data);
+      router.push("/login");
     } catch (error) {
-      alert("실패");
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("회원가입 실패");
+      }
     }
   };
 
@@ -154,7 +156,14 @@ const SignUpForm = () => {
         <label htmlFor="cb">이용약관에 동의합니다.</label>
       </div>
       <div className={clsx(styles.signupBtn)}>
-        <Button type="submit" disabled={!isCheckboxChecked || !watchEmail || !watchPassword || !isValid}>가입하기</Button>
+        <Button
+          type="submit"
+          disabled={
+            !isCheckboxChecked || !watchEmail || !watchPassword || !isValid
+          }
+        >
+          가입하기
+        </Button>
       </div>
     </form>
   );

@@ -42,7 +42,11 @@ const SignInForm = () => {
       localStorage.setItem("login", token);
       router.push("/mydashboard");
     } catch (error) {
-      alert("로그인 실패");
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("로그인 실패");
+      }
     }
   };
 
