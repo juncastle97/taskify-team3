@@ -7,6 +7,7 @@ import { getMemberList } from "@/api/members/getMemberList";
 import { deleteMember } from "@/api/members/deleteMember";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
+import ProfileImage from "@/components/profileImage/ProfileImage";
 
 function MembersDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,18 +86,7 @@ function MembersDashboardTable() {
         {currentPageData?.map((member, index) => (
           <li key={member.id}>
             <div className={clsx(styles.memberListWrapper)}>
-              <div className={clsx(styles.profileImage)}>
-                {member.profileImageUrl ? (
-                  <Image
-                    src={`${member.profileImageUrl as string}`}
-                    alt="프로필 이미지"
-                    width={38}
-                    height={38}
-                  />
-                ) : (
-                  member.nickname[0]
-                )}
-              </div>
+              <ProfileImage member={member} width={38} height={38} />
               <div className={clsx(styles.memberNickname)}>
                 {member.nickname}
               </div>

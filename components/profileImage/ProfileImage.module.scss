@@ -1,0 +1,16 @@
+.profileImage {
+  @include flexbox();
+  @include text-style-18-bold;
+  margin: 0 1rem 0 2rem;
+  gap: 1rem;
+  border-radius: 99px;
+  color: $white;
+
+  div {
+    border-radius: 99px;
+  }
+
+  img {
+    border-radius: 99px;
+  }
+}

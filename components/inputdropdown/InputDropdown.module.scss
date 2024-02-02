@@ -32,6 +32,8 @@
 }
 
 .InputContainer {
+  @include flexbox;
+  gap: 1rem;
   width: 21.7rem;
   height: 4.8rem;
   border-radius: 0.6rem;
@@ -51,6 +53,15 @@
 
   &:hover {
     border: 0.1rem solid $violet-200;
+  }
+
+  input {
+    border: none;
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 
@@ -73,6 +84,16 @@
   margin-left: 3rem;
   border-radius: 1.1rem;
   position: relative;
+
+  div {
+    border-radius: 99px;
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+  img {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
 }
 
 .ProfileImg {
@@ -91,5 +112,5 @@
 .CheckImage {
   display: none;
   position: absolute;
-  right: 7.5rem;
+  right: 9rem;
 }
