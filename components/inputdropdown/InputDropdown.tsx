@@ -1,12 +1,11 @@
 import { useState } from "react";
-
 import clsx from "clsx";
 import styles from "./InputDropdown.module.scss";
 import Image from "next/image";
 import ProfileImage from "../profileImage/ProfileImage";
 
 interface DropdownProps {
-  assigneeData: Assignee[] | null;
+  assigneeData: Assignee[];
 }
 
 interface Assignee {
@@ -40,7 +39,7 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
     }
   };
 
-  const filteredAssigneeData = assigneeData?.filter(item =>
+  const filteredAssigneeData = assigneeData.filter(item =>
     item.assignee.nickname.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
@@ -65,7 +64,6 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
             }
           />
         </div>
-
         <button onClick={toggleDropdown} tabIndex={-1}>
           <Image
             className={clsx(styles.Arrow, { [styles.RotateArrow]: isOpen })}
@@ -78,7 +76,7 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
       </div>
       {isOpen && (
         <ul>
-          {filteredAssigneeData?.map(item => (
+          {filteredAssigneeData.map(item => (
             <li
               key={item.assignee.id}
               onClick={() => handleMenuItemClick(item)}
