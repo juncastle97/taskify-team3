@@ -1,0 +1,43 @@
+.label {
+  @include text-style-16-light();
+}
+
+.inputBox {
+  margin: 0.8rem 0;
+  position: relative;
+}
+
+.input {
+  @include text-style-16-light();
+  width: 52rem;
+  height: 5rem;
+  padding: 1.5rem 1.6rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $gray-300;
+  position: relative;
+
+  &::placeholder {
+    @include text-style-16-light();
+    color: $gray-400;
+  }
+
+  &:focus {
+    outline: 0.1rem solid $violet-200;
+  }
+}
+
+.error {
+  outline: 0.1rem solid $red;
+}
+
+.errorMessage {
+  @include text-style-14-light();
+  color: $red;
+}
+
+.imgWrapper {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+}

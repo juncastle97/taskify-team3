@@ -14,6 +14,7 @@ interface InputProps {
   type?: "email" | "password" | "text";
   placeholder?: string;
   className?: string;
+  id?: string;
   //disabled?: boolean;
 }
 
