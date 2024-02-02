@@ -4,12 +4,94 @@
   border-radius: 0.6rem;
   border: 1px solid $gray-300;
   background-color: $white;
+  position: relative;
+
+  @include column-flexbox(start, start);
+  gap: 1.2rem;
 
   @include tablet {
-    //blabla
+    flex-direction: row;
+    gap: 2rem;
   }
 
   @include mobile {
     padding: 1.2rem;
+    gap: 1rem;
+  }
+}
+
+.cardImage {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+
+  @include tablet {
+    width: 9rem;
+  }
+}
+
+.cardTitle {
+  @include text-style-16-middle();
+  margin-bottom: 1rem;
+
+  @include mobile {
+    margin-bottom: 0.6rem;
+  }
+}
+
+.tagsAndDates {
+  @include column-flexbox(start, start);
+  gap: 1.3rem;
+
+  @include tablet {
+    flex-direction: row;
+    gap: 1.6rem;
+    align-items: center;
+  }
+
+  @include mobile {
+    gap: 1rem;
+  }
+
+  .tags {
+    @include flexbox(start, center);
+    gap: 0.6rem;
+  }
+
+  .dates {
+    @include flexbox();
+    @include text-style-12-middle();
+    color: $gray-500;
+    gap: 0.6rem;
+
+    @include mobile {
+      gap: 0.4rem;
+      font-size: $font-size-10;
+    }
+
+    .calendar {
+      width: 1.8rem;
+      height: 1.8rem;
+
+      @include mobile {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+    }
+  }
+}
+
+.profileImage {
+  position: absolute;
+  width: 2.4rem;
+  height: 2.4rem;
+  right: 2.1rem;
+  bottom: 2.1rem;
+
+  @include mobile {
+    width: 2.2rem;
+    height: 2.2rem;
+    right: 1.3rem;
+    bottom: 1.3rem;
   }
 }
