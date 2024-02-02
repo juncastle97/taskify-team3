@@ -1,31 +1,37 @@
-import ReturnButton from "@/components/button/returnButton/returnButton";
-import EditDashboardTable from "@/components/table/editDashboardTable/editDashboardTable";
+import { useRouter } from "next/router";
 import clsx from "clsx";
 import styles from "@/styles/pages/DashboardEdit.module.scss";
-import MembersDashboardTable from "@/components/table/membersDashboardTable/MembersDashboardTable";
+import { DashboardType } from "@/types/dashboard";
+import { deleteDashboard } from "@/api/dashboards/deleteDashboard";
+import ReturnButton from "@/components/button/returnButton/returnButton";
+import EditDashboardTable from "@/components/tables/editDashboardTable/editDashboardTable";
+import MembersDashboardTable from "@/components/tables/membersDashboardTable/MembersDashboardTable";
+import InviteDashboardTable from "@/components/tables/inviteDashboardTable/InviteDashboardTable";
 import DeleteButton from "@/components/button/deleteButton/DeleteButton";
-import InviteDashboardTable from "@/components/table/inviteDashboardTable/InviteDashboardTable";
-import { useRouter } from "next/router";
 
-function DashboardEdit() {
+function DashboardEdit({ id, title }: DashboardType) {
   const router = useRouter();
 
-  const handleDeleteClick = () => {
-    // [id] 삭제 기능, 삭제 후 "/dashboard"로 이동 로직
-    console.log("대시보드가 삭제되었습니다.");
-    router.push("/dashboard");
+  const handleDeleteClick = async (dashboardId: number) => {
+    await deleteDashboard(dashboardId);
+    router.push(`/dashboard`);
   };
   return (
-    <div className={clsx(styles["layout"])}>
-      <div className={clsx(styles["tables"])}>
+    <div className={clsx(styles.layout)}>
+      <div className={clsx(styles.tables)}>
         <div>
           <ReturnButton />
         </div>
-        <EditDashboardTable data={null} />
-        <MembersDashboardTable assigneeData={null} />
-        <InviteDashboardTable totalCount={0} />
-        <div className={clsx(styles["delete-button"])}>
-          <DeleteButton onClick={handleDeleteClick} />
+        <EditDashboardTable />
+        <MembersDashboardTable />
+        <InviteDashboardTable />
+        <div className={clsx(styles.deleteButton)}>
+          <DeleteButton
+            onClick={() => {
+              alert(`${title}을 삭제하시겠습니까?`);
+              handleDeleteClick(id);
+            }}
+          />
         </div>
       </div>
     </div>

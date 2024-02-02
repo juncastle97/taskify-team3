@@ -1,8 +1,9 @@
+import { MouseEvent } from "react";
 import clsx from "clsx";
 import styles from "./DeleteButton.module.scss";
 
 interface DeleteButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   small?: boolean;
 }
 

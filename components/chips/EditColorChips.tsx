@@ -1,9 +1,9 @@
-import clsx from "clsx";
 import { SetStateAction } from "react";
 import { useForm } from "react-hook-form";
-import styles from "./EditColorChips.module.scss";
-import { COLORS } from "@/constants/color";
 import Image from "next/image";
+import clsx from "clsx";
+import styles from "./EditColorChips.module.scss";
+import { COLORS } from "@/constants/colors";
 import BaseButton from "../button/baseButton/BaseButton";
 
 interface EditColorChipsProps {

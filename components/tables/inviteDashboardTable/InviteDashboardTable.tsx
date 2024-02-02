@@ -1,36 +1,35 @@
-import clsx from "clsx";
 import { useEffect, useState } from "react";
-import styles from "./InviteDashboardTable.module.scss";
-import PagingButton from "@/components/button/pagingButton/PagingButton";
-
 import Image from "next/image";
-import mockInvitations from "@/pages/mydashboard/mockInvitations.json";
-import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
-import { InitialInvitations } from "@/types/invitations";
+import clsx from "clsx";
+import styles from "./InviteDashboardTable.module.scss";
+import { GetDashboardInvitationType } from "@/types/dashboard";
+import { getInvitationList } from "@/api/invitations/getInvitationList";
+import { deleteDashboardInvitation } from "@/api/invitations/deleteInvitaionList";
+import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
+import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
+import InviteModal from "@/components/modal/inviteModal/InviteModal";
+import ModalPortal from "@/components/modal/ModalPortal";
 
-interface Invitee {
-  nickname: string;
-  email: string;
-  id: number;
-}
-
-interface InvitationType {
-  id: number;
-  invitee: Invitee;
-  inviteAccepted: boolean;
-  createdAt: string;
-}
-
-type InvitationTypes = InvitationType[];
-
-function InviteDashboardTable({ totalCount }: InitialInvitations) {
+function InviteDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);
-  // mockdata 연결
-  const [inviteeData, setInviteeData] = useState<InvitationTypes | null>(null);
+  const [invitation, setInvitation] = useState<GetDashboardInvitationType>({
+    totalCount: 0,
+    invitations: [],
+  });
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+    console.log("열림");
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const ITEMS_PER_PAGE = 4;
-  const totalPage = Math.ceil((totalCount || 1) / ITEMS_PER_PAGE);
+  const totalPage = Math.ceil((invitation?.totalCount || 1) / ITEMS_PER_PAGE);
   const handleLeftButtonClick = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
   };
@@ -39,21 +38,21 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPage));
   };
 
-  const handleCancelInvitation = (invitationId: number) => {
-    setInviteeData(prevInviteeData => {
-      if (prevInviteeData) {
-        return prevInviteeData.map(invitation => {
-          if (invitation.id === invitationId) {
-            return {
-              ...invitation,
-              inviteAccepted: false,
-            };
-          }
-          return invitation;
-        });
+  const handleCancelInvitation = async (
+    invitationId: number,
+    invitationNickname: string,
+  ) => {
+    const confirmed = window.confirm(
+      `${invitationNickname}님 초대를 취소하겠습니까?`,
+    );
+
+    if (confirmed) {
+      try {
+        await deleteDashboardInvitation(invitationId);
+      } catch (error) {
+        console.error("초대 삭제에 실패했습니다.", error);
       }
-      return prevInviteeData;
-    });
+    }
   };
 
   useEffect(() => {
@@ -62,17 +61,13 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
   }, [totalPage]);
 
   useEffect(() => {
-    const fetchInviteeData = async () => {
-      try {
-        const result: InvitationTypes = await mockInvitations.invitations;
-        setInviteeData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+    const fetchInviteeData = async (page: number) => {
+      const invitations = await getInvitationList(5, page);
+      setInvitation(invitations);
     };
 
-    fetchInviteeData();
-  }, [inviteeData]);
+    fetchInviteeData(currentPage);
+  }, []);
 
   return (
     <form className={clsx(styles.tableForm)}>
@@ -93,7 +88,7 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
               small
             />
             <div className={clsx(styles.button)}>
-              <BaseButton small>
+              <BaseButton onClick={openModal} small>
                 <div className={clsx(styles.buttonText)}>
                   <Image
                     src="/icons/addImage.svg"
@@ -104,15 +99,16 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
                   {"초대하기"}
                 </div>
               </BaseButton>
+              {isOpen && <InviteModal setIsOpen={setIsOpen} />}
             </div>
           </div>
         </div>
       </div>
-      {mockInvitations.totalCount ? (
+      {invitation?.totalCount ? (
         <>
           <div className={clsx(styles.label)}>이메일</div>
           <ul>
-            {mockInvitations.invitations
+            {invitation.invitations
               ?.sort(
                 (a, b) =>
                   new Date(b.createdAt).getTime() -
@@ -127,12 +123,12 @@ function InviteDashboardTable({ totalCount }: InitialInvitations) {
                       </div>
                       <BaseButton
                         type="button"
-                        onClick={() => {
-                          alert(
-                            `${invitation.invitee.nickname}님 초대를 취소하겠습니까?`,
-                          );
-                          handleCancelInvitation(invitation.id);
-                        }}
+                        onClick={() =>
+                          handleCancelInvitation(
+                            invitation.id,
+                            invitation.invitee.nickname,
+                          )
+                        }
                         small
                         white
                       >

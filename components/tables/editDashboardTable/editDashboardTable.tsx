@@ -1,23 +1,16 @@
-import clsx from "clsx";
-import styles from "./editDashboardTable.module.scss";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import mockData from "@/pages/dashboard/mock.json";
 import Image from "next/image";
-import { COLORS } from "@/constants/color";
-import BaseButton from "@/components/button/baseButton/BaseButton";
-import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
+import clsx from "clsx";
+import styles from "./editDashboardTable.module.scss";
 import { DashboardType } from "@/types/dashboard";
 import { getDashboardInfo } from "@/api/dashboards/getDashboardInfo";
 import { editDashboard } from "@/api/dashboards/editDashboard";
-import { title } from "process";
+import { COLORS } from "@/constants/colors";
+import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
+import BaseButton from "@/components/button/baseButton/BaseButton";
 
-interface Props {
-  dashTitle?: string | undefined;
-  dashColor?: string;
-}
-
-function EditDashboardTable({ dashTitle, dashColor }: Props) {
+function EditDashboardTable() {
   const [dashBoardInfo, setDashBoardInfo] = useState<DashboardType>({
     id: 0,
     title: "",
@@ -55,7 +48,15 @@ function EditDashboardTable({ dashTitle, dashColor }: Props) {
 
   const handleButtonClick = async () => {
     const body = { title: editName, color: selectedColor };
-    await editDashboard(body);
+    const confirmed = window.confirm("대시보드 이름을 변경하시겠습니까?");
+
+    if (confirmed) {
+      try {
+        await editDashboard(body);
+      } catch (error) {
+        console.error("이름 변경에 실패했습니다.", error);
+      }
+    }
   };
 
   const handleEditColorClick = useCallback(
@@ -116,16 +117,10 @@ function EditDashboardTable({ dashTitle, dashColor }: Props) {
           placeholder="뉴 프로젝트"
           value={editName}
           onChange={OnNameChangeHandler}
-          // onFocus={OnFocusInputHandler}
         />
       </div>
       <div className={clsx(styles.button)}>
-        <BaseButton
-          // type="submit"
-          onClick={handleButtonClick}
-          disabled={isNotActive}
-          small
-        >
+        <BaseButton onClick={handleButtonClick} disabled={isNotActive} small>
           변경
         </BaseButton>
       </div>

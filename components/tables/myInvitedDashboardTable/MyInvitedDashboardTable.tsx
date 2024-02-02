@@ -1,7 +1,7 @@
 import styles from "./MyInvitedDashboardTable.module.scss";
 import { MappedInvitations } from "@/types/invitations";
 import SearchBar from "@/components/input/SearchBar";
-import NoInvitation from "@/components/table/myInvitedDashboardTable/NoInvitation";
+import NoInvitation from "@/components/tables/myInvitedDashboardTable/NoInvitation";
 import { ChangeEventHandler, useState } from "react";
 
 interface MyInvitedDashboardTableProps {

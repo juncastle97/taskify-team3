@@ -1,38 +1,24 @@
-import clsx from "clsx";
-import Image from "next/image";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import clsx from "clsx";
 import styles from "./MembersDashboardTable.module.scss";
+import { GetMemberListType } from "@/types/members";
+import { getMemberList } from "@/api/members/getMemberList";
+import { deleteMember } from "@/api/members/deleteMember";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
-import assigneeMockData from "@/pages/dashboard/mockAssignee.json";
-import Button from "@/components/button/baseButton/BaseButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 
-interface Assignee {
-  assignee: {
-    profileImageUrl: string;
-    nickname: string;
-    id: number;
-  };
-}
-
-interface DashboardProps {
-  assigneeData: Assignee[] | null;
-}
-
-const MembersDashboardTable: React.FC<DashboardProps> = () => {
+function MembersDashboardTable() {
   const [currentPage, setCurrentPage] = useState(1);
-  // mockdata 연결
-  const [assigneeData, setAssigneeData] = useState<Assignee[] | null>(null);
-  // swagger 연결
-  // const [dashMember, setDashMember] = useState<GetMemberListResponseType>({
-  //   members: [],
-  //   totalCount: 0,
-  // });
+  const [dashMember, setDashMember] = useState<GetMemberListType | null>({
+    members: [],
+    totalCount: 0,
+  });
 
-  const ITEMS_PER_PAGE = 4;
-  const totalPage = Math.ceil((assigneeData?.length || 1) / ITEMS_PER_PAGE);
+  const ITEMS_PER_PAGE = 5;
+  const totalPage = Math.ceil((dashMember?.totalCount || 1) / ITEMS_PER_PAGE);
 
-  const currentPageData = assigneeData?.slice(
+  const currentPageData = dashMember?.members.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
   );
@@ -45,9 +31,20 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPage));
   };
 
-  const handleDeleteMember = (memberId: number) => {
-    // 데이터 삭제 기능
-    console.log(`Deleting member with ID: ${memberId}`);
+  const handleDeleteMember = async (
+    memberId: number,
+    memberNickname: string,
+  ) => {
+    const confirmed = window.confirm(
+      `${memberNickname}님을 구성원에서 삭제하겠습니까?`,
+    );
+    if (confirmed) {
+      try {
+        await deleteMember(memberId);
+      } catch (error) {
+        console.error("멤버 삭제에 실패했습니다.", error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -56,16 +53,12 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
   }, [totalPage]);
 
   useEffect(() => {
-    const fetchAssigneeData = async () => {
-      try {
-        const result: Assignee[] = await assigneeMockData;
-        setAssigneeData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+    const fetchMemberListData = async (page: number) => {
+      const dashMember = await getMemberList(page, 4);
+      setDashMember(dashMember);
     };
 
-    fetchAssigneeData();
+    fetchMemberListData(currentPage);
   }, []);
 
   return (
@@ -90,17 +83,22 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
       <div className={clsx(styles.label)}>이름</div>
       <ul>
         {currentPageData?.map((member, index) => (
-          <li key={member.assignee.id}>
+          <li key={member.id}>
             <div className={clsx(styles.memberListWrapper)}>
-              <Image
-                src={`${member.assignee.profileImageUrl as string}`}
-                alt="프로필 이미지"
-                width={38}
-                height={38}
-              />
-
+              <div className={clsx(styles.profileImage)}>
+                {member.profileImageUrl ? (
+                  <Image
+                    src={`${member.profileImageUrl as string}`}
+                    alt="프로필 이미지"
+                    width={38}
+                    height={38}
+                  />
+                ) : (
+                  member.nickname[0]
+                )}
+              </div>
               <div className={clsx(styles.memberNickname)}>
-                {member.assignee.nickname}
+                {member.nickname}
               </div>
               {index === 0 && currentPage === 1 ? (
                 <Image
@@ -113,12 +111,9 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
               ) : (
                 <div className={clsx(styles.button)}>
                   <BaseButton
-                    onClick={() => {
-                      alert(
-                        `${member.assignee.nickname}님을 구성원에서 삭제하겠습니까?`,
-                      );
-                      handleDeleteMember(member.assignee.id);
-                    }}
+                    onClick={() =>
+                      handleDeleteMember(member.id, member.nickname)
+                    }
                     small
                     white
                   >
@@ -132,5 +127,5 @@ const MembersDashboardTable: React.FC<DashboardProps> = () => {
       </ul>
     </form>
   );
-};
+}
 export default MembersDashboardTable;

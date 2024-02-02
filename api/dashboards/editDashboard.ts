@@ -1,12 +1,12 @@
 import authInstance from "@/lib/axios";
-import { PutDashboardType } from "@/types/dashboard";
+import { PutDashboardTitleType } from "@/types/dashboard";
 
 /**
  * 대시보드 수정
  */
 export const editDashboard = async (
   // dashboardId: number,
-  data: PutDashboardType,
+  data: PutDashboardTitleType,
 ) => {
   // const response = await authInstance.put(
   //   `/dashboards/${dashboardId}`,

@@ -3,7 +3,7 @@ import { PostLoginRequestType } from "@/types/auth";
 
 export const login = async (data: PostLoginRequestType) => {
   try {
-    const response = await axios.post("/api/vercel/auth/login", data);
+    const response = await axios.post("/auth/login", data);
 
     if (response.status === 201) {
       window.localStorage.setItem("login", response.data.accessToken);

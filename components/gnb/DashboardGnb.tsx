@@ -5,7 +5,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import styles from "./DashboardGnb.module.scss";
 import mockData from "./members.json";
-import { COLORS } from "@/constants/color";
+import { COLORS } from "@/constants/colors";
 
 interface member {
   id: number;

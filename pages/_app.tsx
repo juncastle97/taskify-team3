@@ -7,14 +7,18 @@ import SnbGnb from "@/components/snb&gnb/SnbGnb";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const isAuthRoute = /^\/(login|signup|mydashboard|dashboard|mypage)/.test(router.pathname);
+  const isAuthRoute = /^\/(login|signup|mydashboard|dashboard|mypage)/.test(
+    router.pathname,
+  );
   const isGnbRoute = /^\/(mydashboard|dashboard|mypage)/.test(router.pathname);
 
   return (
     <>
-      {!isAuthRoute && <Gnb />}
-      {isGnbRoute && <SnbGnb />}
-      <Component {...pageProps} />
+      <div id="modal">
+        {!isAuthRoute && <Gnb />}
+        {isGnbRoute && <SnbGnb />}
+        <Component {...pageProps} />
+      </div>
     </>
   );
 }
