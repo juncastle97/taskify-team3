@@ -1,6 +1,6 @@
 export interface InitialInvitations {
   totalCount: number;
-  invitations?: [
+  invitations: [
     {
       id: number;
       inviter: {

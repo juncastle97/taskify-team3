@@ -4,7 +4,7 @@ import { generateRandomColorHexCode } from "@/utils/color";
 
 const CALENDAR_ICON_PATH = "/icons/calendar.svg";
 
-interface DashboardCardProps {
+export interface DashboardCardProps {
   id: number;
   title: string;
   tags: string[];
@@ -30,8 +30,12 @@ const DashboardCard = ({
         <div className={styles.cardTitle}>{title}</div>
         <div className={styles.tagsAndDates}>
           <div className={styles.tags}>
-            {tags.map(tag => (
-              <TagChips tagName={tag} color={generateRandomColorHexCode()} />
+            {tags.map((tag, index) => (
+              <TagChips
+                key={`tags_${index}`}
+                tagName={tag}
+                color={generateRandomColorHexCode()}
+              />
             ))}
           </div>
           <div className={styles.dates}>
