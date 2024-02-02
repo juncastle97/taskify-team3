@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import axios from "@/lib/axios";
-import Image from "next/image";
+import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "./Form.module.scss";
 import clsx from "clsx";
 import AuthInput from "../input/AuthInput";
 import Button from "../button/baseButton/BaseButton";
 import { regEmail, regPassword } from "@/utils/regexp";
+import axios from "@/lib/axios";
+import { useRouter } from "next/router";
 
 interface SignForm {
   email: string;
@@ -25,6 +25,7 @@ const SignInForm = () => {
   } = useForm<SignForm>({ mode: "onBlur" });
   const [passwordInputType, setPasswordInputType] =
     useState<string>("password");
+  const router = useRouter();
 
   const watchEmail = watch("email", "");
   const watchPassword = watch("password", "");
@@ -34,12 +35,21 @@ const SignInForm = () => {
     setPasswordInputType(prev => (prev === "password" ? "text" : "password"));
   };
 
-  const onSubmit = () => {};
+  const onSubmit: SubmitHandler<SignForm> = async data => {
+    try {
+      const response = await axios.post("/auth/login", data);
+      const token = await response.data.accessToken;
+      localStorage.setItem("login", token);
+      router.push("/mydashboard");
+    } catch (error) {
+      alert("로그인 실패");
+    }
+  };
 
   const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (!errors.email && !errors.password && isValid) {
-        handleSubmit(onSubmit)();
+        handleSubmit(onSubmit);
       }
     }
   };
@@ -79,7 +89,12 @@ const SignInForm = () => {
         />
       </div>
       <div className={clsx(styles.signupBtn)}>
-        <Button type="submit" disabled={!watchEmail || !watchPassword || !isValid}>로그인</Button>
+        <Button
+          type="submit"
+          disabled={!watchEmail || !watchPassword || !isValid}
+        >
+          로그인
+        </Button>
       </div>
     </form>
   );
