@@ -1,0 +1,6 @@
+.spinner {
+  @include flexbox;
+
+  max-width: 62rem;
+  height: 25.6rem;
+}

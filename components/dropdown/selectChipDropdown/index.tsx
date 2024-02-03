@@ -1,4 +1,4 @@
-import { useState, MouseEvent, SetStateAction, Dispatch } from "react";
+import { MouseEvent, SetStateAction, Dispatch } from "react";
 import clsx from "clsx";
 import Image from "next/image";
 import styles from "./SelectChipDropdown.module.scss";

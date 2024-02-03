@@ -3,18 +3,23 @@ import Image from "next/image";
 import clsx from "clsx";
 import styles from "./MembersDashboardTable.module.scss";
 import { GetMemberListType } from "@/types/members";
-import { getMemberList } from "@/api/members/getMemberList";
-import { deleteMember } from "@/api/members/deleteMember";
+import { getMemberList, deleteMember } from "@/api/members";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import ProfileImage from "@/components/profileImage/ProfileImage";
+import { useRouter } from "next/router";
+import Spinner from "@/components/spinner";
 
 function MembersDashboardTable() {
+  const router = useRouter();
+  const { id } = router.query;
+  const dashboardId = Number(id);
   const [currentPage, setCurrentPage] = useState(1);
   const [dashMember, setDashMember] = useState<GetMemberListType | null>({
     members: [],
     totalCount: 0,
   });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const ITEMS_PER_PAGE = 5;
   const totalPage = Math.ceil((dashMember?.totalCount || 1) / ITEMS_PER_PAGE);
@@ -42,9 +47,20 @@ function MembersDashboardTable() {
     if (confirmed) {
       try {
         await deleteMember(memberId);
+        MemberListData(currentPage);
       } catch (error) {
         console.error("멤버 삭제에 실패했습니다.", error);
       }
+    }
+  };
+
+  const MemberListData = async (page: number) => {
+    try {
+      const dashMember = await getMemberList(dashboardId, page, 4);
+      setDashMember(dashMember);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("GET 요청 실패 :", error);
     }
   };
 
@@ -54,13 +70,12 @@ function MembersDashboardTable() {
   }, [totalPage]);
 
   useEffect(() => {
-    const fetchMemberListData = async (page: number) => {
-      const dashMember = await getMemberList(page, 4);
-      setDashMember(dashMember);
-    };
+    MemberListData(currentPage);
+  }, [dashboardId]);
 
-    fetchMemberListData(currentPage);
-  }, []);
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <form className={clsx(styles.tableForm)}>
@@ -99,7 +114,7 @@ function MembersDashboardTable() {
                   alt="crown icon"
                 />
               ) : (
-                <div className={clsx(styles.button)}>
+                <div className={clsx(styles.buttons)}>
                   <BaseButton
                     onClick={() =>
                       handleDeleteMember(member.id, member.nickname)

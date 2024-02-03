@@ -1,16 +1,21 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import clsx from "clsx";
-import styles from "./editDashboardTable.module.scss";
+import styles from "./EditDashboardTable.module.scss";
 import { DashboardType } from "@/types/dashboard";
-import { getDashboardInfo } from "@/api/dashboards/getDashboardInfo";
-import { editDashboard } from "@/api/dashboards/editDashboard";
+import { getDashboardInfo } from "@/api/dashboards";
+import { editDashboard } from "@/api/dashboards";
 import { COLORS } from "@/constants/colors";
-import SelectChipDropdown from "@/components/dropdown/selectChipDropdown/SelectChipDropdown";
+import SelectChipDropdown from "@/components/dropdown/selectChipDropdown";
 import BaseButton from "@/components/button/baseButton/BaseButton";
+import Spinner from "@/components/spinner";
 
 function EditDashboardTable() {
+  const router = useRouter();
+  const { id } = router.query;
+  const dashboardId = Number(id);
+  const popupRef = useRef(null);
   const [dashBoardInfo, setDashBoardInfo] = useState<DashboardType>({
     id: 0,
     title: "",
@@ -20,39 +25,30 @@ function EditDashboardTable() {
     createdByMe: false,
     userId: 0,
   });
-
-  const [selectedColor, setSelectedColor] = useState("");
+  const initialColor = dashBoardInfo.color || COLORS.GREEN;
+  const [selectedColor, setSelectedColor] = useState(initialColor);
   const [isNotActive, setIsNotActive] = useState<boolean>(true);
-  const [editName, setEditName] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [editName, setEditName] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const router = useRouter();
-  const { id } = router.query;
-  const dashboardId = Number(id);
-  const initialColor = dashBoardInfo?.color || COLORS.GREEN;
-
-  const OnNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setEditName(value);
     value === "" ? setIsNotActive(true) : setIsNotActive(false);
   };
 
-  // const OnFocusInputHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-  //   setEditName("");
-  // };
-
-  const fetchDashboardData = async () => {
-    const dashBoardData = await getDashboardInfo();
-    setDashBoardInfo(dashBoardData);
-  };
-
   const handleButtonClick = async () => {
     const body = { title: editName, color: selectedColor };
     const confirmed = window.confirm("대시보드 이름을 변경하시겠습니까?");
-
     if (confirmed) {
       try {
-        await editDashboard(body);
+        await editDashboard(dashboardId, body);
+        setDashBoardInfo(prevState => ({
+          ...prevState,
+          title: editName,
+          color: selectedColor,
+        }));
       } catch (error) {
         console.error("이름 변경에 실패했습니다.", error);
       }
@@ -60,8 +56,8 @@ function EditDashboardTable() {
   };
 
   const handleEditColorClick = useCallback(
-    (event: React.MouseEvent<HTMLDivElement>) => {
-      event.stopPropagation();
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      e.stopPropagation();
       setIsOpen(true);
     },
     [],
@@ -73,10 +69,42 @@ function EditDashboardTable() {
   };
 
   useEffect(() => {
-    setSelectedColor(initialColor);
+    const fetchDashboardData = async () => {
+      try {
+        const dashBoardData = await getDashboardInfo(dashboardId);
+        setDashBoardInfo(dashBoardData);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("GET 요청 실패 :", error);
+      }
+    };
+
     fetchDashboardData();
+  }, [dashboardId, dashBoardInfo.title, dashBoardInfo.color]);
+
+  useEffect(() => {
+    setSelectedColor(initialColor);
     setEditName("");
-  }, [dashBoardInfo.title, dashBoardInfo.color]);
+  }, [initialColor]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        popupRef.current &&
+        !(popupRef.current as Node).contains(e.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <form className={clsx(styles.tableForm)}>
@@ -86,7 +114,6 @@ function EditDashboardTable() {
             <div
               className={clsx(styles.chip)}
               style={{ background: selectedColor }}
-              color={selectedColor}
             />
           )}
           {dashBoardInfo?.title}
@@ -103,11 +130,13 @@ function EditDashboardTable() {
             alt="dropdown icon"
           />
           {isOpen && (
-            <SelectChipDropdown
-              onClick={handlePopupClose}
-              selectedColor={selectedColor}
-              setSelectedColor={setSelectedColor}
-            />
+            <div ref={popupRef}>
+              <SelectChipDropdown
+                onClick={handlePopupClose}
+                selectedColor={selectedColor}
+                setSelectedColor={setSelectedColor}
+              />
+            </div>
           )}
         </div>
       </div>
@@ -116,7 +145,7 @@ function EditDashboardTable() {
         <input
           placeholder="뉴 프로젝트"
           value={editName}
-          onChange={OnNameChangeHandler}
+          onChange={onNameChangeHandler}
         />
       </div>
       <div className={clsx(styles.button)}>

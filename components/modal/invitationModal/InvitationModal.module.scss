@@ -2,7 +2,7 @@
   @include column-flexbox(center, start);
   padding: 2rem;
   gap: 2.5rem;
-  width: 35rem;
+  max-width: 35rem;
   height: 22rem;
 
   h1 {
@@ -15,26 +15,22 @@
     width: 100%;
     gap: 0.5rem;
 
-    .emailInput {
-      @include text-style-12-light;
+    input {
+      @include text-style-14-light;
       padding: 1rem;
-      width: 100%;
-    }
-
-    .errorMessage {
-      @include text-style-12-light;
-      color: $red;
+      max-width: 30rem;
     }
   }
+}
 
-  .buttons {
-    @include flexbox;
-    gap: 1rem;
-    padding-left: 13.3rem;
+.buttons {
+  @include flexbox;
+  gap: 1rem;
+  padding-left: 13.3rem;
+  padding-bottom: 2rem;
 
-    Button {
-      width: 8.4rem;
-      height: 3.2rem;
-    }
+  button {
+    width: 8.4rem;
+    height: 3.2rem;
   }
 }

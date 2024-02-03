@@ -1,7 +1,7 @@
 .tableForm {
   @include column-flexbox(start, between);
   max-width: 62rem;
-  height: 36rem;
+  height: 40;
   border-radius: 0.8rem;
   background-color: $white;
   gap: 1rem;

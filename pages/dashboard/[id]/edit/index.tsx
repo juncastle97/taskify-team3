@@ -2,11 +2,11 @@ import { useRouter } from "next/router";
 import clsx from "clsx";
 import styles from "@/styles/pages/DashboardEdit.module.scss";
 import { DashboardType } from "@/types/dashboard";
-import { deleteDashboard } from "@/api/dashboards/deleteDashboard";
+import { deleteDashboard } from "@/api/dashboards";
 import ReturnButton from "@/components/button/returnButton/returnButton";
-import EditDashboardTable from "@/components/tables/editDashboardTable/editDashboardTable";
-import MembersDashboardTable from "@/components/tables/membersDashboardTable/MembersDashboardTable";
-import InviteDashboardTable from "@/components/tables/inviteDashboardTable/InviteDashboardTable";
+import EditDashboardTable from "@/components/tables/editDashboardTable";
+import MembersDashboardTable from "@/components/tables/membersDashboardTable";
+import InvitationDashboardTable from "@/components/tables/invitationDashboardTable";
 import DeleteButton from "@/components/button/deleteButton/DeleteButton";
 
 function DashboardEdit({ id, title }: DashboardType) {
@@ -24,7 +24,7 @@ function DashboardEdit({ id, title }: DashboardType) {
         </div>
         <EditDashboardTable />
         <MembersDashboardTable />
-        <InviteDashboardTable />
+        <InvitationDashboardTable />
         <div className={clsx(styles.deleteButton)}>
           <DeleteButton
             onClick={() => {

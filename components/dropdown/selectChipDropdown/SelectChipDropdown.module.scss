@@ -17,6 +17,12 @@
       position: absolute;
       top: 1rem;
       right: 1rem;
+      margin: 0;
+      padding: 0;
+
+      &:hover {
+        outline: 0.1rem solid $gray-200;
+      }
     }
   }
 }

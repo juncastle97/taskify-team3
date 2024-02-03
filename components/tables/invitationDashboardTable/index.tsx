@@ -1,41 +1,53 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import clsx from "clsx";
-import styles from "./InviteDashboardTable.module.scss";
+import styles from "./InvitationDashboardTable.module.scss";
 import { GetDashboardInvitationType } from "@/types/dashboard";
-import { getInvitationList } from "@/api/invitations/getInvitationList";
-import { deleteDashboardInvitation } from "@/api/invitations/deleteInvitaionList";
+import {
+  getInvitationList,
+  deleteDashboardInvitation,
+} from "@/api/invitations";
+import Spinner from "@/components/spinner";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
-import InviteModal from "@/components/modal/inviteModal/InviteModal";
-import ModalPortal from "@/components/modal/ModalPortal";
+import InviteModal from "@/components/modal/invitationModal";
 
-function InviteDashboardTable() {
+function InvitationDashboardTable() {
+  const router = useRouter();
+  const { id } = router.query;
+  const dashboardId = Number(id);
   const [currentPage, setCurrentPage] = useState(1);
   const [invitation, setInvitation] = useState<GetDashboardInvitationType>({
     totalCount: 0,
     invitations: [],
   });
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const openModal = () => {
     setIsOpen(true);
-    console.log("열림");
   };
 
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
-  const ITEMS_PER_PAGE = 4;
-  const totalPage = Math.ceil((invitation?.totalCount || 1) / ITEMS_PER_PAGE);
+  const ITEMS_PER_PAGE = 5;
+  const totalPage = Math.ceil((invitation.totalCount || 1) / ITEMS_PER_PAGE);
   const handleLeftButtonClick = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
   };
 
   const handleRightButtonClick = () => {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPage));
+  };
+
+  const InvitationData = async (page: number) => {
+    try {
+      const response = await getInvitationList(dashboardId, 5, page);
+      setInvitation(response);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("GET 요청 실패: ", error);
+    }
   };
 
   const handleCancelInvitation = async (
@@ -45,10 +57,10 @@ function InviteDashboardTable() {
     const confirmed = window.confirm(
       `${invitationNickname}님 초대를 취소하겠습니까?`,
     );
-
     if (confirmed) {
       try {
-        await deleteDashboardInvitation(invitationId);
+        await deleteDashboardInvitation(dashboardId, invitationId);
+        InvitationData(currentPage);
       } catch (error) {
         console.error("초대 삭제에 실패했습니다.", error);
       }
@@ -61,13 +73,18 @@ function InviteDashboardTable() {
   }, [totalPage]);
 
   useEffect(() => {
-    const fetchInviteeData = async (page: number) => {
-      const invitations = await getInvitationList(5, page);
-      setInvitation(invitations);
-    };
+    InvitationData(currentPage);
+  }, [dashboardId, invitation.totalCount, currentPage]);
 
-    fetchInviteeData(currentPage);
-  }, []);
+  useEffect(() => {
+    if (!isOpen) {
+      InvitationData(currentPage);
+    }
+  }, [isOpen]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <form className={clsx(styles.tableForm)}>
@@ -115,7 +132,7 @@ function InviteDashboardTable() {
                   new Date(a.createdAt).getTime(),
               )
               .map(invitation => (
-                <li key={invitation.invitee.email}>
+                <li key={invitation.id}>
                   {invitation.invitee && (
                     <div className={clsx(styles.inviteListWrapper)}>
                       <div className={clsx(styles.invitedEmail)}>
@@ -146,4 +163,4 @@ function InviteDashboardTable() {
     </form>
   );
 }
-export default InviteDashboardTable;
+export default InvitationDashboardTable;
