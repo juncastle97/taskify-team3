@@ -46,6 +46,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setUser(data);
     } catch (error) {
       setUser(null);
+      if (!["/login", "/signup"].includes(router.pathname)) router.replace("/");
     }
   };
 

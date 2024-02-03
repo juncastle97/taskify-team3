@@ -19,7 +19,12 @@ function MyDashboard() {
   return (
     <div className={clsx(styles.bg)}>
       <PlusBtn textStyle={"colum16"}>새로운 대시보드</PlusBtn>
-      <button onClick={() => logout()}>로그아웃 테스트</button>
+      <button
+        style={{ backgroundColor: "lightgray", fontSize: "14px" }}
+        onClick={() => logout()}
+      >
+        로그아웃 테스트 버튼
+      </button>
       <MyInvitedDashboardTable
         totalCount={mockInvitations.totalCount}
         invitations={mappedMockInvitations}

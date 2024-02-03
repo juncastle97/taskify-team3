@@ -5,6 +5,8 @@ import clsx from "clsx";
 import styles from "@/styles/pages/Signup.module.scss";
 import SignUpForm from "@/components/form/SignUpForm";
 import { useRouter } from "next/router";
+import { useAuth } from "@/contexts/AuthProvider";
+import { useEffect } from "react";
 
 export interface SignForm {
   email: string;
@@ -14,7 +16,12 @@ export interface SignForm {
 }
 
 const index = () => {
+  const { user } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) router.replace("/mydashboard");
+  });
 
   return (
     <>

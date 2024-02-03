@@ -5,7 +5,17 @@ import styles from "@/styles/pages/Home.module.scss";
 import Footer from "@/components/footer/Footer";
 import Link from "next/link";
 import Button from "@/components/button/baseButton/BaseButton";
+import { useAuth } from "@/contexts/AuthProvider";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 export default function Home() {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) router.replace("/mydashboard");
+  });
+
   return (
     <main className={clsx(styles["main"])}>
       <Head>
