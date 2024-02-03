@@ -3,210 +3,134 @@
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include column-flexbox;
   gap: 3rem;
   margin: 0 2.8rem;
-}
 
-.header-image {
-  width: 100%;
-  max-width: 722px;
-  height: 52vw;
-  max-height: 423px;
-}
-
-.title {
-  font-size: 7.6rem;
-  font-weight: 700;
-  text-align: center;
-
-  @media (min-width: 375px) and (max-width: 766px) {
-    font-size: 4.8rem;
+  img {
+    width: 100%;
+    max-width: 722px;
+    height: 52vw;
+    max-height: 423px;
+    box-shadow: $dropdown-shadow;
   }
-}
 
-.title-purple {
-  color: $violet-200;
-}
+  .title {
+    @include mobile {
+      font-size: 4.8rem;
+    }
+    @include tablet {
+      font-size: 4.8rem;
+    }
+    font-size: 7.6rem;
+    font-weight: 700;
+    text-align: center;
+  }
 
-.login {
-  width: 28rem;
-  padding: 1.5rem 0;
-  font-size: 1.6rem;
-  color: $white;
-  background-color: $violet-200;
-  border-radius: 0.8rem;
+  .titlePurple {
+    color: $violet-200;
+  }
+
+  button {
+    width: 28rem;
+    padding: 1.5rem 0;
+    margin-bottom: 10rem;
+  }
 }
 
 .section {
-  display: flex;
-  flex-direction: column;
+  @include column-flexbox;
+  width: 100%;
   gap: 3.6rem;
-  margin: 3rem;
-  align-items: center;
+  padding: 0 3rem;
 
-  @media (min-width: 375px) and (max-width: 1200px) {
-    margin: 1.6rem;
+  .mainCard1 {
+    @include flexbox(between, start);
   }
-}
 
-.main-card-1 {
-  display: flex;
-  justify-content: space-between;
-  margin: 4rem 0;
-  padding-top: 10rem;
-  border-radius: 0.8rem;
-  background-color: $violet-100;
-  width: 120rem;
-
-  @media (min-width: 375px) and (max-width: 1200px) {
+  .mainCard2 {
     display: flex;
-    flex-direction: column;
-    gap: 10rem;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin: 4rem 0;
+  }
+
+  .mainCard1,
+  .mainCard2 {
+    padding-top: 10rem;
+    border-radius: 0.8rem;
+    background-color: $violet-100;
     width: 100%;
+    box-shadow: $dropdown-shadow;
+    gap: 5rem;
+
+    @media (max-width: 1100px) {
+      @include column-flexbox;
+      gap: 5rem;
+    }
   }
-}
 
-.main-card-2 {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  margin: 4rem 0;
-  padding-top: 10rem;
-  border-radius: 0.8rem;
-  background-color: $violet-100;
-  width: 120rem;
+  .mainCardText {
+    @include column-flexbox(start, start);
+    gap: 5rem;
+    margin-left: 10rem;
 
-  @media (min-width: 375px) and (max-width: 1200px) {
-    display: flex;
-    flex-direction: column;
-    gap: 10rem;
-    width: 100%;
+    @media (max-width: 1100px) {
+      margin: auto;
+    }
+
+    .point {
+      color: $gray-500;
+      font-size: 2.2rem;
+    }
+
+    .description {
+      font-size: 4.8rem;
+      font-weight: 700;
+
+      @media (max-width: 1100px) {
+        font-size: 3.6rem;
+        text-align: center;
+      }
+    }
   }
-}
 
-.main-card-text {
-  display: flex;
-  flex-direction: column;
-  gap: 8rem;
-  margin-left: 10rem;
+  .mainImage1 {
+    width: 80vw;
+    height: 65vw;
+    max-width: 594px;
+    max-height: 497px;
 
-  @media (min-width: 375px) and (max-width: 766px) {
-    margin: auto;
+    @media (max-width: 1100px) {
+      float: right;
+    }
   }
-}
 
-.point {
-  color: $gray-500;
-  font-size: 2.2rem;
-}
+  .mainImage2 {
+    width: 58vw;
+    height: 64vw;
+    max-width: 436px;
+    max-height: 502px;
 
-.description {
-  font-size: 4.8rem;
-  font-weight: 700;
-
-  @media (min-width: 375px) and (max-width: 766px) {
-    font-size: 3.6rem;
-    text-align: center;
+    @media (max-width: 1100px) {
+      float: none;
+      margin: auto;
+    }
   }
-}
 
-.main-image-1 {
-  width: 80vw;
-  height: 65vw;
-  max-width: 594px;
-  max-height: 497px;
-  @media (min-width: 375px) and (max-width: 1200px) {
-    float: right;
+  .config {
+    @include column-flexbox;
+    gap: 3.3rem;
+    padding-bottom: 9rem;
   }
-}
 
-.main-image-2 {
-  width: 58vw;
-  height: 64vw;
-  max-width: 436px;
-  max-height: 502px;
+  .configTitle {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: left;
 
-  @media (min-width: 375px) and (max-width: 1200px) {
-    float: none;
-    margin: auto;
+    @media (max-width: 1100px) {
+      text-align: center;
+    }
   }
-}
-
-.config {
-  display: flex;
-  flex-direction: column;
-  gap: 3.3rem;
-  padding-bottom: 9rem;
-}
-
-.config-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  text-align: left;
-
-  @media (min-width: 375px) and (max-width: 1200px) {
-    text-align: center;
-  }
-}
-
-.config-cards {
-  display: flex;
-  gap: 3.3rem;
-
-  @media (min-width: 375px) and (max-width: 1200px) {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-.config-container {
-  display: flex;
-  align-items: center;
-  gap: 3.3rem;
-}
-
-.config-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.config-card-image-container {
-  position: relative;
-  background-color: $gray-200;
-  width: 37.8rem;
-  height: 26rem;
-  border-radius: 0.8rem 0.8rem 0 0;
-
-  @media (min-width: 375px) and (max-width: 766px) {
-    width: 34.3rem;
-  }
-}
-
-.config-card-image {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.config-description-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding: 3.2rem;
-  background-color: $violet-100;
-  border-radius: 0 0 0.8rem 0.8rem;
-}
-
-.config-sub-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
-.config-description {
-  font-size: 1.6rem;
-  font-weight: 600;
 }

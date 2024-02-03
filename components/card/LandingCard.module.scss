@@ -1,0 +1,53 @@
+.configCards {
+  @include flexbox;
+  gap: 3.3rem;
+
+  @media (max-width: 1250px) {
+    @include column-flexbox;
+  }
+
+  .configContainer {
+    @include flexbox;
+    gap: 3rem;
+
+    .configCard {
+      @include column-flexbox;
+      box-shadow: $dropdown-shadow;
+
+      .configCardImageContainer {
+        position: relative;
+        background-color: $gray-200;
+        width: 37.8rem;
+        height: 26rem;
+        border-radius: 0.8rem 0.8rem 0 0;
+
+        @media (max-width: 1100px) {
+          width: 34.3rem;
+        }
+
+        img {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+  .configDescriptionContainer {
+    @include column-flexbox(center, start);
+    gap: 1.5rem;
+    padding: 3.2rem;
+    background-color: $violet-100;
+    border-radius: 0 0 0.8rem 0.8rem;
+    width: 100%;
+
+    .configSubTitle {
+      @include text-style-18-bold;
+    }
+
+    .configDescription {
+      @include text-style-16-bold;
+    }
+  }
+}
