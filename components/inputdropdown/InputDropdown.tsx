@@ -39,7 +39,7 @@ const InputDropdown: React.FC<DropdownProps> = ({ assigneeData }) => {
     }
   };
 
-  const filteredAssigneeData = assigneeData.filter(item =>
+  const filteredAssigneeData = assigneeData?.filter(item =>
     item.assignee.nickname.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
