@@ -6,7 +6,7 @@ import AuthInput from "../input/AuthInput";
 import Button from "../button/baseButton/BaseButton";
 import { regEmail, regPassword } from "@/utils/regexp";
 import axios from "@/lib/axios";
-import { useRouter } from "next/router";
+import { useAuth } from "@/contexts/AuthProvider";
 
 interface SignForm {
   email: string;
@@ -25,7 +25,7 @@ const SignInForm = () => {
   } = useForm<SignForm>({ mode: "onBlur" });
   const [passwordInputType, setPasswordInputType] =
     useState<string>("password");
-  const router = useRouter();
+  const { login } = useAuth();
 
   const watchEmail = watch("email", "");
   const watchPassword = watch("password", "");
@@ -37,10 +37,7 @@ const SignInForm = () => {
 
   const onSubmit: SubmitHandler<SignForm> = async data => {
     try {
-      const response = await axios.post("/auth/login", data);
-      const token = await response.data.accessToken;
-      localStorage.setItem("login", token);
-      router.push("/mydashboard");
+      await login(data);
     } catch (error) {
       if (error.response) {
         alert(error.response.data.message);
