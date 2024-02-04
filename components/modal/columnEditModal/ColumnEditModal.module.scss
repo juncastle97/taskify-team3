@@ -1,0 +1,46 @@
+.modalWrapper {
+  @include column-flexbox(start, start);
+  padding: 3.2rem 2.8rem;
+  width: 54rem;
+  height: 27.6rem;
+
+  h1 {
+    @include text-style-20-bold;
+    padding-bottom: 3.2rem;
+  }
+
+  .nameWrapper {
+    @include column-flexbox(start, start);
+    @include text-style-18-middle;
+    width: 100%;
+    gap: 1rem;
+    margin-bottom: 3.2rem;
+    .input {
+      @include text-style-16-middle;
+      border-radius: 6px;
+      border: 1px solid $gray-300;
+      padding: 1.5rem;
+      width: 100%;
+    }
+  }
+
+  .buttons {
+    @include flexbox(between, center);
+    width: 100%;
+    gap: 18rem;
+
+    Button {
+      width: 12rem;
+      height: 4.8rem;
+    }
+    .delText {
+      @include text-style-14-light;
+      color: $gray-400;
+      text-decoration-line: underline;
+    }
+    .base {
+      @include flexbox;
+      gap: 12px;
+    }
+  }
+}

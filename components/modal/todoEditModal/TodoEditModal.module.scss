@@ -1,0 +1,66 @@
+.modalWrapper {
+  @include column-flexbox(start, start);
+  padding: 3.2rem 2.8rem;
+  // gap: 2.5rem;
+  width: 50rem;
+  height: 85.7rem;
+
+  h1 {
+    @include text-style-24;
+  }
+
+  .inputWrapper {
+    @include column-flexbox(start, start);
+    @include text-style-18-middle;
+    width: 100%;
+    margin: 3.2rem 0 2.8rem;
+    gap: 3.2rem;
+    .star {
+      color: $violet-200;
+    }
+    .flexWrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 1.6rem;
+    }
+
+    .input {
+      @include text-style-16-light;
+      border-radius: 6px;
+      border: 1px solid $gray-300;
+      padding: 1rem;
+      width: 45rem;
+    }
+
+    textarea {
+      height: 9.6rem;
+      resize: none;
+    }
+
+    .errorMessage {
+      @include text-style-12-light;
+      color: $red;
+    }
+  }
+
+  .buttons {
+    @include flexbox(end, end);
+    gap: 1.2rem;
+    padding-left: 20.3rem;
+
+    Button {
+      width: 12rem;
+      height: 4.8rem;
+    }
+  }
+  .img {
+    width: 7.6rem;
+    height: 7.6rem;
+    padding: 2.4rem;
+    background-color: #f5f5f5;
+    justify-content: center;
+    align-items: center;
+    top: 0%;
+    right: 0%;
+  }
+}

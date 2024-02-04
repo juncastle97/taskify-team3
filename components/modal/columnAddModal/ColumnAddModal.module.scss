@@ -1,0 +1,42 @@
+.modalWrapper {
+  @include column-flexbox(start, start);
+  padding: 3.2rem 2.8rem;
+  width: 54rem;
+  height: 27.6rem;
+
+  h1 {
+    @include text-style-20-bold;
+    padding-bottom: 3.2rem;
+  }
+
+  .nameWrapper {
+    @include column-flexbox(start, start);
+    @include text-style-18-middle;
+    width: 100%;
+    gap: 1.5rem;
+    margin-bottom: 2.8rem;
+    .nameInput {
+      @include text-style-16-middle;
+      border-radius: 6px;
+      border: 1px solid $gray-300;
+      padding: 1.5rem;
+      width: 100%;
+    }
+
+    .errorMessage {
+      @include text-style-12-light;
+      color: $red;
+    }
+  }
+
+  .buttons {
+    @include flexbox(end, end);
+    width: 100%;
+    gap: 1rem;
+
+    Button {
+      width: 12rem;
+      height: 4.8rem;
+    }
+  }
+}
