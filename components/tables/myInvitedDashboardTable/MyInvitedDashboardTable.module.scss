@@ -1,9 +1,17 @@
 .wrapper {
-  width: 102.2rem;
+  width: 100%;
   min-height: 40rem;
   padding: 3.2rem 2.8rem;
   border-radius: 0.8rem;
   background-color: $white;
+
+  @include desktop {
+    width: 102.2rem;
+  }
+
+  @include mobile {
+    padding: 2.4rem 1.6rem;
+  }
 }
 
 .title {

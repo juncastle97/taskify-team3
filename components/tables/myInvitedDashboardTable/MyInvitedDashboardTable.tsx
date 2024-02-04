@@ -3,13 +3,13 @@ import { MappedInvitations } from "@/types/invitations";
 import SearchBar from "@/components/input/SearchBar";
 import NoInvitation from "@/components/tables/myInvitedDashboardTable/NoInvitation";
 import { ChangeEventHandler, useState } from "react";
+import AcceptButton from "@/components/tables/myInvitedDashboardTable/AcceptButton";
 
 interface MyInvitedDashboardTableProps {
   totalCount: number;
   invitations: MappedInvitations;
 }
 
-/** @TODO mydashboard 페이지에서 데이터 api로 받기 (/{teamId}/invitations) */
 const MyInvitedDashboardTable = ({
   totalCount,
   invitations: initialInvitations,
@@ -44,11 +44,12 @@ const MyInvitedDashboardTable = ({
             </thead>
             <tbody>
               {invitations.map(invitation => (
-                /** @TODO 수락/거절 버튼 컴포넌트 완성되면 적용하기 */
                 <tr key={invitation.id}>
                   <td>{invitation.dashboard}</td>
                   <td>{invitation.inviter}</td>
-                  <td>{invitation.inviteAccepted ? "수락" : "거절"}</td>
+                  <td>
+                    <AcceptButton isAccepted={invitation.inviteAccepted} />
+                  </td>
                 </tr>
               ))}
             </tbody>
