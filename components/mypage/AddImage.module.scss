@@ -4,10 +4,22 @@
   width: 18.2rem;
   height: 18.2rem;
   border-radius: 6%;
+
+  @include mobile {
+    width: 10rem;
+    height: 10rem;
+    margin-top: 2.4rem;
+    margin-bottom: 2.4rem;
+  }
   .addImageIcon {
     position: absolute;
     top: 42%;
     right: 42%;
+    @include mobile {
+      top: 35%;
+      right: 40%;
+      width: 20px;
+    }
   }
 }
 .imageContainer {

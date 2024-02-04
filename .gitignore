@@ -35,4 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vscode
+.vscodepathtonpm-cache/_logs/
+pathtonpm-cache/_logs/

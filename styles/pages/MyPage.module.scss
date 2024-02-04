@@ -1,5 +1,6 @@
 .all {
   @include background();
+  margin: 0;
   display: flex;
   .sideBar {
     width: 30rem;
@@ -9,24 +10,33 @@
   }
   .PageContainer {
     background: $gray-100;
-    nav {
-      background-color: $white;
-      width: 100%;
-      padding: 2.3rem 151rem 2.3rem 4rem;
-      border-bottom: 0.1rem solid $gray-300;
-      span {
-        @include text-style-20-bold();
-        color: $black-200;
-      }
-    }
+
     main {
       padding: 0 0 12.5rem 2rem;
-
+      .modal {
+        @include text-style-18-middle();
+        width: 54rem;
+        height: 25rem;
+        color: $black-200;
+        text-align: center;
+        padding-top: 10.8rem;
+        Button {
+          @include flexbox(center, center);
+          display: flex;
+          width: 12rem;
+          height: 4.8rem;
+          padding: 1.4rem 4.6rem;
+          gap: 1rem;
+          margin: 4.5rem 2.8rem 2.8rem 39.2rem;
+        }
+      }
       .back {
         margin: 2rem 0 2.5rem 2rem;
         display: flex;
         gap: 0.6rem;
-
+        @include mobile {
+          margin: 1.6rem 0 2rem 1.2rem;
+        }
         span {
           @include text-style-16-middle();
           color: $black-200;
@@ -38,28 +48,47 @@
       padding: 3.2rem 2.8rem 2.8rem 2.8rem;
       width: 62rem;
       border-radius: 0.8rem;
-
+      @include tablet {
+        width: 54.4rem;
+      }
+      @include mobile {
+        width: 100%;
+        height: 44.2rem;
+        padding: 2.8rem 2rem 0rem 2rem;
+      }
       .profile {
         @include text-style-24();
         color: $black-200;
         margin-bottom: 3.2rem;
+        @include mobile {
+          @include text-style-20-bold();
+        }
       }
       .section1Contents {
         display: flex;
         gap: 1.6rem;
-        Image {
+        @include mobile {
+          display: block;
+          margin-bottom: 12rem;
+        }
+        .Image {
           margin-left: 2.8rem;
           margin-bottom: 8rem;
         }
         form {
           display: flex;
           flex-direction: column;
+
           label {
             @include text-style-18-middle();
             color: $black-200;
+            @include mobile {
+              @include text-style-16-middle();
+            }
           }
           input {
             @include text-style-16-light();
+
             margin-top: 1rem;
 
             border-radius: 0.6rem;
@@ -81,9 +110,20 @@
             &.error {
               border: 1px solid red; /* 빨간색 border로 변경 */
             }
+            @include tablet {
+              width: 29rem;
+            }
+            @include mobile {
+              width: 24.4rem;
+              height: 4.2rem;
+              margin-bottom: 1.6rem;
+            }
           }
           .nickNameLabel {
             margin-top: 2rem;
+            @include mobile {
+              margin-top: 0;
+            }
           }
           small {
             color: var(--red-red_D6173A, #d6173a);
@@ -102,6 +142,14 @@
             height: 3.2rem;
             margin-left: 28.2rem;
             text-align: center;
+            @include tablet {
+              margin-left: 20.6rem;
+            }
+            @include mobile {
+              margin-top: 0;
+              margin-left: 16rem;
+              height: 2.8rem;
+            }
           }
         }
       }
@@ -113,6 +161,9 @@
       width: 62rem;
       border-radius: 0.8rem;
 
+      @include tablet {
+        width: 54.4rem;
+      }
       .changePassword {
         @include text-style-24();
         color: $black-200;
@@ -146,6 +197,12 @@
           &.error {
             border: 1px solid red; /* 빨간색 border로 변경 */
           }
+          @include tablet {
+            width: 48.8rem;
+          }
+          @include mobile {
+            margin-bottom: 1.6rem;
+          }
         }
         small {
           color: var(--red-red_D6173A, #d6173a);
@@ -169,6 +226,9 @@
           border-radius: 4px;
           padding: 0.8rem 3rem;
           text-align: center;
+          @include tablet {
+            margin-left: 40.4rem;
+          }
         }
       }
     }

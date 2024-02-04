@@ -21,3 +21,25 @@ export interface PutDashboardType {
 export interface PostProfileImageType {
   profileImageUrl: string | null;
 }
+export interface GetUserInfoType {
+  email: string;
+  nickname: string;
+  profileImageUrl: string | null;
+}
+export interface GetProfileImageType {
+  profileImageUrl: string | null;
+}
+export interface PutPasswordType {
+  password: string;
+  newPassword: string;
+}
+
+export interface PutUserInfoProps {
+  nickname?: string;
+  profileImageUrl?: string | null;
+}
+
+export interface PutPasswordInfoProps {
+  password: string;
+  newPassword: string;
+}

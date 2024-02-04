@@ -2,10 +2,17 @@ import Image from "next/image";
 import clsx from "clsx";
 import { useRef, ChangeEvent, useEffect, useState } from "react";
 import styles from "@/components/mypage/AddImage.module.scss";
+import axios from "@/lib/axios";
 
-function AddImage() {
+interface AddImageProp {
+  profileImageUrl: string | null;
+  onImageUpload?: (imageUrl: string) => void | null;
+}
+
+function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -14,12 +21,20 @@ function AddImage() {
   };
 
   // 파일 입력 요소의 값이 변경되면 호출되는 함수
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     // 선택한 파일 정보를 콘솔에 출력
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      console.log(selectedFile);
-      PreviewImage(selectedFile);
+    const file = e.target.files?.[0];
+    if (file) {
+      console.log(file);
+      PreviewImage(file);
+      setSelectedFile(file);
+      const response = await postImageUrl(file);
+      if (onImageUpload) {
+        onImageUpload(response);
+      }
+    } else {
+      setPreviewImage(null);
+      setSelectedFile(null);
     }
   };
 
@@ -30,6 +45,28 @@ function AddImage() {
       setPreviewImage(imageDataURL);
     };
     preview.readAsDataURL(file);
+  };
+
+  // Post API
+  const postImageUrl = async (data: File) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", data);
+
+      // 이미지 업로드를 위한 POST 요청
+      const response = await axios.post("users/me/image", formData);
+
+      const imageURL = response.data.profileImageUrl;
+      if (onImageUpload) {
+        onImageUpload(imageURL);
+      }
+      console.log(imageURL);
+
+      return imageURL;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   };
 
   return (
@@ -47,11 +84,11 @@ function AddImage() {
             onChange={handleChange}
             style={{ display: "none" }}
           />
-          {previewImage ? (
-            <Image
+          {profileImageUrl ? (
+            <img
               id="user_image"
               className={clsx(styles.upload, styles.previewImage)}
-              src={previewImage}
+              src={previewImage || profileImageUrl}
               alt="이미지"
               width={182}
               height={182}
