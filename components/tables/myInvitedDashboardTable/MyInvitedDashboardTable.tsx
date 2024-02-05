@@ -15,16 +15,25 @@ const MyInvitedDashboardTable = ({
   invitations: initialInvitations,
 }: MyInvitedDashboardTableProps) => {
   const [invitations, setInvitations] = useState(initialInvitations);
+  const [filteredInvitations, setFilteredInvitations] =
+    useState(initialInvitations);
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
     const input = e.target.value;
 
-    setInvitations(
-      initialInvitations.filter(
+    setFilteredInvitations(
+      invitations.filter(
         invitation =>
           invitation.dashboard.includes(input) ||
           invitation.inviter.includes(input),
       ),
+    );
+  };
+
+  const handleButtonClick = (id: number) => {
+    setInvitations(prev => prev.filter(invitation => invitation.id !== id));
+    setFilteredInvitations(prev =>
+      prev.filter(invitation => invitation.id !== id),
     );
   };
 
@@ -43,12 +52,14 @@ const MyInvitedDashboardTable = ({
               </tr>
             </thead>
             <tbody>
-              {invitations.map(invitation => (
+              {filteredInvitations.map(invitation => (
                 <tr key={invitation.id}>
                   <td>{invitation.dashboard}</td>
                   <td>{invitation.inviter}</td>
                   <td>
-                    <AcceptButton isAccepted={invitation.inviteAccepted} />
+                    <AcceptButton
+                      onClick={() => handleButtonClick(invitation.id)}
+                    />
                   </td>
                 </tr>
               ))}

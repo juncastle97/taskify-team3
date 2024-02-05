@@ -7,15 +7,17 @@
   width: 8.4rem;
   height: 3.2rem;
   border-radius: 0.4rem;
-  color: $violet-200;
-  background-color: $white;
-  border: 1px solid $gray-300;
   @include flexbox();
   @include text-style-14-middle();
 }
 
-.select {
+.accept {
   background-color: $violet-200;
   color: $white;
-  border: none;
+}
+
+.deny {
+  color: $violet-200;
+  background-color: $white;
+  border: 1px solid $gray-300;
 }
