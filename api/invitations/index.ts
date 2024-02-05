@@ -6,8 +6,8 @@ import { PostDashboardInvitationType } from "@/types/dashboard";
  */
 export const getInvitationList = async (
   dashboardId: number,
-  size: number,
-  page: number,
+  size?: number,
+  page?: number,
 ) => {
   const response = await axios.get(
     `/dashboards/${dashboardId}/invitations?page=${page}&size=${size}`,
@@ -40,5 +40,13 @@ export const deleteDashboardInvitation = async (
     `/dashboards/${dashboardId}/invitations/${invitationId}`,
   );
 
+  return response.data;
+};
+
+/**
+ * 초대된 이메일 중복 확인
+ */
+export const checkEmailExists = async (dashboardId: number) => {
+  const response = await axios.get(`/dashboards/${dashboardId}/invitations`);
   return response.data;
 };

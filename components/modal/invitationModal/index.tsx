@@ -6,7 +6,11 @@ import style from "./InvitationModal.module.scss";
 import AuthInput from "@/components/input/AuthInput";
 import { useForm } from "react-hook-form";
 import { regEmail } from "@/utils/regexp";
-import { inviteDashboard } from "@/api/invitations";
+import {
+  checkEmailExists,
+  getInvitationList,
+  inviteDashboard,
+} from "@/api/invitations";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import { useRouter } from "next/router";
 
@@ -32,15 +36,26 @@ function InviteModal({ setIsOpen }: InviteModalProps) {
     if (!email) {
       alert("이메일을 입력해 주세요.");
     } else {
-      const confirmed = window.confirm(`${email}님을 초대하시겠습니까?`);
-      if (confirmed) {
-        try {
-          await inviteDashboard(dashboardId, { email });
-          setIsOpen(false);
-        } catch (error) {
-          setError("email", {
-            message: "이메일을 확인해주세요.",
-          });
+      const emailExists = await checkEmailExists(dashboardId);
+      const invitationExists = emailExists.invitations.some(
+        (invitation: { invitee: { email: string } }) =>
+          invitation.invitee.email === email,
+      );
+
+      if (invitationExists) {
+        alert("이미 등록된 이메일입니다. 다른 이메일을 사용해주세요.");
+      } else {
+        const confirmed = window.confirm(`${email}님을 초대하시겠습니까?`);
+        console.log(emailExists);
+        if (confirmed) {
+          try {
+            await inviteDashboard(dashboardId, { email });
+            setIsOpen(false);
+          } catch (error) {
+            setError("email", {
+              message: "이메일을 확인해주세요.",
+            });
+          }
         }
       }
     }

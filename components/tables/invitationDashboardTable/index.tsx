@@ -26,12 +26,13 @@ function InvitationDashboardTable() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const ITEMS_PER_PAGE = 5;
+  const totalPage = Math.ceil((invitation.totalCount || 1) / ITEMS_PER_PAGE);
+
   const openModal = () => {
     setIsOpen(true);
   };
 
-  const ITEMS_PER_PAGE = 5;
-  const totalPage = Math.ceil((invitation.totalCount || 1) / ITEMS_PER_PAGE);
   const handleLeftButtonClick = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
   };
