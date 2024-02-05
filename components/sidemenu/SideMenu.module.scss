@@ -61,3 +61,13 @@
 .dashboardList {
   @include text-style-18-middle();
 }
+
+.pageBtnWrapper {
+  @include text-style-14-light();
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+}

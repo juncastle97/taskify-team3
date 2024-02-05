@@ -2,6 +2,15 @@ import axios from "@/lib/axios";
 import { PutDashboardTitleType } from "@/types/dashboard";
 
 /**
+ * 대시보드 목록 조회
+ */
+export const getDashboardList = async (page: number, size: number,) => {
+  const response = await axios.get(
+    `/dashboards?navigationMethod=pagination&page=${page}&size=${size}`,
+  );
+  return response.data;
+};
+/**
  * 대시보드 상세 조회
  */
 export const getDashboardInfo = async (dashboardId: number) => {

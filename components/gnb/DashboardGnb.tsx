@@ -4,23 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
 import styles from "./DashboardGnb.module.scss";
-import mockData from "./members.json";
 import { COLORS } from "@/constants/colors";
-
-interface member {
-  id: number;
-  nickname: string;
-  profileImageUrl: string | null;
-  createdAt: string;
-  updatedAt: string;
-  isOwner: boolean;
-  userId: number;
-}
-
-interface DashboardGnbProps {
-  members: member[];
-  totalCount: number;
-}
+import { useAuth } from "@/contexts/AuthProvider";
+import { getMyInfo } from "@/api/users";
+import { getMemberList } from "@/api/members";
+import { getDashboardInfo } from "@/api/dashboards";
+import { UserType } from "@/types/users";
+import ProfileImage from "../profileImage/ProfileImage";
 
 interface Colors {
   GREEN: string;
@@ -30,47 +20,101 @@ interface Colors {
   PINK: string;
 }
 
-const DashboardGnb: React.FC<DashboardGnbProps> = () => {
-  const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+interface DashMemberType {
+  members: UserType[];
+  totalCount: number;
+}
 
-  const [data, setData] = useState<DashboardGnbProps | null>(null);
+const DashboardGnb = () => {
+  const { logout } = useAuth();
+  const router = useRouter();
+  const currentDashboardId = Number(router.query.id);
+
+  const isMyPage = router.pathname === "/mypage";
+  const isDashboardRoute = /^\/dashboard/.test(router.pathname);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [myInfo, setMyInfo] = useState<{
+    nickname: string;
+    profileImageUrl: string | null;
+  }>({
+    nickname: "",
+    profileImageUrl: null,
+  });
+  const [dashMember, setDashMember] = useState<DashMemberType | undefined>();
+  const [dashboardTitle, setDashboardTitle] = useState<{ title: string }>({
+    title: "",
+  });
+
+  //api
+  const getMyInfoData = async () => {
+    try {
+      const response = await getMyInfo();
+      setMyInfo(response);
+    } catch (error) {
+      console.error("내 정보 불러오기 실패", error);
+    }
+  };
+
+  const MemberListData = async (dashboardId: number) => {
+    try {
+      const dashMemberData = await getMemberList(dashboardId);
+      setDashMember(dashMemberData);
+    } catch (error) {
+      console.error("멤버 목록 불러오기 실패", error);
+    }
+  };
+
+  const DashboardTitleData = async (dashboardId: number) => {
+    try {
+      const response = await getDashboardInfo(dashboardId);
+      setDashboardTitle(response);
+    } catch (error) {
+      console.error("대시보드 타이틀 불러오기 실패", error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      await Promise.all([
+        MemberListData(currentDashboardId),
+        DashboardTitleData(currentDashboardId),
+      ]);
+    } catch (error) {
+      console.error("데이터 불러오기 실패", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result: DashboardGnbProps = await mockData;
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    getMyInfoData();
+    if (currentDashboardId) {
+      fetchData();
+    }
+  }, [currentDashboardId]);
 
   const handleKebab = () => {
     setIsOpen(!isOpen);
   };
 
   const handleLogout = () => {
-    // 로그아웃 클릭 시 수행할 동작
+    logout();
   };
 
-  const isDashboardRoute = /^\/(dashboard)/.test(router.pathname);
-  const isEditPage = router.pathname === "/mypage";
-
-  function getRandomColor(): string {
+  const getRandomColor = (): string => {
     const colorKeys: (keyof Colors)[] = Object.keys(COLORS) as (keyof Colors)[];
     const randomIndex = Math.floor(Math.random() * colorKeys.length);
     const selectedColorKey = colorKeys[randomIndex];
     return COLORS[selectedColorKey];
-  }
+  };
 
   return (
     <div className={clsx(styles.gnb)}>
       <div className={clsx(styles.dashboardTitle)}>
-        {isEditPage ? "계정 관리" : "내 대시보드"}
+        {isDashboardRoute
+          ? `${dashboardTitle.title}`
+          : isMyPage
+            ? "계정 관리"
+            : "내 대시보드"}
       </div>
       <div className={clsx(styles.wrapper)}>
         {isDashboardRoute && (
@@ -94,7 +138,7 @@ const DashboardGnb: React.FC<DashboardGnbProps> = () => {
               <span>초대하기</span>
             </button>
             <div className={clsx(styles.memberWrapper)}>
-              {data?.members.slice(0, 4).map(member => (
+              {dashMember?.members.slice(0, 4).map(member => (
                 <div
                   key={member.id}
                   className={clsx(styles.invitee)}
@@ -108,23 +152,22 @@ const DashboardGnb: React.FC<DashboardGnbProps> = () => {
                   {member.nickname.charAt(0).toUpperCase()}
                 </div>
               ))}
-              {(data?.members?.length || 0) > 4 &&
-                data?.totalCount !== undefined && (
+              {(dashMember?.members.length || 0) > 4 &&
+                dashMember?.totalCount !== undefined && (
                   <div className={clsx(styles.totalCount)}>
-                    +{data.totalCount - 4}
+                    +{dashMember.totalCount - 4}
                   </div>
                 )}
             </div>
           </div>
         )}
         <div className={clsx(styles.profile)} onClick={handleKebab}>
-          <Image
-            src="/icons/testProfileImg.svg"
-            width={38}
-            height={38}
-            alt="프로필 이미지"
-          />
-          <div className={clsx(styles.user)}>배유철</div>
+          <ProfileImage member={myInfo} width={38} height={38} />
+          <div className={clsx(styles.user)}>
+            {myInfo.nickname && myInfo.nickname.length > 3
+              ? myInfo.nickname.substring(0, 4)
+              : myInfo.nickname}
+          </div>
           {isOpen && (
             <div className={clsx(styles.kebabModal)}>
               <Link href="/mypage">

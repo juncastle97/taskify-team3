@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode, MouseEvent } from "react";
 import clsx from "clsx";
 import Image from "next/image";
 import styles from "./PlusBtn.module.scss";
@@ -8,6 +8,8 @@ interface PlusBtnProps {
   type?: "button";
   size?: string;
   textStyle?: string;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void; // 새로 추가된 프로퍼티
+
 }
 
 const PlusBtn: React.FC<PlusBtnProps> = ({
@@ -15,7 +17,7 @@ const PlusBtn: React.FC<PlusBtnProps> = ({
   type = "button",
   size,
   textStyle,
-
+  onClick,
   ...props
 }) => {
   const plusBtnProps = { type, ...props };
@@ -24,7 +26,7 @@ const PlusBtn: React.FC<PlusBtnProps> = ({
   const textSize = clsx(textStyle && styles[`btn-text-${textStyle}`]);
 
   return (
-    <button className={btnSize} {...plusBtnProps}>
+    <button className={btnSize}  onClick={onClick} {...plusBtnProps}>
       <div className={clsx(styles["btn-contents"])}>
         {children && (
           <div className={textSize}>

@@ -1,3 +1,16 @@
 .bg {
   @include background();
 }
+.container {
+  position: relative;
+}
+
+.pageBtnWrapper {
+  @include text-style-14-light();
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: absolute;
+  bottom: -5rem;
+  left: 87rem;
+}

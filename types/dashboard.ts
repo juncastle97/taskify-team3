@@ -41,3 +41,9 @@ export interface GetDashboardInvitationType {
 export interface PostDashboardInvitationType {
   email: string;
 }
+
+export interface GetDashboardListType {
+  cursorId: number;
+  totalCount: number;
+  dashboards: DashboardType[];
+}

@@ -1,9 +1,9 @@
 .btn {
   border-radius: 8px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid $gray-300;
   background: $white;
-  width: 33.2rem;
-  height: 7rem;
+  width: 33.4rem;
+  height: 7.5rem;
   color: $black-200;
   text-align: center;
   @include text-style-16-bold();

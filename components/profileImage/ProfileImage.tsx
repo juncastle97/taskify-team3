@@ -4,7 +4,7 @@ import Image from "next/image";
 
 interface ProfileImageProps {
   member: {
-    profileImageUrl: string;
+    profileImageUrl: string | null;
     nickname: string;
   };
   width: number;
@@ -29,7 +29,7 @@ function ProfileImage({ member, width, height }: ProfileImageProps) {
           height={width}
         />
       ) : (
-        member.nickname[0].toUpperCase()
+        member.nickname.charAt(0).toUpperCase()
       )}
     </div>
   );

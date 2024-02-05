@@ -3,39 +3,49 @@ import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
 import styles from "./SideMenu.module.scss";
-import mockData from "./dashboard.json";
+import { GetDashboardListType } from "@/types/dashboard";
+import { getDashboardList } from "@/api/dashboards";
+import PagingButton from "@/components/button/pagingButton/PagingButton";
 
-interface Dashboard {
-  id: number;
-  title: string;
-  color: string;
-  userId: number;
-  createdAt: string;
-  updatedAt: string;
-  createdByMe: boolean;
+interface DashboardBtnProps {
+  dashboardList: GetDashboardListType;
 }
 
-interface DashboardList {
-  dashboards: Dashboard[];
-  totalCount: number;
-  cursorId?: number | null;
-}
+const SideMenu: React.FC<DashboardBtnProps> = () => {
+  const [dashboardList, setDashboardList] = useState<GetDashboardListType>({
+    totalCount: 0,
+    cursorId: 0,
+    dashboards: [],
+  });
+  const [currentPage, setCurrentPage] = useState(1);
 
-const SideMenu: React.FC<DashboardList> = () => {
-  const [data, setData] = useState<DashboardList | null>(null);
+  const ITEMS_PER_PAGE = 5;
+  const totalPage = Math.ceil((dashboardList.totalCount || 1) / ITEMS_PER_PAGE);
+  const handleLeftButtonClick = () => {
+    setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
+  };
+
+  const handleRightButtonClick = () => {
+    setCurrentPage(prevPage => Math.min(prevPage + 1, totalPage));
+  };
+
+  const DashboardListData = async (page: number) => {
+    try {
+      const response = await getDashboardList(page, 5);
+      setDashboardList(response);
+      // setIsLoading(false);
+    } catch (error) {
+      console.error("GET 요청 실패: ", error);
+    }
+  };
+  useEffect(() => {
+    if (totalPage !== 0 && totalPage < currentPage)
+      setCurrentPage(prev => prev - 1);
+  }, [totalPage]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result: DashboardList = await mockData;
-        setData(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+    DashboardListData(currentPage);
+  }, [dashboardList.totalCount, currentPage]);
 
   return (
     <div className={clsx(styles.Container)}>
@@ -66,16 +76,15 @@ const SideMenu: React.FC<DashboardList> = () => {
           />
         </Link>
       </div>
-        {data?.dashboards.map(dashboard => (
-          <div key={dashboard.id} className={clsx(styles.dashboardListWrapper)}>
+      {dashboardList.dashboards.map(item => (
+        <Link href={`/dashboard/${item.id}`}>
+          <div key={item.id} className={clsx(styles.dashboardListWrapper)}>
             <div
               className={clsx(styles.dashboardColor)}
-              style={{ backgroundColor: dashboard.color }}
+              style={{ backgroundColor: item.color }}
             ></div>
-            <span className={clsx(styles.dashboardList)}>
-              {dashboard.title}
-            </span>
-            {dashboard.createdByMe && (
+            <span className={clsx(styles.dashboardList)}>{item.title}</span>
+            {item.createdByMe && (
               <Image
                 src="/button-icon/crown_icon.png"
                 alt="왕관 아이콘"
@@ -84,7 +93,22 @@ const SideMenu: React.FC<DashboardList> = () => {
               />
             )}
           </div>
-        ))}
+        </Link>
+      ))}
+      <div className={clsx(styles.pageBtnWrapper)}>
+        <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
+        <PagingButton
+          onClick={{
+            left: handleLeftButtonClick,
+            right: handleRightButtonClick,
+          }}
+          disabled={{
+            left: currentPage === 1,
+            right: currentPage === totalPage,
+          }}
+          small
+        />
+      </div>
     </div>
   );
 };

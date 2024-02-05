@@ -25,6 +25,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
   return (
     <button
       className={clsx(styles.buttonWrapper, white && styles.white)}
+      onClick={onClick}
       {...buttonProps}
     >
       <span
@@ -33,7 +34,6 @@ const BaseButton: React.FC<BaseButtonProps> = ({
           small && styles.small,
           white && styles.white,
         )}
-        onClick={onClick}
         {...buttonProps}
       >
         {children}
