@@ -38,7 +38,7 @@ const SignInForm = () => {
   const onSubmit: SubmitHandler<SignForm> = async data => {
     try {
       await login(data);
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         alert(error.response.data.message);
       } else {
@@ -63,13 +63,16 @@ const SignInForm = () => {
           type="email"
           error={errors.email?.message}
           placeholder="이메일을 입력해 주세요."
-          registerConfig={register("email", {
-            required: "이메일을 입력해 주세요.",
-            pattern: {
-              value: regEmail,
-              message: "올바른 이메일 주소가 아닙니다.",
-            },
-          })}
+          registerConfig={{
+            ...register("email", {
+              required: "이메일을 입력해 주세요.",
+              pattern: {
+                value: regEmail,
+                message: "올바른 이메일 주소가 아닙니다.",
+              },
+            }),
+            readOnly: false,
+          }}
         />
       </div>
       <div className={clsx(styles.wrapper)}>
@@ -80,13 +83,16 @@ const SignInForm = () => {
           placeholder="비밀번호를 입력해 주세요."
           onKeyPress={handleOnKeyPress}
           onChangeType={togglePasswordVisibility}
-          registerConfig={register("password", {
-            required: "비밀번호를 입력해 주세요.",
-            pattern: {
-              value: regPassword,
-              message: "비밀번호는 영문,숫자 조합 8자 이상 입력해 주세요.",
-            },
-          })}
+          registerConfig={{
+            ...register("password", {
+              required: "비밀번호를 입력해 주세요.",
+              pattern: {
+                value: regPassword,
+                message: "비밀번호는 영문,숫자 조합 8자 이상 입력해 주세요.",
+              },
+            }),
+            readOnly: false,
+          }}
         />
       </div>
       <div className={clsx(styles.signupBtn)}>

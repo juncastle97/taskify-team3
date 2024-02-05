@@ -11,6 +11,7 @@ import authInstance from "@/lib/axios";
 import { PutUserInfoProps } from "@/types/users";
 import { PutPasswordInfoProps } from "@/types/users";
 import ModalContainer from "@/components/modal/ModalContainer";
+import MismatchModal from "@/components/modal/mismatchModal/MismatchModal";
 function MyPage() {
   const {
     register,
@@ -40,7 +41,7 @@ function MyPage() {
   const newPasswordValue = watch("newPassword");
   const newPasswordCheckValue = watch("newPasswordCheck");
 
-  errors.password || errors.newPassword || errors.newPasswordCheck;
+  //errors2.password || errors2.newPassword || errors2.newPasswordCheck;
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   //Put Password API
 
@@ -109,7 +110,6 @@ function MyPage() {
             dataToUpdate.profileImageUrl || userInfo.profileImageUrl,
         };
         await PutUserInfo(updatedData);
-        console.log(updatedData);
       })();
     } catch (error) {
       console.error("데이터 처리 중 에러:", error);
@@ -126,9 +126,7 @@ function MyPage() {
         });
 
         if (response.status === 400) {
-          // 실패 시 처리
-          // alert(response.data.message);
-          setIsOpen(true);
+          setIsModalOpen(true);
         } else {
           // 성공 시 처리
           alert("비밀번호가 변경되었습니다.");
@@ -199,20 +197,29 @@ function MyPage() {
     }));
   };
   // putPassword Api
-
+  //모달 컴포넌트
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className={clsx(styles.all)}>
       <div className={clsx(styles.PageContainer)}>
         <main>
-          {isOpen && (
+          {/* {isOpen && (
             <ModalContainer setIsOpen={setIsOpen}>
               <div className={clsx(styles.modal)}>
                 현재 비밀번호가 틀렸습니다.
                 <Button onClick={() => setIsOpen(false)}>확인</Button>
               </div>
             </ModalContainer>
-          )}
-
+          )} */}
+          <MismatchModal isOpen={isModalOpen} setIsOpen={handleCloseModal}>
+            현재 비밀번호가 틀렸습니다.
+          </MismatchModal>
           <div className={clsx(styles.back)}>
             <ReturnButton />
           </div>

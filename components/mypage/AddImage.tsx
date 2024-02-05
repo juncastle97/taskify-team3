@@ -20,9 +20,7 @@ function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
     }
   };
 
-  // 파일 입력 요소의 값이 변경되면 호출되는 함수
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    // 선택한 파일 정보를 콘솔에 출력
     const file = e.target.files?.[0];
     if (file) {
       console.log(file);
@@ -47,13 +45,11 @@ function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
     preview.readAsDataURL(file);
   };
 
-  // Post API
   const postImageUrl = async (data: File) => {
     try {
       const formData = new FormData();
       formData.append("image", data);
 
-      // 이미지 업로드를 위한 POST 요청
       const response = await axios.post("users/me/image", formData);
 
       const imageURL = response.data.profileImageUrl;
@@ -82,13 +78,13 @@ function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
             required
             multiple
             onChange={handleChange}
-            style={{ display: "none" }}
+            style={{ visibility: "hidden" }}
           />
-          {profileImageUrl ? (
+          {selectedFile ? (
             <img
               id="user_image"
               className={clsx(styles.upload, styles.previewImage)}
-              src={previewImage || profileImageUrl}
+              src={previewImage || ""}
               alt="이미지"
               width={182}
               height={182}
