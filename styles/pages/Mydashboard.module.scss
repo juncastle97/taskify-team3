@@ -1,16 +1,17 @@
 .bg {
   @include background();
+  @include desktop{width: 1920px};
+  width: 100%;
+  
 }
 .container {
-  position: relative;
+  margin-bottom: 9.6rem
 }
 
 .pageBtnWrapper {
   @include text-style-14-light();
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   gap: 1rem;
-  position: absolute;
-  bottom: -5rem;
-  left: 87rem;
 }

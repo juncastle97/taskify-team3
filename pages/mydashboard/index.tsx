@@ -3,7 +3,6 @@ import mockInvitations from "./mockInvitations.json";
 import mapInvitations from "@/utils/mapInvitations";
 import { InitialInvitations } from "@/types/invitations";
 import MyInvitedDashboardTable from "@/components/tables/myInvitedDashboardTable/MyInvitedDashboardTable";
-import PlusBtn from "@/components/button/plusBtn/PlusBtn";
 import styles from "@/styles/pages/Mydashboard.module.scss";
 import clsx from "clsx";
 import DashboardBtn from "@/components/button/dashboardBtn/DashboardBtn";
@@ -54,7 +53,6 @@ function MyDashboard() {
   return (
     <div className={clsx(styles.bg)}>
       <div className={clsx(styles.container)}>
-        <PlusBtn textStyle={"colum16"}>새로운 대시보드</PlusBtn>
         <DashboardBtn dashboardList={dashboardList} />
         <div className={clsx(styles.pageBtnWrapper)}>
           <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
@@ -71,7 +69,6 @@ function MyDashboard() {
           />
         </div>
       </div>
-      
       <MyInvitedDashboardTable
         totalCount={mockInvitations.totalCount}
         invitations={mappedMockInvitations}

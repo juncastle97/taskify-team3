@@ -4,6 +4,7 @@ import styles from "./DashboardBtn.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import { GetDashboardListType } from "@/types/dashboard";
+import PlusBtn from "../plusBtn/PlusBtn";
 
 interface DashboardBtnProps {
   dashboardList: GetDashboardListType;
@@ -12,6 +13,7 @@ interface DashboardBtnProps {
 const DashboardBtn: React.FC<DashboardBtnProps> = ({ dashboardList }) => {
   return (
     <div className={clsx(styles.gridContainer)}>
+      <PlusBtn textStyle={"colum16"}>새로운 대시보드</PlusBtn>
       {dashboardList.dashboards?.map(item => (
        <Link href={`/dashboard/${item.id}`}>
           <div key={item.id} className={clsx(styles.dashboardBtnButton)}>

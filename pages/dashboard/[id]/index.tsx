@@ -1,17 +1,19 @@
 import { useState } from "react";
 
 import styles from "@/styles/pages/Dashboard.module.scss";
+import PlusBtn from "@/components/button/plusBtn/PlusBtn";
 import CardColumn from "@/components/card/CardColumn";
+import ColumnAddModal from "@/components/modal/columnAddModal/ColumnAddModal";
+import { getCardList } from "@/api/cards";
 
 import mockColumns from "./mockColumns.json";
 import mockCards from "./mockCards.json";
 import mapCardList from "@/utils/mapCardList";
 import InitialCardData from "@/types/cards";
-import PlusBtn from "@/components/button/plusBtn/PlusBtn";
-import ColumnAddModal from "@/components/modal/columnAddModal/ColumnAddModal";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+ 
   const mappedMockCards = mapCardList(mockCards as InitialCardData);
 
   const openModal = () => {
