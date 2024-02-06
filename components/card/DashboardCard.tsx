@@ -1,36 +1,27 @@
 import styles from "./DashboardCard.module.scss";
 import TagChips from "@/components/chips/TagChips";
 import { generateRandomColorHexCode } from "@/utils/color";
+import clsx from "clsx";
+import Image from "next/image";
+import { CardPropsType } from "@/types/cards";
 
 const CALENDAR_ICON_PATH = "/icons/calendar.svg";
 
-export interface DashboardCardProps {
-  id: number;
-  title: string;
-  tags: string[];
-  dueDate: string;
-  profileImageUrl: string;
-  imageUrl?: string;
-}
-
-const DashboardCard = ({
-  id,
-  title,
-  tags,
-  dueDate,
-  profileImageUrl,
-  imageUrl,
-}: DashboardCardProps) => {
+const DashboardCard = ({ cardProps }: { cardProps: CardPropsType }) => {
   return (
     <div className={styles.container}>
-      {imageUrl && (
-        <img className={styles.cardImage} src={imageUrl} alt="Card Image" />
+      {cardProps.imageUrl && (
+        <img
+          className={styles.cardImage}
+          src={cardProps.imageUrl}
+          alt="Card Image"
+        />
       )}
       <div>
-        <div className={styles.cardTitle}>{title}</div>
+        <div className={styles.cardTitle}>{cardProps.title}</div>
         <div className={styles.tagsAndDates}>
           <div className={styles.tags}>
-            {tags.map((tag, index) => (
+            {cardProps.tags.map((tag, index) => (
               <TagChips
                 key={`tags_${index}`}
                 tagName={tag}
@@ -44,15 +35,29 @@ const DashboardCard = ({
               src={CALENDAR_ICON_PATH}
               alt="Calendar"
             />
-            <span>{dueDate}</span>
+            <span>{cardProps.dueDate}</span>
           </div>
         </div>
       </div>
-      <img
-        className={styles.profileImage}
-        src={profileImageUrl}
-        alt="Profile Image"
-      />
+      <div
+        className={styles.profileImageWrapper}
+        style={{
+          background: cardProps.assignee.profileImageUrl ? "" : "#9fa6b2",
+        }}
+      >
+        {cardProps.assignee.profileImageUrl ? (
+          <div className={clsx(styles.profileImage)}>
+            <Image
+              src={`${cardProps.assignee.profileImageUrl}`}
+              alt="프로필 이미지"
+              width={24}
+              height={24}
+            />
+          </div>
+        ) : (
+          cardProps.assignee.nickname.charAt(0).toUpperCase()
+        )}
+      </div>
     </div>
   );
 };

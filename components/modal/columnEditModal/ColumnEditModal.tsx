@@ -1,10 +1,8 @@
 import ModalContainer from "../ModalContainer";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import ModalPortal from "../ModalPortal";
 import clsx from "clsx";
 import style from "./ColumnEditModal.module.scss";
-// import Input from "@/components/input/Input";
-import { useForm } from "react-hook-form";
 
 import BaseButton from "@/components/button/baseButton/BaseButton";
 

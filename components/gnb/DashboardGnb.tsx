@@ -119,15 +119,17 @@ const DashboardGnb = () => {
       <div className={clsx(styles.wrapper)}>
         {isDashboardRoute && (
           <div className={clsx(styles.manageWrapper)}>
-            <button className={clsx(styles.manageBtn)}>
-              <Image
-                src="/icons/manageButton.svg"
-                width={20}
-                height={20}
-                alt="manage 버튼"
-              />
-              <span>관리</span>
-            </button>
+            <Link href={`/dashboard/${currentDashboardId}/edit`}>
+              <button className={clsx(styles.manageBtn)}>
+                <Image
+                  src="/icons/manageButton.svg"
+                  width={20}
+                  height={20}
+                  alt="manage 버튼"
+                />
+                <span>관리</span>
+              </button>
+            </Link>
             <button className={clsx(styles.inviteBtn)}>
               <Image
                 src="/button-icon/sidemenuPlus.svg"

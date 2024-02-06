@@ -81,12 +81,16 @@
   }
 }
 
-.profileImage {
+.profileImageWrapper {
+  @include flexbox();
+  @include text-style-14-bold;
   position: absolute;
   width: 2.4rem;
   height: 2.4rem;
   right: 2.1rem;
   bottom: 2.1rem;
+  border-radius: 99px;
+  color: $white;
 
   @include mobile {
     width: 2.2rem;
