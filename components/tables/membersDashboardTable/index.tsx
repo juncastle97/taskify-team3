@@ -65,7 +65,7 @@ function MembersDashboardTable() {
 
   const MemberListData = async (page: number) => {
     try {
-      const dashMember = await getMemberList(dashboardId, page, 4);
+      const dashMember = await getMemberList(dashboardId, page, 20);
       setGetMember(dashMember);
       setIsLoading(false);
     } catch (error) {

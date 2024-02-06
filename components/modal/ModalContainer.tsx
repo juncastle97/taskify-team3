@@ -17,7 +17,6 @@ function ModalContainer({
   const modalRef = useRef(null);
 
   const handleClickOutside = () => {
-    // Alert 모달이 열려 있을 때는 외부 클릭 이벤트를 처리하지 않습니다.
     if (!isAlertOpen) {
       setIsOpen(false);
     }
