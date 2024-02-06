@@ -26,4 +26,18 @@
     object-fit: cover;
     border-radius: 6%;
   }
+  &.small {
+    width: 7.6rem;
+    height: 7.6rem;
+    background-color: #f5f5f5;
+    .addImageIcon {
+      position: absolute;
+      top: 38%;
+      right: 38%;
+    }
+    .upload {
+      object-fit: cover;
+      border-radius: 6%;
+    }
+  }
 }

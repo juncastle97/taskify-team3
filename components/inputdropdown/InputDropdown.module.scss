@@ -46,6 +46,9 @@
   font-weight: 400;
   line-height: normal;
   outline: none;
+  &.small {
+    width: 21.7rem;
+  }
 
   &::placeholder {
     color: $gray-400;

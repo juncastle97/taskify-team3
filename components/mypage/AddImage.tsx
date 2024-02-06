@@ -7,9 +7,10 @@ import axios from "@/lib/axios";
 interface AddImageProp {
   profileImageUrl: string | null;
   onImageUpload?: (imageUrl: string) => void | null;
+  small?: boolean; // 작은 버전을 위한 prop 추가
 }
 
-function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
+function AddImage({ profileImageUrl, onImageUpload, small }: AddImageProp) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
@@ -47,7 +48,7 @@ function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
   };
 
   return (
-    <div className={styles.imageContainer}>
+    <div className={clsx(styles.imageContainer, { [styles.small]: small })}>
       <label htmlFor="chooseFile" className={styles.chooseFileLabel}>
         <input
           type="file"
@@ -62,21 +63,28 @@ function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
         {previewImage ? (
           <Image
             id="user_image"
-            className={clsx(styles.upload, styles.previewImage)}
+            className={clsx(
+              styles.upload,
+              styles.previewImage,
+              { [styles.small]: small }, // 작은 버전일 경우에 클래스 추가
+            )}
             src={previewImage}
             alt="프로필 이미지"
-            width={182}
-            height={182}
+            width={small ? 100 : 182} // 작은 버전일 경우에 크기 조정
+            height={small ? 100 : 182} // 작은 버전일 경우에 크기 조정
             onClick={handleImageClick}
           />
         ) : (
-          <div className={styles.addImageOverlay} onClick={handleImageClick}>
+          <div
+            className={clsx(styles.addImageOverlay, { [styles.small]: small })}
+            onClick={handleImageClick}
+          >
             <Image
               className={clsx(styles.addImageIcon)}
               src="/myPage/add.svg"
               alt="이미지 추가"
-              width={30}
-              height={30}
+              width={small ? 20 : 30} // 작은 버전일 경우에 아이콘 크기 조정
+              height={small ? 20 : 30} // 작은 버전일 경우에 아이콘 크기 조정
             />
           </div>
         )}

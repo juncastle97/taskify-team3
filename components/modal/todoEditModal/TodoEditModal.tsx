@@ -16,7 +16,7 @@ import Input from "@/components/input/Input";
 import Dropdown from "@/components/dropdown/Dropdown";
 import { generateRandomColorHexCode } from "@/utils/color";
 import Plus from "@/components/button/plusBtn/PlusBtn";
-import InputDropdown from "@/components/inputDropdown/InputDropdown";
+import InputDropdown from "@/components/inputdropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 
 interface TodoEditModalProps {
@@ -55,7 +55,9 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
                 </div>
                 <div>
                   <p>담당자</p>
-                  <InputDropdown assigneeData={[]}></InputDropdown>
+                  <div className={clsx(style.inputdropdown)}>
+                    <InputDropdown small />
+                  </div>
                 </div>
               </div>
               <div className={clsx(style.gap)}>
@@ -100,25 +102,11 @@ function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
                   className={clsx(style.input)}
                   placeholder="입력 후 Enter"
                 ></input>
-                {/* {tags.map((tag, index) => (
-                  <TagChips
-                    key={index}
-                    tagName={tag}
-                    color={generateRandomColorHexCode()}
-                  />
-                ))}
-                <input
-                  className={clsx(style.input)}
-                  placeholder="입력 후 Enter"
-                  value={tagInput}
-                  onChange={handleTagInputChange}
-                  onKeyDown={handleTagInputKeyDown}
-                /> */}
               </div>
               <div className={clsx(style.gap)}>
                 <p> 이미지 </p>
                 <div className={clsx(style.img)}>
-                  <AddImage profileImageUrl={null} />
+                  <AddImage small profileImageUrl={null} />
                 </div>
               </div>
             </div>

@@ -8,7 +8,11 @@ import { getMemberList } from "@/api/members";
 import { GetMemberListType } from "@/types/members";
 import { Assignee } from "@/types/cards";
 
-const InputDropdown = () => {
+interface InputDropdownProps {
+  small?: boolean;
+}
+
+const InputDropdown = ({ small }: InputDropdownProps) => {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
@@ -58,7 +62,7 @@ const InputDropdown = () => {
   return (
     <div className={clsx(styles.Container)}>
       <div className={clsx(styles.Wrapper)}>
-        <div className={clsx(styles.InputContainer)}>
+        <div className={clsx(styles.InputContainer, { [styles.small]: small })}>
           {selectedItem && (
             <ProfileImage member={selectedItem} width={28} height={28} />
           )}
