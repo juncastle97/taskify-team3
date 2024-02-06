@@ -13,11 +13,14 @@ interface AuthInputProps {
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChangeType?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
   defaultValue?: string;
   registerConfig: {
     readOnly?: boolean;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-    ref?: React.RefCallback<HTMLInputElement>;
+    ref?:
+      | React.Ref<HTMLInputElement>
+      | ((instance: HTMLInputElement | null) => void);
     name?: string;
   };
 }
@@ -27,11 +30,12 @@ const AuthInput = ({
   type,
   error,
   id,
+
   placeholder,
-  value,
   defaultValue,
   onKeyPress,
   onChangeType,
+
   registerConfig,
 }: AuthInputProps) => {
   return (
@@ -45,7 +49,6 @@ const AuthInput = ({
           type={type}
           id={id}
           placeholder={placeholder}
-          value={value}
           defaultValue={defaultValue}
           onKeyPress={onKeyPress}
           {...registerConfig}

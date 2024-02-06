@@ -58,50 +58,55 @@ const SignInForm = () => {
   return (
     <form className={styles.signContainer} onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <AuthInput
-          label="이메일"
-          type="email"
-          error={errors.email?.message}
-          placeholder="이메일을 입력해 주세요."
-          registerConfig={{
-            ...register("email", {
-              required: "이메일을 입력해 주세요.",
-              pattern: {
-                value: regEmail,
-                message: "올바른 이메일 주소가 아닙니다.",
-              },
-            }),
-            readOnly: false,
-          }}
-        />
-      </div>
-      <div className={clsx(styles.wrapper)}>
-        <AuthInput
-          label="비밀번호"
-          type={passwordInputType}
-          error={errors.password?.message}
-          placeholder="비밀번호를 입력해 주세요."
-          onKeyPress={handleOnKeyPress}
-          onChangeType={togglePasswordVisibility}
-          registerConfig={{
-            ...register("password", {
-              required: "비밀번호를 입력해 주세요.",
-              pattern: {
-                value: regPassword,
-                message: "비밀번호는 영문,숫자 조합 8자 이상 입력해 주세요.",
-              },
-            }),
-            readOnly: false,
-          }}
-        />
-      </div>
-      <div className={clsx(styles.signupBtn)}>
-        <Button
-          type="submit"
-          disabled={!watchEmail || !watchPassword || !isValid}
-        >
-          로그인
-        </Button>
+        <div className={clsx(styles.inputs)}>
+          <AuthInput
+            label="이메일"
+            type="email"
+            error={errors.email?.message}
+            placeholder="이메일을 입력해 주세요."
+            registerConfig={{
+              ...register("email", {
+                required: "이메일을 입력해 주세요.",
+                pattern: {
+                  value: regEmail,
+                  message: "올바른 이메일 주소가 아닙니다.",
+                },
+              }),
+              readOnly: false,
+            }}
+          />
+        </div>
+        <div className={clsx(styles.wrapper)}>
+          <div className={clsx(styles.inputs)}>
+            <AuthInput
+              label="비밀번호"
+              type={passwordInputType}
+              error={errors.password?.message}
+              placeholder="비밀번호를 입력해 주세요."
+              onKeyPress={handleOnKeyPress}
+              onChangeType={togglePasswordVisibility}
+              registerConfig={{
+                ...register("password", {
+                  required: "비밀번호를 입력해 주세요.",
+                  pattern: {
+                    value: regPassword,
+                    message:
+                      "비밀번호는 영문,숫자 조합 8자 이상 입력해 주세요.",
+                  },
+                }),
+                readOnly: false,
+              }}
+            />
+          </div>
+        </div>
+        <div className={clsx(styles.signupBtn)}>
+          <Button
+            type="submit"
+            disabled={!watchEmail || !watchPassword || !isValid}
+          >
+            로그인
+          </Button>
+        </div>
       </div>
     </form>
   );

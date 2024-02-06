@@ -23,5 +23,13 @@
     width: 52rem;
     height: 5rem;
     padding: 1.4rem 23.6rem;
+    margin-top: 2rem;
+  }
+}
+
+.inputs {
+  width: 52rem;
+  @include mobile {
+    width: 31.9rem;
   }
 }

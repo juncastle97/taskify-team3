@@ -8,6 +8,7 @@ interface BaseButtonProps {
   disabled?: boolean;
   small?: boolean;
   white?: boolean;
+  className?: string;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void; // 새로 추가된 프로퍼티
 }
 

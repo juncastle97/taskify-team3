@@ -1,220 +1,33 @@
 .all {
-  @include background();
+  padding: 7rem 0 0 30rem;
+  // @include background();
+  background: #fafafa;
   margin: 0;
   display: flex;
-  .sideBar {
-    width: 30rem;
-    height: 108rem;
-    flex-shrink: 0;
-    border-right: 0.1rem solid $gray-300;
+  .wrapper {
+    margin: 2rem 98rem 12.5rem 2rem;
+    .back {
+      margin-bottom: 2.5rem;
+    }
   }
-  .PageContainer {
-    background: $gray-100;
-
-    main {
-      padding: 0 0 12.5rem 2rem;
-
-      .back {
-        margin: 2rem 0 2.5rem 2rem;
-        display: flex;
-        gap: 0.6rem;
-        @include mobile {
-          margin: 1.6rem 0 2rem 1.2rem;
-        }
-        span {
-          @include text-style-16-middle();
-          color: $black-200;
-        }
-      }
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    .title {
+      color: var(--black-black_333236, #333236);
+      font-family: Pretendard;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      margin-bottom: 3.2rem;
     }
-    .section1 {
-      background-color: $white;
-      padding: 3.2rem 2.8rem 2.8rem 2.8rem;
+    section {
       width: 62rem;
-      border-radius: 0.8rem;
-      @include tablet {
-        width: 54.4rem;
-      }
-      @include mobile {
-        width: 100%;
-        height: 44.2rem;
-        padding: 2.8rem 2rem 0rem 2rem;
-      }
-      .profile {
-        @include text-style-24();
-        color: $black-200;
-        margin-bottom: 3.2rem;
-        @include mobile {
-          @include text-style-20-bold();
-        }
-      }
-      .section1Contents {
-        display: flex;
-        gap: 1.6rem;
-        @include mobile {
-          display: block;
-          margin-bottom: 12rem;
-        }
-        .Image {
-          margin-left: 2.8rem;
-          margin-bottom: 8rem;
-        }
-        form {
-          display: flex;
-          flex-direction: column;
-
-          label {
-            @include text-style-18-middle();
-            color: $black-200;
-            @include mobile {
-              @include text-style-16-middle();
-            }
-          }
-          input {
-            @include text-style-16-light();
-
-            margin-top: 1rem;
-
-            border-radius: 0.6rem;
-            border: 0.1rem solid $gray-300;
-            background: $white;
-            width: 36.6rem;
-            height: 4.8rem;
-            flex-shrink: 0;
-            padding: 1.5rem 20.4rem 1.4rem 1.6rem;
-            color: $black-200;
-            &::placeholder {
-              @include text-style-16-light();
-              color: $gray-400;
-            }
-            &:focus {
-              border: 1px solid $violet-200;
-              outline: none;
-            }
-            &.error {
-              border: 1px solid red; /* 빨간색 border로 변경 */
-            }
-            @include tablet {
-              width: 29rem;
-            }
-            @include mobile {
-              width: 24.4rem;
-              height: 4.2rem;
-              margin-bottom: 1.6rem;
-            }
-          }
-          .nickNameLabel {
-            margin-top: 2rem;
-            @include mobile {
-              margin-top: 0;
-            }
-          }
-          small {
-            color: var(--red-red_D6173A, #d6173a);
-            font-family: Pretendard;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            margin-top: 0.8rem;
-          }
-          Button {
-            @include text-style-14-middle();
-            margin-top: 2.4rem;
-            border-radius: 4px;
-            width: 8.4rem;
-            height: 3.2rem;
-            margin-left: 28.2rem;
-            text-align: center;
-            @include tablet {
-              margin-left: 20.6rem;
-            }
-            @include mobile {
-              margin-top: 0;
-              margin-left: 16rem;
-              height: 2.8rem;
-            }
-          }
-        }
-      }
-    }
-    .section2 {
-      margin-top: 1.2rem;
-      background-color: $white;
+      border-radius: 8px;
+      background: #fff;
       padding: 3.2rem 2.8rem 2.8rem 2.8rem;
-      width: 62rem;
-      border-radius: 0.8rem;
-
-      @include tablet {
-        width: 54.4rem;
-      }
-      .changePassword {
-        @include text-style-24();
-        color: $black-200;
-        margin-bottom: 3.2rem;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-
-        label {
-          @include text-style-18-middle();
-          color: $black-200;
-          margin-bottom: 1rem;
-        }
-        input {
-          padding: 1.5rem 20.4rem 1.4rem 1.6rem;
-          width: 56.4rem;
-          height: 4.8rem;
-          flex-shrink: 0;
-          border-radius: 0.6rem;
-          border: 1px solid $gray-300;
-          background: $white;
-          &::placeholder {
-            @include text-style-16-light();
-            color: $gray-400;
-          }
-          &:focus {
-            border: 1px solid $violet-200;
-            outline: none;
-          }
-          &.error {
-            border: 1px solid red; /* 빨간색 border로 변경 */
-          }
-          @include tablet {
-            width: 48.8rem;
-          }
-          @include mobile {
-            margin-bottom: 1.6rem;
-          }
-        }
-        small {
-          color: var(--red-red_D6173A, #d6173a);
-          font-family: Pretendard;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: normal;
-          margin-top: 0.8rem;
-        }
-        .newPasswordLabel,
-        .newPasswordCheckLable {
-          margin-top: 2rem;
-        }
-        Button {
-          @include text-style-14-middle();
-          margin-top: 2.4rem;
-          width: 8.4rem;
-          height: 32px;
-          margin-left: 47.8rem;
-          border-radius: 4px;
-          padding: 0.8rem 3rem;
-          text-align: center;
-          @include tablet {
-            margin-left: 40.4rem;
-          }
-        }
-      }
     }
   }
 }

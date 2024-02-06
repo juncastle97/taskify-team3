@@ -81,7 +81,7 @@ const SignUpForm = () => {
 
   return (
     <form className={styles.signContainer} onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <div className={clsx(styles.inputs)}>
         <AuthInput
           label="이메일"
           type="email"
@@ -96,7 +96,8 @@ const SignUpForm = () => {
           })}
         />
       </div>
-      <div>
+
+      <div className={clsx(styles.inputs)}>
         <AuthInput
           label="닉네임"
           type="text"
@@ -111,7 +112,7 @@ const SignUpForm = () => {
           })}
         />
       </div>
-      <div className={clsx(styles.wrapper)}>
+      <div className={clsx(styles.inputs, styles.wrapper)}>
         <AuthInput
           label="비밀번호"
           type={passwordInputType}
@@ -127,7 +128,7 @@ const SignUpForm = () => {
           })}
         />
       </div>
-      <div className={clsx(styles.wrapper)}>
+      <div className={clsx(styles.inputs, styles.wrapper)}>
         <AuthInput
           label="비밀번호 확인"
           type={passwordConfirmInputType}

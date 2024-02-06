@@ -19,7 +19,7 @@ function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
       fileInputRef.current.click();
     }
   };
-
+  console.log(onImageUpload);
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -78,13 +78,13 @@ function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
             required
             multiple
             onChange={handleChange}
-            style={{ visibility: "hidden" }}
+            style={{ display: "none" }}
           />
           {selectedFile ? (
             <img
               id="user_image"
               className={clsx(styles.upload, styles.previewImage)}
-              src={previewImage || ""}
+              src={previewImage || profileImageUrl || ""}
               alt="이미지"
               width={182}
               height={182}
