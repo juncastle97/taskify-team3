@@ -37,3 +37,4 @@ next-env.d.ts
 
 .vscodepathtonpm-cache/_logs/
 pathtonpm-cache/_logs/
+pathtonpm-cache/
