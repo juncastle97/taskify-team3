@@ -9,7 +9,7 @@ import DashboardBtn from "@/components/button/dashboardBtn/DashboardBtn";
 import { GetDashboardListType } from "@/types/dashboard";
 import { getDashboardList } from "@/api/dashboards";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
-
+import TodoCreateModal from "@/components/modal/todoCreateModal/TodoCreateModal";
 
 function MyDashboard() {
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -54,9 +54,9 @@ function MyDashboard() {
 
   return (
     <div className={clsx(styles.bg)}>
-
       <div className={clsx(styles.container)}>
         <DashboardBtn dashboardList={dashboardList} />
+        <TodoCreateModal setIsOpen={setIsOpen}></TodoCreateModal>
         <div className={clsx(styles.pageBtnWrapper)}>
           <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
           <PagingButton

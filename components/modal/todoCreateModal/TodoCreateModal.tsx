@@ -24,9 +24,9 @@ interface TodoCreateModalProps {
 
 function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
   const handleTodoCreateClick = async (event?: FormEvent) => {
-    if (event) event.preventDefault();
+    if (event) event.preventDefault(); // 제출 동작 막음
   };
-
+  //
   const [formState, setFormState] = useState<TodoEditType>({
     title: "",
     description: "",
@@ -37,6 +37,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
   });
   const handleButtonClick = (event: any) => {
     setFormState(event.target.value);
+    //추가적인 api 호출작업
   };
 
   return (
@@ -48,7 +49,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
             <div className={clsx(style.inputWrapper)}>
               <div className={clsx(style.gap)}>
                 <p>담당자</p>
-                <InputDropdown assigneeData={[]} key="person"></InputDropdown>
+                <InputDropdown assigneeData={[]}></InputDropdown>
               </div>
               <div className={clsx(style.gap)}>
                 <p>
@@ -56,7 +57,6 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 </p>
                 <input
                   className={clsx(style.input)}
-                  key="title"
                   placeholder="제목을 입력해 주세요"
                   onChange={function (
                     e: ChangeEvent<HTMLInputElement>,
@@ -69,7 +69,6 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 </p>
                 <textarea
                   className={clsx(style.input)}
-                  key="description"
                   rows={5}
                   cols={40}
                   placeholder="설명을 입력해 주세요"
@@ -77,7 +76,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
               </div>
               <div className={clsx(style.gap)}>
                 <p>마감일</p>
-                <Calendar key="date" />
+                <Calendar />
               </div>
               <div className={clsx(style.gap)}>
                 <p>태그</p>
@@ -87,17 +86,13 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 />
                 <input
                   className={clsx(style.input)}
-                  key="tag"
                   placeholder="입력 후 Enter"
                 ></input>
               </div>
               <div className={clsx(style.gap)}>
                 <p> 이미지 </p>
                 <div className={clsx(style.img)}>
-                  <AddImage
-                    key="image"
-                    profileImageUrl={"@/public/icons/calendar.svg"}
-                  />
+                  <AddImage profileImageUrl={"@/public/icons/calendar.svg"} />
                 </div>
               </div>
             </div>
