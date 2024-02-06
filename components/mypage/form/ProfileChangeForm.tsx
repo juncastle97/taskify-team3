@@ -9,7 +9,8 @@ import { PutUserInfoProps } from "@/types/users";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import AddImage from "@/components/mypage/AddImage";
 import AuthInput from "@/components/input/AuthInput";
-
+import { getUserInfo } from "@/api/mypage/index";
+import { updateUserProfile } from "@/api/mypage/index";
 function ProfileChangeForm() {
   const {
     register,
@@ -27,18 +28,17 @@ function ProfileChangeForm() {
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
-  useEffect(() => {
-    const getUserInfo = async () => {
-      try {
-        const response = await axios.get("users/me");
-        const { email, nickname, profileImageUrl } = response.data;
 
-        setUserInfo({ email, nickname, profileImageUrl });
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const userData = await getUserInfo();
+        setUserInfo(userData);
       } catch (error) {
-        console.error(error);
+        console.error("Failed to fetch user data:", error);
       }
     };
-    getUserInfo();
+    getUserData();
   }, []);
 
   const handleImageUpload = (imgUrl: string) => {
@@ -49,25 +49,6 @@ function ProfileChangeForm() {
     }));
   };
 
-  const PutUserInfo = async (data: PutUserInfoProps) => {
-    try {
-      const response = await authInstance.put(`users/me`, data);
-
-      if (response.status === 200) {
-        setUserInfo(prevUserInfo => ({
-          ...prevUserInfo,
-          profileImageUrl: data.profileImageUrl || prevUserInfo.profileImageUrl,
-        }));
-        axios.get("users/me");
-      } else {
-        console.error("PUT 요청 실패:", response.status);
-      }
-    } catch (error) {
-      console.error("PUT 요청 에러:", error);
-      throw error;
-    }
-  };
-
   const handleSaveButtonClick = async () => {
     try {
       await handleSubmit(async data => {
@@ -76,11 +57,11 @@ function ProfileChangeForm() {
           nickname: data.nickname || userInfo.nickname,
           profileImageUrl: userInfo.profileImageUrl,
         };
-        await PutUserInfo(updatedData);
+
+        await updateUserProfile(updatedData);
       })();
     } catch (error) {
       console.error("데이터 처리 중 에러:", error);
-      // 에러 처리 로직 추가
     }
   };
 
