@@ -6,7 +6,7 @@ import { useForm, FieldValues } from "react-hook-form";
 import { GetUserInfoType } from "@/types/users";
 import authInstance from "@/lib/axios";
 import { PutUserInfoProps } from "@/types/users";
-import Button from "@/components/button/baseButton/BaseButton";
+import BaseButton from "@/components/button/baseButton/BaseButton";
 import AddImage from "@/components/mypage/AddImage";
 import AuthInput from "@/components/input/AuthInput";
 
@@ -14,7 +14,7 @@ function ProfileChangeForm() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors, isSubmitted },
+    formState: { errors },
   } = useForm<FieldValues>({});
 
   const [userInfo, setUserInfo] = useState<GetUserInfoType>({
@@ -22,12 +22,15 @@ function ProfileChangeForm() {
     nickname: "",
     profileImageUrl: "",
   });
+
   useEffect(() => {
     const getUserInfo = async () => {
       try {
         const response = await axios.get("users/me");
         const { email, nickname, profileImageUrl } = response.data;
+        // console.log("이전 userInfo:", userInfo);
         setUserInfo({ email, nickname, profileImageUrl });
+        // console.log("새로운 userInfo:", { email, nickname, profileImageUrl });
       } catch (error) {
         console.error(error);
       }
@@ -35,11 +38,13 @@ function ProfileChangeForm() {
     getUserInfo();
   }, []);
 
-  //PutApi
-  const [dataToUpdate, setDataToUpdate] = useState<PutUserInfoProps>({
-    nickname: userInfo.nickname,
-    profileImageUrl: userInfo.profileImageUrl,
-  });
+  const handleImageUpload = (imgUrl: string) => {
+    console.log(imgUrl);
+    setUserInfo(prevUserInfo => ({
+      ...prevUserInfo,
+      profileImageUrl: imgUrl,
+    }));
+  };
 
   const PutUserInfo = async (data: PutUserInfoProps) => {
     try {
@@ -48,7 +53,6 @@ function ProfileChangeForm() {
       if (response.status === 200) {
         setUserInfo(prevUserInfo => ({
           ...prevUserInfo,
-
           profileImageUrl: data.profileImageUrl || prevUserInfo.profileImageUrl,
         }));
         axios.get("users/me");
@@ -61,36 +65,22 @@ function ProfileChangeForm() {
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setDataToUpdate({ nickname: value }); // 수정된 닉네임을 상태로 유지
-  };
-
-  const handleImageUpload = (imgUrl: string) => {
-    setDataToUpdate(prevData => ({
-      ...prevData,
-      profileImageUrl: imgUrl,
-    }));
-  };
   const handleSaveButtonClick = async () => {
     try {
       await handleSubmit(async data => {
         alert("Save 버튼이 클릭되었습니다. 데이터: " + JSON.stringify(data));
-        // Save 버튼에 대한 추가 동작 구현
-        // ...
         const updatedData = {
-          nickname: data.nickName || userInfo.nickname,
-          profileImageUrl:
-            dataToUpdate.profileImageUrl || userInfo.profileImageUrl,
+          nickname: data.nickname || userInfo.nickname,
+          profileImageUrl: userInfo.profileImageUrl,
         };
         await PutUserInfo(updatedData);
-        console.log(updatedData);
       })();
     } catch (error) {
       console.error("데이터 처리 중 에러:", error);
       // 에러 처리 로직 추가
     }
   };
+
   return (
     <form
       className={clsx(styles.form)}
@@ -119,7 +109,6 @@ function ProfileChangeForm() {
             label="닉네임"
             id="nickName"
             type="text"
-            onChange={handleInputChange}
             error={errors.nickname?.message as string}
             defaultValue={userInfo.nickname}
             registerConfig={register("nickname", {
@@ -131,12 +120,12 @@ function ProfileChangeForm() {
             })}
           />
         </div>
+
         <div className={clsx(styles.button)}>
-          <Button onClick={() => handleSaveButtonClick()}>저장</Button>
+          <BaseButton onClick={handleSaveButtonClick}>저장</BaseButton>
         </div>
       </div>
     </form>
   );
 }
-
 export default ProfileChangeForm;
