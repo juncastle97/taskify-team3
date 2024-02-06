@@ -1,0 +1,20 @@
+.modal {
+  @include column-flexbox(center, stratch);
+  @include text-style-18-middle();
+  gap: 5rem;
+  width: 54rem;
+  height: 25rem;
+  color: $black-200;
+  text-align: center;
+  padding-top: 5rem;
+
+  .buttons {
+    @include flexbox(center);
+    gap: 1rem;
+
+    button {
+      width: 8.2rem;
+      height: 3.4rem;
+    }
+  }
+}

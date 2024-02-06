@@ -47,3 +47,8 @@ export interface GetDashboardListType {
   totalCount: number;
   dashboards: DashboardType[];
 }
+
+export interface DeleteDashboardInvitationType {
+  id: number;
+  nickname: string;
+}

@@ -6,13 +6,21 @@ import { useOnClickOutside } from "usehooks-ts";
 interface ModalContainerProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   children: React.ReactNode;
+  isAlertOpen?: boolean;
 }
 
-function ModalContainer({ setIsOpen, children }: ModalContainerProps) {
+function ModalContainer({
+  setIsOpen,
+  children,
+  isAlertOpen,
+}: ModalContainerProps) {
   const modalRef = useRef(null);
 
   const handleClickOutside = () => {
-    setIsOpen(false);
+    // Alert 모달이 열려 있을 때는 외부 클릭 이벤트를 처리하지 않습니다.
+    if (!isAlertOpen) {
+      setIsOpen(false);
+    }
   };
 
   useOnClickOutside(modalRef, handleClickOutside);

@@ -3,7 +3,7 @@ import DashboardCard from "@/components/card/DashboardCard";
 import clsx from "clsx";
 import styles from "./CardColumn.module.scss";
 import { getCardList } from "@/api/cards";
-import {InitialCardData, CardPropsType} from "@/types/cards";
+import { InitialCardData, CardPropsType } from "@/types/cards";
 import ColumnEditModal from "../modal/columnEditModal/ColumnEditModal";
 
 const ELLIPSE_ICON_PATH = "/icons/blueEllipse.svg";
@@ -55,7 +55,7 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
             alt="Setting"
           />
         </button>
-        {isOpen && <ColumnEditModal setIsOpen={setIsOpen}/>}
+        {isOpen && <ColumnEditModal setIsOpen={setIsOpen} id={id} />}
       </div>
       <button type="button" className={clsx(styles.plusButton)}>
         <img src={PLUS_ICON_PATH} alt="Plus Button" />

@@ -7,6 +7,7 @@ import Button from "../button/baseButton/BaseButton";
 import { regEmail, regPassword } from "@/utils/regexp";
 import axios from "@/lib/axios";
 import { useAuth } from "@/contexts/AuthProvider";
+import AlertModal from "../modal/alertModal";
 
 interface SignForm {
   email: string;
@@ -25,10 +26,22 @@ const SignInForm = () => {
   } = useForm<SignForm>({ mode: "onBlur" });
   const [passwordInputType, setPasswordInputType] =
     useState<string>("password");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const { login } = useAuth();
 
   const watchEmail = watch("email", "");
   const watchPassword = watch("password", "");
+
+  const openModal = (error: string) => {
+    setIsOpen(true);
+    setErrorMessage(error);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setErrorMessage("");
+  };
 
   const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -40,9 +53,9 @@ const SignInForm = () => {
       await login(data);
     } catch (error: any) {
       if (error.response) {
-        alert(error.response.data.message);
+        openModal(error.response.data.message);
       } else {
-        alert("로그인 실패");
+        openModal("로그인 실패");
       }
     }
   };
@@ -57,6 +70,13 @@ const SignInForm = () => {
 
   return (
     <form className={styles.signContainer} onSubmit={handleSubmit(onSubmit)}>
+      {isOpen && (
+        <AlertModal
+          setModal={setIsOpen}
+          alertMessage={errorMessage}
+          onConfirmClick={closeModal}
+        />
+      )}
       <div>
         <div className={clsx(styles.inputs)}>
           <AuthInput

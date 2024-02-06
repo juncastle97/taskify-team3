@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import styles from "@/styles/pages/MyPage.module.scss";
-import axios from "@/lib/axios";
-import { useForm, FieldError, FieldValues } from "react-hook-form";
-import Button from "@/components/button/baseButton/BaseButton";
 import ReturnButton from "@/components/button/returnButton/returnButton";
-import AddImage from "@/components/mypage/AddImage";
-import { GetUserInfoType } from "@/types/users";
-import authInstance from "@/lib/axios";
-import { PutUserInfoProps } from "@/types/users";
-import { PutPasswordInfoProps } from "@/types/users";
-import MismatchModal from "@/components/modal/mismatchModal/MismatchModal";
 import ProfileChangeForm from "@/components/mypage/form/ProfileChangeForm";
 import PasswordChangeForm from "@/components/mypage/form/PasswordChangeForm";
 function MyPage() {

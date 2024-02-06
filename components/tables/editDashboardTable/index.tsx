@@ -1,22 +1,23 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import clsx from "clsx";
 import styles from "./EditDashboardTable.module.scss";
 import { DashboardType } from "@/types/dashboard";
-import { getDashboardInfo } from "@/api/dashboards";
+import { getDashboard } from "@/api/dashboards";
 import { editDashboard } from "@/api/dashboards";
 import { COLORS } from "@/constants/colors";
 import SelectChipDropdown from "@/components/dropdown/selectChipDropdown";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import Spinner from "@/components/spinner";
+import AlertModal from "@/components/modal/alertModal";
 
 function EditDashboardTable() {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
   const popupRef = useRef(null);
-  const [dashBoardInfo, setDashBoardInfo] = useState<DashboardType>({
+  const [getDashboardInfo, setGetDashboardInfo] = useState<DashboardType>({
     id: 0,
     title: "",
     color: "",
@@ -25,62 +26,72 @@ function EditDashboardTable() {
     createdByMe: false,
     userId: 0,
   });
-  const initialColor = dashBoardInfo.color || COLORS.GREEN;
+  const initialColor = getDashboardInfo.color || COLORS.GREEN;
   const [selectedColor, setSelectedColor] = useState(initialColor);
   const [isNotActive, setIsNotActive] = useState<boolean>(true);
   const [editName, setEditName] = useState<string>("");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const onNameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+  const onNameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
     setEditName(value);
     value === "" ? setIsNotActive(true) : setIsNotActive(false);
   };
 
   const handleButtonClick = async () => {
     const body = { title: editName, color: selectedColor };
-    const confirmed = window.confirm("대시보드 이름을 변경하시겠습니까?");
-    if (confirmed) {
-      try {
-        await editDashboard(dashboardId, body);
-        setDashBoardInfo(prevState => ({
-          ...prevState,
-          title: editName,
-          color: selectedColor,
-        }));
-      } catch (error) {
-        console.error("이름 변경에 실패했습니다.", error);
-      }
+    try {
+      await editDashboard(dashboardId, body);
+      closeModal();
+      setEditName("");
+      setGetDashboardInfo(prevState => ({
+        ...prevState,
+        title: editName,
+        color: selectedColor,
+      }));
+      closeModal();
+    } catch (error) {
+      console.error("이름 변경에 실패했습니다.", error);
     }
   };
 
-  const handleEditColorClick = useCallback(
+  const handlePopupClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
-      setIsOpen(true);
+      setIsPopupOpen(true);
     },
     [],
   );
 
-  const handlePopupClose = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    setIsOpen(false);
+  const popupClose = () => {
+    setIsPopupOpen(false);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
-    const fetchDashboardData = async () => {
+    const getDashboardData = async () => {
       try {
-        const dashBoardData = await getDashboardInfo(dashboardId);
-        setDashBoardInfo(dashBoardData);
+        const dashBoardData = await getDashboard(dashboardId);
+        setGetDashboardInfo(dashBoardData);
         setIsLoading(false);
       } catch (error) {
         console.error("GET 요청 실패 :", error);
       }
     };
 
-    fetchDashboardData();
-  }, [dashboardId, dashBoardInfo.title, dashBoardInfo.color]);
+    if (router.query.id) {
+      getDashboardData();
+    }
+  }, [dashboardId, getDashboardInfo.title, getDashboardInfo.color]);
 
   useEffect(() => {
     setSelectedColor(initialColor);
@@ -93,7 +104,7 @@ function EditDashboardTable() {
         popupRef.current &&
         !(popupRef.current as Node).contains(e.target as Node)
       ) {
-        setIsOpen(false);
+        popupClose();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -108,6 +119,14 @@ function EditDashboardTable() {
 
   return (
     <form className={clsx(styles.tableForm)}>
+      {isModalOpen && (
+        <AlertModal
+          setModal={setIsModalOpen}
+          alertMessage="이름을 변경하시겠습니까?"
+          onConfirmClick={handleButtonClick}
+          isCancelButton
+        />
+      )}
       <div className={clsx(styles.currentDashboardTitle)}>
         <div className={clsx(styles.dashboardTitle)}>
           {selectedColor && (
@@ -116,11 +135,11 @@ function EditDashboardTable() {
               style={{ background: selectedColor }}
             />
           )}
-          {dashBoardInfo?.title}
+          {getDashboardInfo?.title}
         </div>
         <div
           className={clsx(styles.editColorOption)}
-          onClick={handleEditColorClick}
+          onClick={handlePopupClick}
         >
           <div>색상변경</div>
           <Image
@@ -129,10 +148,10 @@ function EditDashboardTable() {
             height={20}
             alt="dropdown icon"
           />
-          {isOpen && (
+          {isPopupOpen && (
             <div ref={popupRef}>
               <SelectChipDropdown
-                onClick={handlePopupClose}
+                onClick={popupClose}
                 selectedColor={selectedColor}
                 setSelectedColor={setSelectedColor}
               />
@@ -149,7 +168,7 @@ function EditDashboardTable() {
         />
       </div>
       <div className={clsx(styles.button)}>
-        <BaseButton onClick={handleButtonClick} disabled={isNotActive} small>
+        <BaseButton onClick={openModal} disabled={isNotActive} small>
           변경
         </BaseButton>
       </div>

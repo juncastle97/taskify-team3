@@ -8,6 +8,7 @@ import clsx from "clsx";
 import AuthInput from "../input/AuthInput";
 import Button from "../button/baseButton/BaseButton";
 import { regEmail, regPassword } from "@/utils/regexp";
+import AlertModal from "../modal/alertModal";
 
 interface SignForm {
   email: string;
@@ -30,9 +31,22 @@ const SignUpForm = () => {
   const [passwordConfirmInputType, setPasswordConfirmInputType] =
     useState<string>("password");
   const [isCheckboxChecked, setIsCheckboxChecked] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const watchEmail = watch("email", "");
   const watchPassword = watch("password", "");
+
+  const openModal = (error: string) => {
+    setIsOpen(true);
+    setErrorMessage(error);
+  };
+
+  const handleRouteLogin = () => {
+    setIsOpen(false);
+    setErrorMessage("");
+    router.push("/login");
+  };
 
   const togglePasswordVisibility = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -54,13 +68,13 @@ const SignUpForm = () => {
 
   const onSubmit = async (data: SignForm) => {
     try {
-      const response = await axios.post("/users", data);
-      router.push("/login");
-    } catch (error) {
+      await axios.post("/users", data);
+      openModal("가입이 완료되었습니다!");
+    } catch (error: any) {
       if (error.response) {
-        alert(error.response.data.message);
+        openModal(error.response.data.message);
       } else {
-        alert("회원가입 실패");
+        openModal("회원가입 실패");
       }
     }
   };
@@ -82,6 +96,14 @@ const SignUpForm = () => {
   return (
     <form className={styles.signContainer} onSubmit={handleSubmit(onSubmit)}>
       <div className={clsx(styles.inputs)}>
+        {isOpen && (
+          <AlertModal
+            setModal={setIsOpen}
+            alertMessage={errorMessage}
+            onConfirmClick={handleRouteLogin}
+          />
+        )}
+
         <AuthInput
           label="이메일"
           type="email"

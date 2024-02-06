@@ -3,7 +3,10 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import clsx from "clsx";
 import styles from "./InvitationDashboardTable.module.scss";
-import { GetDashboardInvitationType } from "@/types/dashboard";
+import {
+  DeleteDashboardInvitationType,
+  GetDashboardInvitationType,
+} from "@/types/dashboard";
 import {
   getInvitationList,
   deleteDashboardInvitation,
@@ -13,24 +16,42 @@ import PagingButton from "@/components/button/pagingButton/PagingButton";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import NoInvitation from "../myInvitedDashboardTable/NoInvitation";
 import InviteModal from "@/components/modal/invitationModal";
+import AlertModal from "@/components/modal/alertModal";
 
 function InvitationDashboardTable() {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
   const [currentPage, setCurrentPage] = useState(1);
-  const [invitation, setInvitation] = useState<GetDashboardInvitationType>({
-    totalCount: 0,
-    invitations: [],
-  });
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [getInvitation, setGetInvitation] =
+    useState<GetDashboardInvitationType>({
+      totalCount: 0,
+      invitations: [],
+    });
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
+  const [selectedInvitation, setSelectedInvitaton] =
+    useState<DeleteDashboardInvitationType>({
+      id: 0,
+      nickname: "",
+    });
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const ITEMS_PER_PAGE = 5;
-  const totalPage = Math.ceil((invitation.totalCount || 1) / ITEMS_PER_PAGE);
+  const totalPage = Math.ceil((getInvitation.totalCount || 1) / ITEMS_PER_PAGE);
 
   const openModal = () => {
-    setIsOpen(true);
+    setIsModalOpen(true);
+  };
+
+  const openAlertModal =
+    (invitationId: number, invitationNickname: string) => () => {
+      setSelectedInvitaton({ id: invitationId, nickname: invitationNickname });
+      setIsAlertOpen(true);
+    };
+
+  const closeAlertModal = () => {
+    setIsAlertOpen(false);
   };
 
   const handleLeftButtonClick = () => {
@@ -44,27 +65,21 @@ function InvitationDashboardTable() {
   const InvitationData = async (page: number) => {
     try {
       const response = await getInvitationList(dashboardId, 5, page);
-      setInvitation(response);
+      setGetInvitation(response);
       setIsLoading(false);
     } catch (error) {
       console.error("GET 요청 실패: ", error);
     }
   };
 
-  const handleCancelInvitation = async (
-    invitationId: number,
-    invitationNickname: string,
-  ) => {
-    const confirmed = window.confirm(
-      `${invitationNickname}님 초대를 취소하겠습니까?`,
-    );
-    if (confirmed) {
-      try {
-        await deleteDashboardInvitation(dashboardId, invitationId);
-        InvitationData(currentPage);
-      } catch (error) {
-        console.error("초대 삭제에 실패했습니다.", error);
-      }
+  const handleCancelInvitation = async (invitationId: number) => {
+    try {
+      await deleteDashboardInvitation(dashboardId, invitationId);
+      setSelectedInvitaton({ id: 0, nickname: "" });
+      closeAlertModal();
+      InvitationData(currentPage);
+    } catch (error) {
+      console.error("초대 삭제에 실패했습니다.", error);
     }
   };
 
@@ -74,14 +89,14 @@ function InvitationDashboardTable() {
   }, [totalPage]);
 
   useEffect(() => {
-    InvitationData(currentPage);
-  }, [dashboardId, invitation.totalCount, currentPage]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      InvitationData(currentPage);
+    if (router.query.id) {
+      if (!isModalOpen) {
+        {
+          InvitationData(currentPage);
+        }
+      }
     }
-  }, [isOpen]);
+  }, [isModalOpen, dashboardId, getInvitation.totalCount, currentPage]);
 
   if (isLoading) {
     return <Spinner />;
@@ -89,6 +104,15 @@ function InvitationDashboardTable() {
 
   return (
     <form className={clsx(styles.tableForm)}>
+      {isModalOpen && <InviteModal setModal={setIsModalOpen} />}
+      {isAlertOpen && (
+        <AlertModal
+          setModal={setIsAlertOpen}
+          alertMessage={`${selectedInvitation.nickname} 님 초대를 취소하겠습니까?`}
+          isCancelButton
+          onConfirmClick={() => handleCancelInvitation(selectedInvitation.id)}
+        />
+      )}
       <div className={clsx(styles.dashboardTitle)}>
         <div>초대 내역</div>
         <div className={clsx(styles.pageNumber)}>
@@ -114,46 +138,41 @@ function InvitationDashboardTable() {
                     height={16}
                     alt="add image"
                   />
-                  {"초대하기"}
+                  초대하기
                 </div>
               </BaseButton>
-              {isOpen && <InviteModal setIsOpen={setIsOpen} />}
             </div>
           </div>
         </div>
       </div>
-      {invitation?.totalCount ? (
+      {getInvitation?.totalCount ? (
         <>
           <div className={clsx(styles.label)}>이메일</div>
           <ul>
-            {invitation.invitations
+            {getInvitation.invitations
               ?.sort(
                 (a, b) =>
                   new Date(b.createdAt).getTime() -
                   new Date(a.createdAt).getTime(),
               )
               .map(invitation => (
-                <li key={invitation.id}>
-                  {invitation.invitee && (
-                    <div className={clsx(styles.inviteListWrapper)}>
-                      <div className={clsx(styles.invitedEmail)}>
-                        {invitation.invitee.email}
-                      </div>
-                      <BaseButton
-                        type="button"
-                        onClick={() =>
-                          handleCancelInvitation(
-                            invitation.id,
-                            invitation.invitee.nickname,
-                          )
-                        }
-                        small
-                        white
-                      >
-                        취소
-                      </BaseButton>
+                <li key={invitation.invitee.id}>
+                  <div className={clsx(styles.inviteListWrapper)}>
+                    <div className={clsx(styles.invitedEmail)}>
+                      {invitation.invitee.email}
                     </div>
-                  )}
+                    <BaseButton
+                      type="button"
+                      onClick={openAlertModal(
+                        invitation.id,
+                        invitation.invitee.nickname,
+                      )}
+                      small
+                      white
+                    >
+                      취소
+                    </BaseButton>
+                  </div>
                 </li>
               ))}
           </ul>
