@@ -29,7 +29,7 @@ function ProfileImage({ member, width, height }: ProfileImageProps) {
           height={width}
         />
       ) : (
-        member.nickname.charAt(0).toUpperCase()
+        member.nickname?.charAt(0).toUpperCase()
       )}
     </div>
   );

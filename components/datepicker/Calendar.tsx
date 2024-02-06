@@ -1,28 +1,26 @@
-import { ChangeEvent, useState } from "react";
-import dayjs from "dayjs";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import style from "./Calendar.module.scss";
-import CalendarIcon from "@/public/icons/calendar.svg";
+import styles from "./Calendar.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
 
-const Calendar: React.FC<any> /* 타입 설정하기 */ = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+const Calendar = () => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   return (
-    <div className={clsx(style.datepickerWrap)}>
+    <div className={clsx(styles.datepickerWrap)}>
       <DatePicker
-        className={clsx(style.datepicker)}
+        className={clsx(styles.datepicker)}
         showIcon
         selected={selectedDate}
         onChange={date => setSelectedDate(date)}
         locale={ko}
         selectsStart
         placeholderText="날짜를 선택하세요"
-        dateFormat="yyyy.MM.dd HH:mm:ss"
+        minDate={new Date()}
+        dateFormat="yyyy.MM.dd HH:mm"
         showTimeInput
         timeInputLabel="Time:"
         icon={

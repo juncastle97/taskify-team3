@@ -8,7 +8,7 @@ import { COLORS } from "@/constants/colors";
 import { useAuth } from "@/contexts/AuthProvider";
 import { getMyInfo } from "@/api/users";
 import { getMemberList } from "@/api/members";
-import { getDashboardInfo } from "@/api/dashboards";
+import { getDashboard } from "@/api/dashboards";
 import { UserType } from "@/types/users";
 import ProfileImage from "../profileImage/ProfileImage";
 
@@ -67,7 +67,7 @@ const DashboardGnb = () => {
 
   const DashboardTitleData = async (dashboardId: number) => {
     try {
-      const response = await getDashboardInfo(dashboardId);
+      const response = await getDashboard(dashboardId);
       setDashboardTitle(response);
     } catch (error) {
       console.error("대시보드 타이틀 불러오기 실패", error);

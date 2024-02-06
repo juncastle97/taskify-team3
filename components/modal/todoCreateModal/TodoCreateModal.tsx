@@ -8,95 +8,110 @@ import {
 } from "react";
 import ModalPortal from "../ModalPortal";
 import clsx from "clsx";
-import style from "./TodoCreateModal.module.scss";
-// import Input from "@/components/input/Input";
+import styles from "./TodoCreateModal.module.scss";
 import TagChips from "@/components/chips/TagChips";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import Dropdown from "@/components/dropdown/Dropdown";
 import { generateRandomColorHexCode } from "@/utils/color";
-import InputDropdown from "@/components/inputdropdown/InputDropdown";
+import InputDropdown from "@/components/inputDropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 import Calendar from "@/components/datepicker/Calendar";
-import { TodoEditType } from "@/types/cards";
+import { TodoCreateType } from "@/types/cards";
+
 interface TodoCreateModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
-  const handleTodoCreateClick = async (event?: FormEvent) => {
-    if (event) event.preventDefault(); // 제출 동작 막음
-  };
-  //
-  const [formState, setFormState] = useState<TodoEditType>({
+  const [formState, setFormState] = useState<TodoCreateType>({
     title: "",
     description: "",
     tags: [],
     dueDate: "",
-    assignee: { nickname: "" },
+    assignee: [],
     imageUrl: "",
   });
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+
+  // const handleTitleInputChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  // ) => {
+  //   const { value } = event.target;
+  //   setTitle(value);
+  // };
+
+  // const handleTextareaInputChange = (
+  //   event: React.ChangeEvent<HTMLTextAreaElement>,
+  // ) => {
+  //   const { value } = event.target;
+  //   setDescription(value);
+  // };
+
   const handleButtonClick = (event: any) => {
     setFormState(event.target.value);
     //추가적인 api 호출작업
   };
 
+  const handleTodoCreateClick = async (event?: FormEvent) => {
+    if (event) event.preventDefault();
+  };
+
   return (
     <ModalPortal>
-      <form onSubmit={handleTodoCreateClick}>
-        <ModalContainer setIsOpen={setIsOpen}>
-          <div className={clsx(style.modalWrapper)}>
+      <ModalContainer setIsOpen={setIsOpen}>
+        <form onSubmit={handleTodoCreateClick}>
+          <div className={clsx(styles.modalWrapper)}>
             <h1>할 일 생성</h1>
-            <div className={clsx(style.inputWrapper)}>
-              <div className={clsx(style.gap)}>
+            <div className={clsx(styles.inputWrapper)}>
+              <div className={clsx(styles.gap)}>
                 <p>담당자</p>
-                <InputDropdown assigneeData={[]}></InputDropdown>
+                <InputDropdown />
               </div>
-              <div className={clsx(style.gap)}>
+              <div className={clsx(styles.gap)}>
                 <p>
-                  제목 <span className={clsx(style.star)}>*</span>
+                  제목 <span className={clsx(styles.star)}>*</span>
                 </p>
                 <input
-                  className={clsx(style.input)}
+                  className={clsx(styles.input)}
                   placeholder="제목을 입력해 주세요"
-                  onChange={function (
-                    e: ChangeEvent<HTMLInputElement>,
-                  ): void {}}
-                ></input>
+                  // onChange={handleTitleInputChange}
+                />
               </div>
-              <div className={clsx(style.gap)}>
+              <div className={clsx(styles.gap)}>
                 <p>
-                  설명 <span className={clsx(style.star)}>*</span>
+                  설명 <span className={clsx(styles.star)}>*</span>
                 </p>
                 <textarea
-                  className={clsx(style.input)}
+                  className={clsx(styles.input)}
                   rows={5}
                   cols={40}
                   placeholder="설명을 입력해 주세요"
-                ></textarea>
+                  // onChange={handleTextareaInputChange}
+                />
               </div>
-              <div className={clsx(style.gap)}>
+              <div className={clsx(styles.gap)}>
                 <p>마감일</p>
                 <Calendar />
               </div>
-              <div className={clsx(style.gap)}>
+              <div className={clsx(styles.gap)}>
                 <p>태그</p>
                 <TagChips
                   tagName={"가나다아라라"}
                   color={generateRandomColorHexCode()}
                 />
                 <input
-                  className={clsx(style.input)}
+                  className={clsx(styles.input)}
                   placeholder="입력 후 Enter"
-                ></input>
+                />
               </div>
-              <div className={clsx(style.gap)}>
-                <p> 이미지 </p>
-                <div className={clsx(style.img)}>
-                  <AddImage profileImageUrl={"@/public/icons/calendar.svg"} />
+              <div className={clsx(styles.gap)}>
+                <p>이미지</p>
+                <div className={clsx(styles.img)}>
+                  <AddImage profileImageUrl={formState.imageUrl} />
                 </div>
               </div>
             </div>
-            <div className={clsx(style.buttons)}>
+            <div className={clsx(styles.buttons)}>
               <BaseButton
                 type="button"
                 onClick={() => setIsOpen(false)}
@@ -109,7 +124,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 type="submit"
                 small
                 disabled={
-                  !formState.assignee.nickname ||
+                  // !formState.assignee.nickname ||
                   !formState.title ||
                   !formState.description ||
                   !formState.dueDate ||
@@ -122,8 +137,8 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
               </BaseButton>
             </div>
           </div>
-        </ModalContainer>
-      </form>
+        </form>
+      </ModalContainer>
     </ModalPortal>
   );
 }

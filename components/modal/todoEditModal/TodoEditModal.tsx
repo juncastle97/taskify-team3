@@ -16,7 +16,7 @@ import Input from "@/components/input/Input";
 import Dropdown from "@/components/dropdown/Dropdown";
 import { generateRandomColorHexCode } from "@/utils/color";
 import Plus from "@/components/button/plusBtn/PlusBtn";
-import InputDropdown from "@/components/inputdropdown/InputDropdown";
+import InputDropdown from "@/components/inputDropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 
 interface TodoEditModalProps {

@@ -22,7 +22,6 @@ const SignUpForm = () => {
     register,
     handleSubmit,
     watch,
-    setError,
     formState: { errors, isValid },
   } = useForm<SignForm>({ mode: "onBlur" });
   const router = useRouter();
