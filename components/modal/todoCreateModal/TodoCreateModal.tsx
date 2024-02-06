@@ -17,7 +17,7 @@ import { generateRandomColorHexCode } from "@/utils/color";
 import InputDropdown from "@/components/inputdropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 import Calendar from "@/components/datepicker/Calendar";
-import InitialCardData from "@/types/cards";
+import { TodoEditType } from "@/types/cards";
 interface TodoCreateModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -27,7 +27,14 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
     if (event) event.preventDefault();
   };
 
-  const [formState, setFormState] = useState(InitialCardData);
+  const [formState, setFormState] = useState<TodoEditType>({
+    title: "",
+    description: "",
+    tags: [],
+    dueDate: "",
+    assignee: { nickname: "" },
+    imageUrl: "",
+  });
   const handleButtonClick = (event: any) => {
     setFormState(event.target.value);
   };
@@ -110,9 +117,9 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                   !formState.assignee.nickname ||
                   !formState.title ||
                   !formState.description ||
-                  !formState.date ||
-                  !formState.tag ||
-                  !formState.image
+                  !formState.dueDate ||
+                  !formState.tags ||
+                  !formState.imageUrl
                 }
                 onClick={handleButtonClick}
               >
