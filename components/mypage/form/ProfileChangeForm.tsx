@@ -22,15 +22,18 @@ function ProfileChangeForm() {
     nickname: "",
     profileImageUrl: "",
   });
+  const [nickname, setNickname] = useState<string>("");
 
+  const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
   useEffect(() => {
     const getUserInfo = async () => {
       try {
         const response = await axios.get("users/me");
         const { email, nickname, profileImageUrl } = response.data;
-        // console.log("이전 userInfo:", userInfo);
+
         setUserInfo({ email, nickname, profileImageUrl });
-        // console.log("새로운 userInfo:", { email, nickname, profileImageUrl });
       } catch (error) {
         console.error(error);
       }
@@ -110,7 +113,9 @@ function ProfileChangeForm() {
             id="nickName"
             type="text"
             error={errors.nickname?.message as string}
+            value={nickname}
             defaultValue={userInfo.nickname}
+            onChange={handleNicknameChange}
             registerConfig={register("nickname", {
               required: "닉네임을 입력해 주세요.",
               maxLength: {

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import clsx from "clsx";
-import { useRef, ChangeEvent, useState } from "react";
+import { useRef, ChangeEvent, useState, useEffect } from "react";
 import styles from "@/components/mypage/AddImage.module.scss";
 import axios from "@/lib/axios";
 
@@ -8,9 +8,14 @@ interface AddImageProp {
   profileImageUrl: string | null;
   onImageUpload?: (imageUrl: string) => void | null;
 }
+
 function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>();
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    setPreviewImage(profileImageUrl);
+  }, [profileImageUrl]);
 
   const handleImageClick = () => {
     if (fileInputRef.current) {
@@ -59,7 +64,7 @@ function AddImage({ profileImageUrl, onImageUpload }: AddImageProp) {
             id="user_image"
             className={clsx(styles.upload, styles.previewImage)}
             src={previewImage}
-            alt="이미지"
+            alt="프로필 이미지"
             width={182}
             height={182}
             onClick={handleImageClick}
