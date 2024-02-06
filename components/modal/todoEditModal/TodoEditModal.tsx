@@ -19,12 +19,12 @@ import Plus from "@/components/button/plusBtn/PlusBtn";
 import InputDropdown from "@/components/inputdropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 
-interface TodoCreateModalProps {
+interface TodoEditModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
-  const handleTodoCreateClick = async (event?: FormEvent) => {
+function TodoEditModal({ setIsOpen }: TodoEditModalProps) {
+  const handleTodoEditClick = async (event?: FormEvent) => {
     if (event) event.preventDefault();
   };
   // const [tagInput, setTagInput] = useState("");
@@ -43,7 +43,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
 
   return (
     <ModalPortal>
-      <form onSubmit={handleTodoCreateClick}>
+      <form onSubmit={handleTodoEditClick}>
         <ModalContainer setIsOpen={setIsOpen}>
           <div className={clsx(style.modalWrapper)}>
             <h1>할 일 수정</h1>
@@ -118,7 +118,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
               <div className={clsx(style.gap)}>
                 <p> 이미지 </p>
                 <div className={clsx(style.img)}>
-                  <AddImage />
+                  <AddImage profileImageUrl={null} />
                 </div>
               </div>
             </div>
@@ -142,4 +142,4 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
   );
 }
 
-export default TodoCreateModal;
+export default TodoEditModal;

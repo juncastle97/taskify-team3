@@ -6,7 +6,8 @@ import styles from "@/styles/pages/Signup.module.scss";
 import SignInForm from "@/components/form/SignInForm";
 import { useRouter } from "next/router";
 import { useAuth } from "@/contexts/AuthProvider";
-import { useEffect } from "react";
+import { SetStateAction, useEffect } from "react";
+import ColumnAddModal from "@/components/modal/columnAddModal/ColumnAddModal";
 
 export interface SignForm {
   email: string;

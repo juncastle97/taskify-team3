@@ -1,0 +1,20 @@
+.datepickerWrap {
+  @include flexbox(center, center);
+}
+.icon {
+  width: 20px;
+  height: 20px;
+}
+.datepicker {
+  @include text-style-16-light;
+  width: 45rem;
+  height: 4.8rem;
+  padding: 1.3rem 27.7rem 1.4rem 1.6rem;
+  // placeholder color: $gray-400;
+  color: var(--black-black_333236, #333236);
+  border: 1px solid $gray-300;
+  gap: 1rem;
+}
+.placeholder {
+  color: $gray-400;
+}

@@ -10,7 +10,9 @@ import { GetDashboardListType } from "@/types/dashboard";
 import { getDashboardList } from "@/api/dashboards";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 
+
 function MyDashboard() {
+  const [isOpen, setIsOpen] = useState<boolean>(true);
   const mappedMockInvitations = mapInvitations(
     mockInvitations as InitialInvitations,
   );
@@ -52,6 +54,7 @@ function MyDashboard() {
 
   return (
     <div className={clsx(styles.bg)}>
+
       <div className={clsx(styles.container)}>
         <DashboardBtn dashboardList={dashboardList} />
         <div className={clsx(styles.pageBtnWrapper)}>

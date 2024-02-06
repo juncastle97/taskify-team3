@@ -12,13 +12,12 @@ import style from "./TodoCreateModal.module.scss";
 // import Input from "@/components/input/Input";
 import TagChips from "@/components/chips/TagChips";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import Input from "@/components/input/Input";
 import Dropdown from "@/components/dropdown/Dropdown";
 import { generateRandomColorHexCode } from "@/utils/color";
-import Plus from "@/components/button/plusBtn/PlusBtn";
 import InputDropdown from "@/components/inputdropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
-
+import Calendar from "@/components/datepicker/Calendar";
+import InitialCardData from "@/types/cards";
 interface TodoCreateModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -27,19 +26,11 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
   const handleTodoCreateClick = async (event?: FormEvent) => {
     if (event) event.preventDefault();
   };
-  // const [tagInput, setTagInput] = useState("");
-  // const [tags, setTags] = useState([]);
 
-  // const handleTagInputChange = e => {
-  //   setTagInput(e.target.value);
-  // };
-
-  // const handleTagInputKeyDown = e => {
-  //   if (e.key === "Enter" && tagInput.trim() !== "") {
-  //     setTags(prevTags => [...prevTags, tagInput.trim()]);
-  //     setTagInput("");
-  //   }
-  // };
+  const [formState, setFormState] = useState(InitialCardData);
+  const handleButtonClick = (event: any) => {
+    setFormState(event.target.value);
+  };
 
   return (
     <ModalPortal>
@@ -50,7 +41,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
             <div className={clsx(style.inputWrapper)}>
               <div className={clsx(style.gap)}>
                 <p>담당자</p>
-                <InputDropdown assigneeData={[]}></InputDropdown>
+                <InputDropdown assigneeData={[]} key="person"></InputDropdown>
               </div>
               <div className={clsx(style.gap)}>
                 <p>
@@ -58,6 +49,7 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 </p>
                 <input
                   className={clsx(style.input)}
+                  key="title"
                   placeholder="제목을 입력해 주세요"
                   onChange={function (
                     e: ChangeEvent<HTMLInputElement>,
@@ -65,9 +57,12 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
                 ></input>
               </div>
               <div className={clsx(style.gap)}>
-                <p>설명 *</p>
+                <p>
+                  설명 <span className={clsx(style.star)}>*</span>
+                </p>
                 <textarea
                   className={clsx(style.input)}
+                  key="description"
                   rows={5}
                   cols={40}
                   placeholder="설명을 입력해 주세요"
@@ -75,44 +70,27 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
               </div>
               <div className={clsx(style.gap)}>
                 <p>마감일</p>
-                <input
-                  className={clsx(style.input)}
-                  placeholder="날짜를 입력해주세요"
-                  onChange={function (
-                    e: ChangeEvent<HTMLInputElement>,
-                  ): void {}}
-                ></input>
+                <Calendar key="date" />
               </div>
               <div className={clsx(style.gap)}>
                 <p>태그</p>
-
                 <TagChips
                   tagName={"가나다아라라"}
                   color={generateRandomColorHexCode()}
                 />
                 <input
                   className={clsx(style.input)}
+                  key="tag"
                   placeholder="입력 후 Enter"
                 ></input>
-                {/* {tags.map((tag, index) => (
-                  <TagChips
-                    key={index}
-                    tagName={tag}
-                    color={generateRandomColorHexCode()}
-                  />
-                ))}
-                <input
-                  className={clsx(style.input)}
-                  placeholder="입력 후 Enter"
-                  value={tagInput}
-                  onChange={handleTagInputChange}
-                  onKeyDown={handleTagInputKeyDown}
-                /> */}
               </div>
               <div className={clsx(style.gap)}>
                 <p> 이미지 </p>
                 <div className={clsx(style.img)}>
-                  <AddImage />
+                  <AddImage
+                    key="image"
+                    profileImageUrl={"@/public/icons/calendar.svg"}
+                  />
                 </div>
               </div>
             </div>
@@ -125,7 +103,19 @@ function TodoCreateModal({ setIsOpen }: TodoCreateModalProps) {
               >
                 취소
               </BaseButton>
-              <BaseButton type="submit" small>
+              <BaseButton
+                type="submit"
+                small
+                disabled={
+                  !formState.assignee.nickname ||
+                  !formState.title ||
+                  !formState.description ||
+                  !formState.date ||
+                  !formState.tag ||
+                  !formState.image
+                }
+                onClick={handleButtonClick}
+              >
                 생성
               </BaseButton>
             </div>

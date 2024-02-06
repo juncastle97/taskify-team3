@@ -1,34 +1,62 @@
 import ModalContainer from "../ModalContainer";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import ModalPortal from "../ModalPortal";
 import clsx from "clsx";
 import style from "./ColumnAddModal.module.scss";
-// import Input from "@/components/input/Input";
-import { useForm } from "react-hook-form";
-
 import BaseButton from "@/components/button/baseButton/BaseButton";
-
+import axios from "@/lib/axios";
+import { PostcolumnsAddData } from "@/types/columns";
+import { useRouter } from "next/router";
 interface ColumnAddModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 function ColumnAddModal({ setIsOpen }: ColumnAddModalProps) {
+  const router = useRouter();
+  const { id } = router.query;
+  const dashboardId = Number(id);
   const [errorMsg, setErrorMsg] = useState("");
-  // const {
-  //   register,
-  //   watch,
-  //   formState: { errors },
-  // } = useForm({ mode: "onBlur" });
-  //const email = watch("email");
 
-  // const handleICreateClick = async (event?: FormEvent) => {
-  //   if (event) event.preventDefault();
-  // };
+  const [columnName, setColumnName] = useState<PostcolumnsAddData>({
+    title: "",
+  });
+
+  const postColumnsAdd = async (title: string, dashboardId: number) => {
+    const response = await axios.post("/columns", {
+      title,
+      dashboardId,
+    });
+    return response.data;
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setColumnName({ title: value });
+  };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    try {
+      postColumnsAdd(columnName.title, 3066); //dashboardId는 dashborad에서 받아와야함.
+      setIsOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const isCreateButtonDisabled = columnName.title === "";
 
   return (
     <ModalPortal>
       <ModalContainer setIsOpen={setIsOpen}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className={clsx(style.modalWrapper)}>
             <h1>새 컬럼 생성</h1>
             <div className={clsx(style.nameWrapper)}>
@@ -37,20 +65,9 @@ function ColumnAddModal({ setIsOpen }: ColumnAddModalProps) {
                 className={clsx(style.nameInput)}
                 type="text"
                 placeholder="새로운 프로젝트"
-                /* 중복된 칼럼 이름 유효성 검사 수정
-                {...register("email", {
-                  required: "이메일을 입력해 주세요.",
-                  pattern: {
-                    value: emailRegex,
-                    message: "올바른 이메일 주소가 아닙니다.",
-                  },
-                })}*/
+                value={columnName.title}
+                onChange={handleInputChange}
               />
-              {/* {errors.email && (
-                <p className={style.errorMessage}>
-                  {errors?.email?.message?.toString()}
-                </p>
-              )} */}
             </div>
             <div className={clsx(style.buttons)}>
               <BaseButton
@@ -61,7 +78,7 @@ function ColumnAddModal({ setIsOpen }: ColumnAddModalProps) {
               >
                 취소
               </BaseButton>
-              <BaseButton type="submit" small>
+              <BaseButton type="submit" small disabled={isCreateButtonDisabled}>
                 생성
               </BaseButton>
             </div>
