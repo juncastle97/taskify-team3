@@ -1,6 +1,7 @@
 @mixin background() {
-  background-color: $gray-300;
+  background-color: $gray-100;
   min-width: 100%;
+  width: fit-content;
   min-height: 100vh;
   padding: 11rem 34rem;
 }

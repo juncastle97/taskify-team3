@@ -1,0 +1,11 @@
+.modalWrapper {
+  @include column-flexbox(center, start);
+  padding: 2rem;
+  gap: 2.5rem;
+  width: 73rem;
+  height: 76.3rem;
+
+  h1 {
+    @include text-style-20-bold;
+  }
+}

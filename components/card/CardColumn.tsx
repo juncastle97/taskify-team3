@@ -6,6 +6,7 @@ import { getCardList } from "@/api/cards";
 import { InitialCardData, CardPropsType } from "@/types/cards";
 import ColumnEditModal from "../modal/columnEditModal/ColumnEditModal";
 import TodoCreateModal from "../modal/todoCreateModal/TodoCreateModal";
+import CardModal from "../modal/cardModal";
 
 const ELLIPSE_ICON_PATH = "/icons/blueEllipse.svg";
 const SETTING_ICON_PATH = "/icons/setting.svg";
@@ -20,8 +21,9 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
   const [cardData, setCardData] = useState<InitialCardData>();
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
+  const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
 
-  const CardListData = async (columnId: number) => {
+  const CardListData = async (size: number, columnId: number) => {
     try {
       const response = await getCardList(10, columnId);
       setCardData(response);
@@ -31,7 +33,7 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
   };
 
   useEffect(() => {
-    CardListData(id);
+    CardListData(10, id);
   }, [id]);
 
   const openEditModal = () => {
@@ -46,10 +48,26 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
     setIsAddOpen(false);
   };
 
+  const openCardModal = () => {
+    setIsCardOpen(true);
+  };
+
   return (
     <>
       {isAddOpen && <TodoCreateModal setIsOpen={setIsAddOpen} />}
       {isEditOpen && <ColumnEditModal setIsOpen={setIsEditOpen} id={id} />}
+      {isCardOpen && (
+        <>
+          {cardData?.cards.map((cardProps: CardPropsType) => (
+            <CardModal
+              key={cardProps.id}
+              setIsOpen={setIsCardOpen}
+              cardProps={cardProps}
+              title={title}
+            />
+          ))}
+        </>
+      )}
       <div className={clsx(styles.container)}>
         <div className={clsx(styles.head)}>
           <div>
@@ -76,7 +94,7 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
         >
           <img src={PLUS_ICON_PATH} alt="Plus Button" />
         </button>
-        <div className={clsx(styles.cardList)}>
+        <div className={clsx(styles.cardList)} onClick={openCardModal}>
           {cardData?.cards.map((cardProps: CardPropsType) => (
             <DashboardCard key={cardProps.id} cardProps={cardProps} />
           ))}

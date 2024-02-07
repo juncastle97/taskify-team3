@@ -16,12 +16,12 @@ import { PostcolumnsAddData } from "@/types/columns";
 import { useRouter } from "next/router";
 interface ColumnAddModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  currentId: Number;
 }
 
-function ColumnAddModal({ setIsOpen }: ColumnAddModalProps) {
+function ColumnAddModal({ setIsOpen, currentId }: ColumnAddModalProps) {
   const router = useRouter();
   const { id } = router.query;
-  const dashboardId = Number(id);
   const [errorMsg, setErrorMsg] = useState("");
 
   const [columnName, setColumnName] = useState<PostcolumnsAddData>({
@@ -29,11 +29,17 @@ function ColumnAddModal({ setIsOpen }: ColumnAddModalProps) {
   });
 
   const postColumnsAdd = async (title: string, dashboardId: number) => {
-    const response = await axios.post("/columns", {
-      title,
-      dashboardId,
-    });
-    return response.data;
+    try {
+      const response = await axios.post("/columns", {
+        title,
+        dashboardId,
+      });
+      const responseData = response.data;
+      return responseData;
+    } catch (error) {
+      console.error("API 요청 실패: ", error);
+      throw error;
+    }
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +50,7 @@ function ColumnAddModal({ setIsOpen }: ColumnAddModalProps) {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     try {
-      postColumnsAdd(columnName.title, 3066); //dashboardId는 dashborad에서 받아와야함.
+      postColumnsAdd(columnName.title, Number(currentId));
       setIsOpen(false);
     } catch (error) {
       console.error(error);

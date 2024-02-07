@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import axios from "@/lib/axios";
-import Image from "next/image";
 import styles from "./Form.module.scss";
 import clsx from "clsx";
 import AuthInput from "../input/AuthInput";
