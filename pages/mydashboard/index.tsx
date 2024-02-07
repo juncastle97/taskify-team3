@@ -9,7 +9,7 @@ import DashboardBtn from "@/components/button/dashboardBtn/DashboardBtn";
 import { GetDashboardListType } from "@/types/dashboard";
 import { getDashboardList } from "@/api/dashboards";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
-import TodoCreateModal from "@/components/modal/todoCreateModal/TodoCreateModal";
+import TodoCreateModal from "@/components/modal/todoCreateModal";
 import TodoEditModal from "@/components/modal/todoEditModal/TodoEditModal";
 
 function MyDashboard() {

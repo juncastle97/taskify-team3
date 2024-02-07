@@ -1,12 +1,17 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { getMonth, getYear } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./calendar.module.scss";
 import Image from "next/image";
+import { TimeDash } from "@/utils/time";
 
-const Calendar = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+interface CalendarProps {
+  onDueDate: (itemDate: any) => void;
+}
+
+const Calendar = ({ onDueDate }: CalendarProps) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const YEARS = Array.from(
     { length: 2100 - getYear(new Date()) + 1 },
     (_, i) => getYear(new Date()) + i,
@@ -26,10 +31,17 @@ const Calendar = () => {
     "December",
   ];
 
+  const onSelectedDate = (date: any) => {
+    const formattedDate = TimeDash(date);
+    setSelectedDate(date);
+    onDueDate(formattedDate);
+  };
+
   return (
     <DatePicker
       className={styles.datePicker}
-      dateFormat="yyyy.MM.dd HH:mm"
+      placeholderText="날짜를 입력해 주세요"
+      dateFormat="YYYY-MM-dd HH:mm"
       formatWeekDay={nameOfDay => nameOfDay.substring(0, 1)}
       showYearDropdown
       scrollableYearDropdown
@@ -55,7 +67,7 @@ const Calendar = () => {
           : styles.unselectedDay
       }
       timeClassName={time => time && styles.time}
-      onChange={date => setSelectedDate(date)}
+      onChange={onSelectedDate}
       renderCustomHeader={({
         date,
         changeYear,

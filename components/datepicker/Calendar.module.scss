@@ -1,5 +1,6 @@
 .datePicker {
   @include flexbox;
+  @include text-style-16-light;
   border: 1px solid $gray-300;
   border-radius: 4px;
   background-color: $white;

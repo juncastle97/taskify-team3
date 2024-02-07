@@ -5,7 +5,7 @@ import styles from "./CardColumn.module.scss";
 import { getCardList } from "@/api/cards";
 import { InitialCardData, CardPropsType } from "@/types/cards";
 import ColumnEditModal from "../modal/columnEditModal/ColumnEditModal";
-import TodoCreateModal from "../modal/todoCreateModal/TodoCreateModal";
+import TodoCreateModal from "../modal/todoCreateModal";
 import CardModal from "../modal/cardModal";
 
 const ELLIPSE_ICON_PATH = "/icons/blueEllipse.svg";
@@ -54,7 +54,7 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
 
   return (
     <>
-      {isAddOpen && <TodoCreateModal setIsOpen={setIsAddOpen} />}
+      {isAddOpen && <TodoCreateModal setIsOpen={setIsAddOpen} columnId={id} />}
       {isEditOpen && <ColumnEditModal setIsOpen={setIsEditOpen} id={id} />}
       {isCardOpen && (
         <>

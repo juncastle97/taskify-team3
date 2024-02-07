@@ -8,9 +8,15 @@ interface AddImageProp {
   profileImageUrl: string | null;
   onImageUpload?: (imageUrl: string) => void | null;
   small?: boolean; // 작은 버전을 위한 prop 추가
+  columnId?: number;
 }
 
-function AddImage({ profileImageUrl, onImageUpload, small }: AddImageProp) {
+function AddImage({
+  profileImageUrl,
+  onImageUpload,
+  small,
+  columnId,
+}: AddImageProp) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
@@ -26,7 +32,9 @@ function AddImage({ profileImageUrl, onImageUpload, small }: AddImageProp) {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
+    if (file && columnId) {
+      uploadCardImage(file, columnId);
+    } else if (file) {
       uploadImage(file);
     }
   };
@@ -38,6 +46,25 @@ function AddImage({ profileImageUrl, onImageUpload, small }: AddImageProp) {
 
       const response = await axios.post("users/me/image", formData);
       const imageURL = response.data.profileImageUrl;
+      setPreviewImage(imageURL);
+      if (onImageUpload) {
+        onImageUpload(imageURL);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const uploadCardImage = async (file: File, columnId: number) => {
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const response = await axios.post(
+        `columns/${columnId}/card-image`,
+        formData,
+      );
+      const imageURL = response.data.imageUrl;
       setPreviewImage(imageURL);
       if (onImageUpload) {
         onImageUpload(imageURL);

@@ -10,9 +10,10 @@ import { Assignee } from "@/types/cards";
 
 interface InputDropdownProps {
   small?: boolean;
+  onSelectItem: (itemId: number) => void;
 }
 
-const InputDropdown = ({ small }: InputDropdownProps) => {
+const InputDropdown = ({ small, onSelectItem }: InputDropdownProps) => {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
@@ -31,6 +32,7 @@ const InputDropdown = ({ small }: InputDropdownProps) => {
   const handleMenuItemClick = (clickedItem: Assignee) => {
     setSelectedItem(clickedItem);
     setIsOpen(false);
+    onSelectItem(clickedItem.userId);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

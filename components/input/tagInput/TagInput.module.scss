@@ -1,0 +1,18 @@
+.tagWrapper {
+  @include column-flexbox(start, start);
+  gap: 1rem;
+
+  .tagsContainer {
+    @include flexbox;
+    @include text-style-14-light;
+    gap: 0.5rem;
+  }
+
+  input {
+    @include text-style-16-light;
+    border-radius: 6px;
+    border: 1px solid $gray-300;
+    padding: 1rem;
+    width: 40rem;
+  }
+}
