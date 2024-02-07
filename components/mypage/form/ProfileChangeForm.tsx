@@ -11,6 +11,7 @@ import AddImage from "@/components/mypage/AddImage";
 import AuthInput from "@/components/input/AuthInput";
 import { getUserInfo } from "@/api/mypage/index";
 import { updateUserProfile } from "@/api/mypage/index";
+import AlertModal from "@/components/modal/alertModal";
 function ProfileChangeForm() {
   const {
     register,
@@ -24,6 +25,17 @@ function ProfileChangeForm() {
     profileImageUrl: "",
   });
   const [nickname, setNickname] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const openModal = (error: string) => {
+    setIsOpen(true);
+    setErrorMessage(error);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
@@ -52,7 +64,7 @@ function ProfileChangeForm() {
   const handleSaveButtonClick = async () => {
     try {
       await handleSubmit(async data => {
-        alert("Save 버튼이 클릭되었습니다. 데이터: " + JSON.stringify(data));
+        openModal("정보가 변경되었습니다.");
         const updatedData = {
           nickname: data.nickname || userInfo.nickname,
           profileImageUrl: userInfo.profileImageUrl,
@@ -60,16 +72,20 @@ function ProfileChangeForm() {
 
         await updateUserProfile(updatedData);
       })();
-    } catch (error) {
-      console.error("데이터 처리 중 에러:", error);
+    } catch (error: any) {
+      openModal(error.response.data.message);
     }
   };
 
   return (
-    <form
-      className={clsx(styles.form)}
-      onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}
-    >
+    <form className={clsx(styles.form)} onSubmit={handleSaveButtonClick}>
+      {isOpen && (
+        <AlertModal
+          setModal={setIsOpen}
+          alertMessage={errorMessage}
+          onConfirmClick={closeModal}
+        />
+      )}
       <div className={clsx(styles.addImage)}>
         <AddImage
           profileImageUrl={userInfo.profileImageUrl}
