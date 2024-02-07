@@ -12,7 +12,7 @@ import styles from "./TodoCreateModal.module.scss";
 import TagChips from "@/components/chips/TagChips";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import { generateRandomColorHexCode } from "@/utils/color";
-import InputDropdown from "@/components/inputdropdown/InputDropdown";
+import InputDropdown from "@/components/inputDropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 import Calendar from "@/components/datepicker/Calendar";
 import { TodoCreateType } from "@/types/cards";

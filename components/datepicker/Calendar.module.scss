@@ -1,16 +1,119 @@
-.datepickerWrap {
-  @include flexbox(center, center);
-}
-
-.datepicker {
-  @include text-style-16-light;
-  width: 100%;
-  height: 4.8rem;
-  color: var(--black-black_333236, #333236);
+.datePicker {
+  @include flexbox;
   border: 1px solid $gray-300;
-  gap: 1rem;
+  border-radius: 4px;
+  background-color: $white;
+  width: 100%;
+  height: 46px;
+  color: $black-400;
+  text-align: center;
+  padding-right: 14px;
 }
 
-.placeholder {
-  color: $gray-400;
+.customHeaderContainer {
+  @include flexbox(between, center);
+  background-color: #f0f0f0;
+  height: 100%;
+  margin-top: 8px;
+  padding: 0 12px 0 24px;
+
+  .monthAndYear {
+    @include flexbox;
+    gap: 1rem;
+  }
+
+  .month {
+    @include text-style-16-light;
+  }
+
+  .year {
+    @include text-style-16-middle;
+    background-color: #f0f0f0;
+    color: $black-400;
+    border: none;
+    padding-right: 5px;
+    cursor: pointer;
+  }
+
+  .monthButton {
+    width: 4rem;
+    height: 4rem;
+    padding: 5px;
+    border-radius: 50%;
+
+    + .monthButton {
+      margin-left: 1rem;
+    }
+
+    &:hover {
+      background-color: rgba($white, 0.08);
+    }
+
+    &:disabled {
+      cursor: default;
+      display: none;
+    }
+  }
+}
+
+.calenderWrapper {
+  @include text-style-14-light;
+  background-color: $white;
+  color: $black-400;
+}
+
+.sunday,
+.saturday,
+.weekday {
+  @include inline-flexbox;
+  width: 3.6rem;
+  height: 3.6rem;
+  background-color: #f0f0f0;
+  gap: 0;
+}
+
+.sunday {
+  color: red;
+}
+
+.saturday {
+  color: blue;
+}
+
+.weekday {
+  color: black;
+}
+
+.selectedDay,
+.unselectedDay {
+  @include inline-flexbox;
+  color: $black-400;
+  width: 36px;
+  height: 36px;
+}
+
+.selectedDay {
+  background-color: $violet-100;
+  border-radius: 50%;
+
+  &:hover {
+    border-radius: 50%;
+    background-color: $violet-200;
+    color: $white;
+  }
+}
+
+.unselectedDay {
+  &:hover {
+    border-radius: 50%;
+    background-color: rgba($white, 0.08);
+  }
+}
+
+.time {
+  @include text-style-12-light;
+  input {
+    width: 100%;
+    height: 2rem;
+  }
 }
