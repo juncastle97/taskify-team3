@@ -11,8 +11,8 @@ interface TagInputProps {
 }
 
 function TagInput({ formState, setFormState }: TagInputProps) {
-  const [tagInput, setTagInput] = useState<string>(""); // 입력된 태그
-  const [tags, setTags] = useState<string[]>([]); // 추가된 태그들
+  const [tagInput, setTagInput] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
 
   const handleTagChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTagInput(event.target.value);
@@ -20,17 +20,17 @@ function TagInput({ formState, setFormState }: TagInputProps) {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // 엔터 키 입력 시 기본 동작 방지
+      event.preventDefault();
 
       const newTag = `${tagInput}`;
       if (newTag !== "") {
-        const newColor = generateRandomColorHexCode(); // 새로운 색상 생성
+        const newColor = generateRandomColorHexCode();
         setFormState(prevState => ({
           ...prevState,
-          tags: [...prevState.tags, newTag], // 새 태그 추가
+          tags: [...prevState.tags, newTag],
         }));
-        setTags(prevTags => [...prevTags, newColor]); // 태그 색상 추가
-        setTagInput(""); // 입력 필드 초기화
+        setTags(prevTags => [...prevTags, newColor]);
+        setTagInput("");
       }
     }
   };
@@ -64,7 +64,7 @@ function TagInput({ formState, setFormState }: TagInputProps) {
         type="text"
         value={tagInput}
         onChange={handleTagChange}
-        onKeyDown={handleKeyDown}
+        onKeyPress={handleKeyDown}
         placeholder="입력 후 Enter"
       />
     </div>
