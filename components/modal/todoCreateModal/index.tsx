@@ -46,7 +46,7 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
       const formattedMembers = dashMember.members.map((member: any) => ({
         profileImageUrl: member.profileImageUrl,
         nickname: member.nickname,
-        id: member.id, //
+        id: member.id,
       }));
       setFormState(prevState => ({
         ...prevState,
@@ -110,17 +110,7 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
 
   useEffect(() => {
     MemberListData();
-    handleSelectedId(formState.assigneeUserId);
-    handleSelectedDate(formState.dueDate);
-    handleSelectedImage(formState.imageUrl);
-  }, [
-    dashboardId,
-    formState.assigneeUserId,
-    formState.title,
-    formState.description,
-    formState.dueDate,
-    formState.imageUrl,
-  ]);
+  }, [dashboardId]);
 
   return (
     <ModalPortal>
@@ -129,10 +119,9 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
           <div className={clsx(styles.modalWrapper)}>
             <h1>할 일 생성</h1>
             <div className={clsx(styles.inputWrapper)}>
-              <div className={clsx(styles.gap)}>
-                <p>담당자</p>
-                <InputDropdown onSelectItem={handleSelectedId} />
-              </div>
+              <p>담당자</p>
+              <InputDropdown onSelectItem={handleSelectedId} />
+
               <div className={clsx(styles.gap)}>
                 <p>
                   제목 <span className={clsx(styles.star)}>*</span>
@@ -189,7 +178,6 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
               type="submit"
               small
               disabled={
-                // !formState.assignee.nickname ||
                 !formState.title ||
                 !formState.description ||
                 !formState.dueDate ||

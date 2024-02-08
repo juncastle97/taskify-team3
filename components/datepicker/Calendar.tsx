@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { getMonth, getYear } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
@@ -8,9 +8,10 @@ import { TimeDash } from "@/utils/time";
 
 interface CalendarProps {
   onDueDate: (itemDate: any) => void;
+  defaultValue?: any;
 }
 
-const Calendar = ({ onDueDate }: CalendarProps) => {
+const Calendar = ({ onDueDate, defaultValue }: CalendarProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const YEARS = Array.from(
     { length: 2100 - getYear(new Date()) + 1 },
@@ -36,6 +37,12 @@ const Calendar = ({ onDueDate }: CalendarProps) => {
     setSelectedDate(date);
     onDueDate(formattedDate);
   };
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedDate(defaultValue);
+    }
+  }, [defaultValue]);
 
   return (
     <DatePicker

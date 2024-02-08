@@ -16,7 +16,7 @@ import { COLORS } from "@/constants/colors";
 import styles from "./CardModale.module.scss";
 import axios from "@/lib/axios";
 import TagChips from "@/components/chips/TagChips";
-import TodoEditModal from "../todoEditModal/TodoEditModal";
+import TodoEditModal from "../todoEditModal";
 
 interface CardModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;

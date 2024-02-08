@@ -11,9 +11,14 @@ import { Assignee } from "@/types/cards";
 interface InputDropdownProps {
   small?: boolean;
   onSelectItem: (itemId: number) => void;
+  defaultValue?: Assignee;
 }
 
-const InputDropdown = ({ small, onSelectItem }: InputDropdownProps) => {
+const InputDropdown = ({
+  small,
+  onSelectItem,
+  defaultValue,
+}: InputDropdownProps) => {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
@@ -56,6 +61,12 @@ const InputDropdown = ({ small, onSelectItem }: InputDropdownProps) => {
   const filteredAssigneeData = getMember?.members.filter(selectedItem =>
     selectedItem?.nickname?.toLowerCase().includes(searchTerm.toLowerCase()),
   );
+
+  useEffect(() => {
+    if (defaultValue) {
+      setSelectedItem(defaultValue);
+    }
+  }, [defaultValue]);
 
   useEffect(() => {
     MemberListData();

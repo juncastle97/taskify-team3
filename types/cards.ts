@@ -41,24 +41,6 @@ export interface CardPropsType {
   updatedAt: string;
 }
 
-export interface TodoEditType {
-  title: string;
-  description: string;
-  tags: string[];
-  dueDate: string;
-  assignee: Assignee[];
-  imageUrl: string;
-}
-
-export interface TodoCreateType {
-  title: string;
-  description: string;
-  tags: string[];
-  dueDate: string;
-  assignee: Assignee[];
-  imageUrl: string;
-}
-
 export interface TodoCreateType {
   assigneeUserId: number;
   dashboardId: number;
@@ -70,14 +52,7 @@ export interface TodoCreateType {
   assignee: Assignee[];
   imageUrl: string;
 }
-export interface TodoEditType {
-  title: string;
-  description: string;
-  tags: string[];
-  dueDate: string;
-  assignee: Assignee[];
-  imageUrl: string;
-}
+
 export interface Assignee {
   profileImageUrl: string;
   nickname: string;

@@ -28,6 +28,11 @@
     .gap {
       @include column-flexbox(start, start);
       gap: 1rem;
+
+      .img {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .input {

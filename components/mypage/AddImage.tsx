@@ -7,7 +7,7 @@ import axios from "@/lib/axios";
 interface AddImageProp {
   profileImageUrl: string | null;
   onImageUpload?: (imageUrl: string) => void | null;
-  small?: boolean; // 작은 버전을 위한 prop 추가
+  small?: boolean;
   columnId?: number;
 }
 
