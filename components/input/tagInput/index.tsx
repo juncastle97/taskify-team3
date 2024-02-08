@@ -53,9 +53,9 @@ function TagInput({ formState, setFormState }: TagInputProps) {
       <div className={clsx(styles.tagsContainer)}>
         {formState.tags.map((tag, index) => (
           <TagChips
-            key={index}
+            key={`tags_${index}`}
             tagName={tag}
-            color={tags[index]}
+            color={generateRandomColorHexCode()}
             onDelete={() => handleDeleteTag(index)}
           />
         ))}
