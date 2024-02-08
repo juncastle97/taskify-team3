@@ -50,3 +50,24 @@ export const checkEmailExists = async (dashboardId: number) => {
   const response = await axios.get(`/dashboards/${dashboardId}/invitations`);
   return response.data;
 };
+
+/**
+ * 내가 받은 초대 목록 조회
+ */
+export const getInvitedDashboardList = async () => {
+  const response = await axios.get(`/invitations`);
+  return response.data;
+};
+
+/**
+ * 초대 응답하기
+ */
+export const respondInvitation = async (
+  invitationId: number,
+  inviteAccepted: boolean,
+) => {
+  const response = await axios.put(`/invitations/${invitationId}`, {
+    inviteAccepted,
+  });
+  return response.data;
+};

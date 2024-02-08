@@ -1,5 +1,4 @@
 export interface InitialInvitations {
-  totalCount: number;
   invitations: [
     {
       id: number;
@@ -27,7 +26,6 @@ export interface InitialInvitations {
 
 interface MappedInvitation {
   id: number;
-  inviteAccepted: boolean;
   inviter: string;
   dashboard: string;
 }

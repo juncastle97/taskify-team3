@@ -1,14 +1,20 @@
+import { respondInvitation } from "@/api/invitations";
 import styles from "./AcceptButton.module.scss";
 import clsx from "clsx";
 
 interface AcceptButtonProps {
   onClick: () => void;
+  invitationId: number;
 }
 
-const AcceptButton = ({ onClick }: AcceptButtonProps) => {
-  const handleButtonClick = (isAccept: boolean) => {
-    /** @TODO 수락or거절 API 요청하기 */
-    onClick();
+const AcceptButton = ({ onClick, invitationId }: AcceptButtonProps) => {
+  const handleButtonClick = async (isAccepted: boolean) => {
+    try {
+      await respondInvitation(invitationId, isAccepted);
+      onClick();
+    } catch (error) {
+      console.error("초대 응답 실패: ", error);
+    }
   };
 
   return (

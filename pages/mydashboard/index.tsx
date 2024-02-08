@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import mockInvitations from "./mockInvitations.json";
 import mapInvitations from "@/utils/mapInvitations";
-import { InitialInvitations } from "@/types/invitations";
+import { MappedInvitations } from "@/types/invitations";
 import MyInvitedDashboardTable from "@/components/tables/myInvitedDashboardTable/MyInvitedDashboardTable";
 import styles from "@/styles/pages/Mydashboard.module.scss";
 import clsx from "clsx";
@@ -9,20 +8,24 @@ import DashboardBtn from "@/components/button/dashboardBtn/DashboardBtn";
 import { GetDashboardListType } from "@/types/dashboard";
 import { getDashboardList } from "@/api/dashboards";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
-import TodoCreateModal from "@/components/modal/todoCreateModal";
-import TodoEditModal from "@/components/modal/todoEditModal";
+import { getInvitedDashboardList } from "@/api/invitations";
+import CreateDashboardModal from "@/components/modal/createDashboardModal/CreateDashboardModal";
+import { useRouter } from "next/router";
 
 function MyDashboard() {
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const mappedMockInvitations = mapInvitations(
-    mockInvitations as InitialInvitations,
-  );
   const [dashboardList, setDashboardList] = useState<GetDashboardListType>({
     totalCount: 0,
     cursorId: 0,
     dashboards: [],
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const [invitations, setInvitations] = useState<MappedInvitations>([]);
+  const [filteredInvitations, setFilteredInvitations] =
+    useState<MappedInvitations>([]);
+
+  const router = useRouter();
+  const { create } = router.query;
+  const [isModalOpen, setIsModalOpen] = useState(create ? true : false);
 
   const ITEMS_PER_PAGE = 5;
   const totalPage = Math.ceil((dashboardList.totalCount || 1) / ITEMS_PER_PAGE);
@@ -38,10 +41,24 @@ function MyDashboard() {
     try {
       const response = await getDashboardList(page, 5);
       setDashboardList(response);
-      // setIsLoading(false);
     } catch (error) {
       console.error("GET 요청 실패: ", error);
     }
+  };
+
+  const getInvitations = async () => {
+    try {
+      const response = await getInvitedDashboardList();
+      const result = mapInvitations(response);
+      setInvitations(result);
+      setFilteredInvitations(result);
+    } catch (error) {
+      console.error("초대받은 대시보드 데이터 요청 실패: ", error);
+    }
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -51,14 +68,19 @@ function MyDashboard() {
 
   useEffect(() => {
     DashboardListData(currentPage);
-  }, [dashboardList.totalCount, currentPage]);
+  }, [dashboardList.totalCount, currentPage, invitations, isModalOpen]);
+
+  useEffect(() => {
+    getInvitations();
+  }, []);
 
   return (
     <div className={clsx(styles.bg)}>
       <div className={clsx(styles.container)}>
-        <DashboardBtn dashboardList={dashboardList} />
-        {/* <TodoCreateModal setIsOpen={setIsOpen}></TodoCreateModal> */}
-        {/* <TodoEditModal setIsOpen={setIsOpen}></TodoEditModal> */}
+        <DashboardBtn
+          onClick={() => setIsModalOpen(true)}
+          dashboardList={dashboardList}
+        />
         <div className={clsx(styles.pageBtnWrapper)}>
           <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
           <PagingButton
@@ -75,9 +97,12 @@ function MyDashboard() {
         </div>
       </div>
       <MyInvitedDashboardTable
-        totalCount={mockInvitations.totalCount}
-        invitations={mappedMockInvitations}
+        data={invitations}
+        setData={setInvitations}
+        filteredData={filteredInvitations}
+        setFilteredData={setFilteredInvitations}
       />
+      {isModalOpen && <CreateDashboardModal setIsOpen={setIsModalOpen} />}
     </div>
   );
 }

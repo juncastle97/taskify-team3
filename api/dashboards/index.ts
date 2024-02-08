@@ -36,3 +36,11 @@ export const deleteDashboard = async (dashboardId: number) => {
   const response = await axios.delete(`/dashboards/${dashboardId}`);
   return response;
 };
+
+/**
+ * 대시보드 생성
+ */
+export const createDashboard = async (title: string, color: string) => {
+  const response = await axios.post(`/dashboards`, { title, color });
+  return response;
+};

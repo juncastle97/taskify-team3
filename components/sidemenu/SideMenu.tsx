@@ -67,7 +67,7 @@ const SideMenu: React.FC<DashboardBtnProps> = () => {
       </Link>
       <div className={clsx(styles.btnWrapper)}>
         <span className={clsx(styles.menu)}>Dash Boards</span>
-        <Link href="/">
+        <Link href="/mydashboard?create=true">
           <Image
             src="/button-icon/sidemenuPlus.svg"
             width={20}

@@ -1,11 +1,9 @@
 .bg {
   @include background();
-  @include desktop{width: 1920px};
-  width: 100%;
-  
 }
+
 .container {
-  margin-bottom: 9.6rem
+  margin-bottom: 9.6rem;
 }
 
 .pageBtnWrapper {
