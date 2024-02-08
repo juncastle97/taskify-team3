@@ -25,6 +25,11 @@
       color: $violet-200;
     }
 
+    .assigneeUser {
+      @include column-flexbox(start, start);
+      gap: 1rem;
+    }
+
     .gap {
       @include column-flexbox(start, start);
       gap: 1rem;

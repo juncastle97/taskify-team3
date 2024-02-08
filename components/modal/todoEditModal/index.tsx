@@ -114,11 +114,10 @@ function TodoEditModal({ setIsOpen, cardId }: TodoEditModalProps) {
     if (event) event.preventDefault();
     try {
       await putTodoEditCard(cardId, formState);
-      console.log(1);
+      console.log("dsd");
       setIsOpen(false);
     } catch (error) {
       console.error(error);
-      console.log(cardId);
     }
   };
 

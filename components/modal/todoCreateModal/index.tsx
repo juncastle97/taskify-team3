@@ -28,6 +28,7 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
   const router = useRouter();
   const { id } = router.query;
   const dashboardId = Number(id);
+  const [imageUrl, setImageUrl] = useState<string>("");
   const [formState, setFormState] = useState<TodoCreateType>({
     assigneeUserId: 0,
     dashboardId: dashboardId,
@@ -37,7 +38,7 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
     tags: [],
     dueDate: "",
     assignee: [],
-    imageUrl: "",
+    imageUrl: imageUrl,
   });
 
   const MemberListData = async () => {
@@ -91,17 +92,17 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
     }));
   };
 
-  const handleSelectedImage = (selectedItemImage: string) => {
-    setFormState(prevState => ({
-      ...prevState,
-      imageUrl: selectedItemImage,
-    }));
+  const handleSelectedImage = (selectedImageUrl: string) => {
+    setImageUrl(selectedImageUrl);
   };
 
   const handleTodoCreateClick = async (event: FormEvent) => {
     if (event) event.preventDefault();
     try {
-      await postTodoCreateCard(formState);
+      const finalImageUrl =
+        imageUrl ||
+        "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image";
+      await postTodoCreateCard({ ...formState, imageUrl: finalImageUrl });
       setIsOpen(false);
     } catch (error) {
       console.error(error);
@@ -119,9 +120,10 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
           <div className={clsx(styles.modalWrapper)}>
             <h1>할 일 생성</h1>
             <div className={clsx(styles.inputWrapper)}>
-              <p>담당자</p>
-              <InputDropdown onSelectItem={handleSelectedId} />
-
+              <div className={clsx(styles.assigneeUser)}>
+                <p>담당자</p>
+                <InputDropdown onSelectItem={handleSelectedId} />
+              </div>
               <div className={clsx(styles.gap)}>
                 <p>
                   제목 <span className={clsx(styles.star)}>*</span>
@@ -157,7 +159,7 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
                 <div className={clsx(styles.img)}>
                   <AddImage
                     small
-                    profileImageUrl={formState.imageUrl}
+                    profileImageUrl={imageUrl}
                     onImageUpload={handleSelectedImage}
                     columnId={columnId}
                   />
@@ -177,13 +179,7 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
             <BaseButton
               type="submit"
               small
-              disabled={
-                !formState.title ||
-                !formState.description ||
-                !formState.dueDate ||
-                !formState.tags ||
-                !formState.imageUrl
-              }
+              disabled={!formState.title || !formState.description}
             >
               생성
             </BaseButton>

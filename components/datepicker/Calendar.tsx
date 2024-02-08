@@ -69,7 +69,9 @@ const Calendar = ({ onDueDate, defaultValue }: CalendarProps) => {
         }
       }}
       dayClassName={date =>
-        date.getDate() === selectedDate?.getDate()
+        selectedDate &&
+        date.getDate() ===
+          (selectedDate instanceof Date ? selectedDate.getDate() : null)
           ? styles.selectedDay
           : styles.unselectedDay
       }

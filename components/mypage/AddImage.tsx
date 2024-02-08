@@ -73,6 +73,7 @@ function AddImage({
       console.error(error);
     }
   };
+  console.log(previewImage);
 
   return (
     <div className={clsx(styles.imageContainer, { [styles.small]: small })}>
@@ -83,12 +84,11 @@ function AddImage({
           className={clsx("realUpload")}
           accept="image/*"
           id="user_profile_img"
-          required
           onChange={handleChange}
           style={{ display: "none" }}
         />
         {previewImage ? (
-          <Image
+          <img
             id="user_image"
             className={clsx(
               styles.upload,
