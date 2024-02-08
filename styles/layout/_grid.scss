@@ -3,5 +3,14 @@
   min-width: 100%;
   width: fit-content;
   min-height: 100vh;
-  padding: 11rem 34rem;
+  padding-top: 11rem;
+  padding-left: 34rem;
+
+  @include tablet {
+    padding-left: 20rem;
+  }
+
+  @include mobile {
+    padding-left: 9rem;
+  }
 }

@@ -1,11 +1,15 @@
 .gnb {
   position: sticky;
   top: 0;
-  padding: 1.6rem 8rem;
+  padding: 1.6rem;
   background-color: $white;
   color: $black-200;
   font-size: 1.6rem;
   z-index: 1;
+
+  @include mobile {
+    font-size: 1.4rem;
+  }
 }
 
 .gnbContainer {
@@ -21,7 +25,7 @@
 }
 
 .logoText {
-  @media (max-width: 766px) {
+  @include mobile {
     display: none;
   }
 }
@@ -29,4 +33,14 @@
 .authContainer {
   display: flex;
   gap: 3.6rem;
+  margin-right: 6.4rem;
+
+  @include tablet {
+    margin-right: 2.4rem;
+  }
+
+  @include mobile {
+    gap: 2rem;
+    margin-right: 0;
+  }
 }

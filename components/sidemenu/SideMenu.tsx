@@ -90,13 +90,16 @@ const SideMenu: React.FC<DashboardBtnProps> = () => {
                 alt="왕관 아이콘"
                 width={17}
                 height={14}
+                className={clsx(styles.crown)}
               />
             )}
           </div>
         </Link>
       ))}
       <div className={clsx(styles.pageBtnWrapper)}>
-        <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
+        <p
+          className={clsx(styles.pageText)}
+        >{`${totalPage} 페이지 중 ${currentPage}`}</p>
         <PagingButton
           onClick={{
             left: handleLeftButtonClick,

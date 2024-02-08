@@ -33,7 +33,8 @@ const DashboardGnb = () => {
 
   const isMyPage = router.pathname === "/mypage";
   const isDashboardRoute = /^\/dashboard/.test(router.pathname);
-  const [openInvitationModal, setOpenInvitationModal] = useState<boolean>(false);
+  const [openInvitationModal, setOpenInvitationModal] =
+    useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [myInfo, setMyInfo] = useState<{
     nickname: string;
@@ -95,7 +96,7 @@ const DashboardGnb = () => {
 
   const handleInvitation = () => {
     setOpenInvitationModal(true);
-  }
+  };
 
   const handleKebab = () => {
     setIsOpen(!isOpen);
@@ -114,7 +115,11 @@ const DashboardGnb = () => {
 
   return (
     <div className={clsx(styles.gnb)}>
-      <div className={clsx(styles.dashboardTitle)}>
+      <div
+        className={clsx(
+          isDashboardRoute ? styles.dashboardTitle : styles.mydashboard,
+        )}
+      >
         {isDashboardRoute
           ? `${dashboardTitle.title}`
           : isMyPage
@@ -135,7 +140,10 @@ const DashboardGnb = () => {
                 <span>관리</span>
               </button>
             </Link>
-            <button className={clsx(styles.inviteBtn)} onClick={handleInvitation}>
+            <button
+              className={clsx(styles.inviteBtn)}
+              onClick={handleInvitation}
+            >
               <Image
                 src="/button-icon/sidemenuPlus.svg"
                 width={20}
@@ -143,7 +151,9 @@ const DashboardGnb = () => {
                 alt="plus 버튼"
               />
               <span>초대하기</span>
-              {openInvitationModal && <InvitationModal setModal={setOpenInvitationModal} />}
+              {openInvitationModal && (
+                <InvitationModal setModal={setOpenInvitationModal} />
+              )}
             </button>
             <div className={clsx(styles.memberWrapper)}>
               {dashMember?.members.slice(0, 4).map(member => (

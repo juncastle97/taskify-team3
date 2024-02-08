@@ -6,6 +6,14 @@
   border-right: 0.1rem solid $gray-300;
   padding-top: 2rem;
   z-index: 2;
+
+  @include tablet {
+    width: 16rem;
+  }
+
+  @include mobile {
+    width: 6.7rem;
+  }
 }
 
 .logo {
@@ -15,7 +23,7 @@
 }
 
 .logoText {
-  @media (max-width: 766px) {
+  @include mobile {
     display: none;
   }
 }
@@ -30,20 +38,23 @@
   .menu {
     color: $gray-500;
     @include text-style-14-bold();
+    @include mobile {
+      display: none;
+    }
   }
 }
 
 .dashboardListWrapper {
   display: flex;
   gap: 0.6rem;
-  width: 27.6rem;
-  height: 4.5rem;
+  width: 100%;
   border-radius: 0.4rem;
   align-items: center;
   margin: 0.5rem auto;
-  padding: 1.9rem 1.2rem;
+  padding: 1.2rem;
   color: $gray-500;
   cursor: pointer;
+  flex-wrap: wrap;
 
   &:hover {
     color: $black-200;
@@ -60,6 +71,16 @@
 
 .dashboardList {
   @include text-style-18-middle();
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.crown {
+  @include mobile {
+    display: none;
+  }
 }
 
 .pageBtnWrapper {
@@ -70,4 +91,14 @@
   position: absolute;
   right: 2rem;
   bottom: 2rem;
+  @include mobile {
+    display: none;
+  }
+}
+
+.pageText {
+  display: none;
+  @include desktop() {
+    display: inline;
+  }
 }
