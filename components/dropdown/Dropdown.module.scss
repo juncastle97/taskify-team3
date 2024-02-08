@@ -30,10 +30,6 @@
   li {
     display: flex;
     cursor: pointer;
-
-    &:hover .CheckImage {
-      display: inline;
-    }
   }
 }
 
@@ -55,7 +51,7 @@
   font-weight: 400;
   line-height: normal;
   height: 2.2rem;
-  margin-left: 3rem;
+  margin-left: 1.5rem;
   padding: 0.4rem 0.8rem;
   border-radius: 1.1rem;
   color: $violet-200;
@@ -64,6 +60,13 @@
 
 .UlWrapper {
   position: relative;
+
+  li {
+    &:hover {
+      padding: 0 1rem;
+      transition: padding 0.5s ease;
+    }
+  }
 }
 
 .CheckImage {

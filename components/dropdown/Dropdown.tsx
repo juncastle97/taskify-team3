@@ -36,7 +36,6 @@ const Dropdown: React.FC<DropdownProps> = ({
   };
 
   useEffect(() => {
-    // defaultValue가 주어졌을 때, 해당 아이템을 선택합니다.
     if (defaultValue) {
       const defaultItem = data.find(item => item.id === defaultValue);
       if (defaultItem) {
@@ -63,13 +62,6 @@ const Dropdown: React.FC<DropdownProps> = ({
               <div key={item.id} className={clsx(styles.Chip)}>
                 •{item.title}
               </div>
-              <Image
-                className={clsx(styles.CheckImage)}
-                src="/icons/checkImg.svg"
-                alt="체크 이미지"
-                width={22}
-                height={22}
-              />
             </li>
           ))}
         </ul>
