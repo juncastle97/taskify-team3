@@ -8,12 +8,16 @@ interface DropdownProps {
   data: DropdownItem[] | null;
 }
 
-interface DropdownItem {
+// interface DropdownItem {
+//   id: number;
+//   title: string;
+//   color: string;
+//   columTitle: string;
+// }
+export interface DropdownItem {
   id: number;
   title: string;
-  color: string;
 }
-
 interface Assignee {
   assignee: {
     profileImageUrl: string;
@@ -53,17 +57,17 @@ const Dropdown: React.FC<DropdownProps> = ({ data }) => {
               <div
                 key={item.id}
                 className={clsx(styles.Chip)}
-                style={{ backgroundColor: item.color }}
+                //style={{ backgroundColor: item.color }}
               >
                 •{item.title}
               </div>
               <Image
-                  className={clsx(styles.CheckImage)}
-                  src="/icons/checkImg.svg"
-                  alt="체크 이미지"
-                  width={22}
-                  height={22}
-                />
+                className={clsx(styles.CheckImage)}
+                src="/icons/checkImg.svg"
+                alt="체크 이미지"
+                width={22}
+                height={22}
+              />
             </li>
           ))}
         </ul>
@@ -72,7 +76,7 @@ const Dropdown: React.FC<DropdownProps> = ({ data }) => {
         <div
           key={selectedItem.id}
           className={clsx(styles.Chip)}
-          style={{ backgroundColor: selectedItem.color }}
+          // style={{ backgroundColor: selectedItem.color }}
         >
           •{selectedItem.title}
         </div>
@@ -82,7 +86,7 @@ const Dropdown: React.FC<DropdownProps> = ({ data }) => {
           <div
             key={data[0].id}
             className={clsx(styles.Chip)}
-            style={{ backgroundColor: data[0].color }}
+            // style={{ backgroundColor: data[0].color }}
           >
             •{data[0].title}
           </div>

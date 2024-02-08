@@ -10,7 +10,7 @@ import ModalPortal from "../ModalPortal";
 import clsx from "clsx";
 import styles from "./TodoCreateModal.module.scss";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import InputDropdown from "@/components/inputDropdown/InputDropdown";
+import InputDropdown from "@/components/inputdropdown/InputDropdown";
 import AddImage from "@/components/mypage/AddImage";
 import Calendar from "@/components/datepicker/Calendar";
 import { TodoCreateType } from "@/types/cards";

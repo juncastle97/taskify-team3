@@ -1,9 +1,14 @@
+// .modalContainer {
+// }
 .modalWrapper {
   @include column-flexbox(start, start);
-  padding: 3.2rem 2.8rem;
-  // gap: 2.5rem;
+  padding: 3.2rem 1.8rem;
+  //gap: 2.5rem;
   width: 50rem;
   height: 85.7rem;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  overflow-x: hidden;
 
   h1 {
     @include text-style-24;

@@ -50,6 +50,15 @@ export interface TodoEditType {
 }
 
 export interface TodoCreateType {
+  title: string;
+  description: string;
+  tags: string[];
+  dueDate: string;
+  assignee: Assignee[];
+  imageUrl: string;
+}
+
+export interface TodoCreateType {
   assigneeUserId: number;
   dashboardId: number;
   columnId: number;
