@@ -29,7 +29,7 @@ export interface CardPropsType {
   tags: string[];
   dueDate: string;
   assignee: {
-    profileImageUrl: string | null;
+    profileImageUrl?: string | null;
     nickname: string;
     id: number;
   };
@@ -40,6 +40,7 @@ export interface CardPropsType {
   createdAt: string;
   updatedAt: string;
 }
+
 export interface TodoEditType {
   title: string;
   description: string;

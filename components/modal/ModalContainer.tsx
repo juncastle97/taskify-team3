@@ -6,18 +6,18 @@ import { useOnClickOutside } from "usehooks-ts";
 interface ModalContainerProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   children: React.ReactNode;
-  isAlertOpen?: boolean;
+  isModalOpen?: boolean;
 }
 
 function ModalContainer({
   setIsOpen,
   children,
-  isAlertOpen,
+  isModalOpen,
 }: ModalContainerProps) {
   const modalRef = useRef(null);
 
   const handleClickOutside = () => {
-    if (!isAlertOpen) {
+    if (!isModalOpen) {
       setIsOpen(false);
     }
   };

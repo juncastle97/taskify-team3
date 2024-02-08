@@ -35,7 +35,7 @@ function ColumnEditModal({ setIsOpen, id }: ColumnEditdModalProps) {
 
   return (
     <ModalPortal>
-      <ModalContainer setIsOpen={setIsOpen} isAlertOpen={isAlertOpen}>
+      <ModalContainer setIsOpen={setIsOpen} isModalOpen={isAlertOpen}>
         <form>
           {isAlertOpen && (
             <AlertModal

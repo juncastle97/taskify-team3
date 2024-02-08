@@ -6,7 +6,7 @@ import { getCardList } from "@/api/cards";
 import { InitialCardData, CardPropsType } from "@/types/cards";
 import ColumnEditModal from "../modal/columnEditModal/ColumnEditModal";
 import TodoCreateModal from "../modal/todoCreateModal";
-import CardModal from "../modal/cardModal";
+import CardModal from "@/components/modal/cardModal";
 
 const ELLIPSE_ICON_PATH = "/icons/blueEllipse.svg";
 const SETTING_ICON_PATH = "/icons/setting.svg";
@@ -17,11 +17,18 @@ interface CardColumnProps {
   title: string;
 }
 
+interface CardId {
+  id: number;
+}
+
 const CardColumn = ({ id, title }: CardColumnProps) => {
   const [cardData, setCardData] = useState<InitialCardData>();
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
+  const [selectedCard, setSelectedCard] = useState<CardId>({
+    id: 0,
+  });
 
   const CardListData = async (size: number, columnId: number) => {
     try {
@@ -31,6 +38,7 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
       console.error("GET 요청 실패: ", error);
     }
   };
+  console.log(cardData);
 
   useEffect(() => {
     CardListData(10, id);
@@ -48,7 +56,8 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
     setIsAddOpen(false);
   };
 
-  const openCardModal = () => {
+  const openCardModal = (cardId: number) => {
+    setSelectedCard({ id: cardId });
     setIsCardOpen(true);
   };
 
@@ -56,18 +65,6 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
     <>
       {isAddOpen && <TodoCreateModal setIsOpen={setIsAddOpen} columnId={id} />}
       {isEditOpen && <ColumnEditModal setIsOpen={setIsEditOpen} id={id} />}
-      {isCardOpen && (
-        <>
-          {cardData?.cards.map((cardProps: CardPropsType) => (
-            <CardModal
-              key={cardProps.id}
-              setIsOpen={setIsCardOpen}
-              cardProps={cardProps}
-              title={title}
-            />
-          ))}
-        </>
-      )}
       <div className={clsx(styles.container)}>
         <div className={clsx(styles.head)}>
           <div>
@@ -94,11 +91,22 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
         >
           <img src={PLUS_ICON_PATH} alt="Plus Button" />
         </button>
-        <div className={clsx(styles.cardList)} onClick={openCardModal}>
+        <div className={clsx(styles.cardList)}>
           {cardData?.cards.map((cardProps: CardPropsType) => (
-            <DashboardCard key={cardProps.id} cardProps={cardProps} />
+            <DashboardCard
+              key={cardProps.id}
+              cardProps={cardProps}
+              onClick={() => openCardModal(cardProps.id)}
+            />
           ))}
         </div>
+        {isCardOpen && (
+          <CardModal
+            setIsOpen={setIsCardOpen}
+            cardId={selectedCard.id}
+            title={title}
+          />
+        )}
       </div>
     </>
   );

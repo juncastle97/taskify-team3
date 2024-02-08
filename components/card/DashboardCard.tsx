@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./DashboardCard.module.scss";
 import TagChips from "@/components/chips/TagChips";
 import { generateRandomColorHexCode } from "@/utils/color";
@@ -7,9 +8,16 @@ import { CardPropsType } from "@/types/cards";
 
 const CALENDAR_ICON_PATH = "/icons/calendar.svg";
 
-const DashboardCard = ({ cardProps }: { cardProps: CardPropsType }) => {
+const DashboardCard = ({
+  cardProps,
+  onClick,
+}: {
+  cardProps: CardPropsType;
+  onClick: () => void;
+}) => {
+  const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       {cardProps.imageUrl && (
         <img
           className={styles.cardImage}
