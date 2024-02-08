@@ -11,6 +11,7 @@ import { getMemberList } from "@/api/members";
 import { getDashboard } from "@/api/dashboards";
 import { UserType } from "@/types/users";
 import ProfileImage from "../profileImage/ProfileImage";
+import InvitationModal from "../modal/invitationModal";
 
 interface Colors {
   GREEN: string;
@@ -32,8 +33,8 @@ const DashboardGnb = () => {
 
   const isMyPage = router.pathname === "/mypage";
   const isDashboardRoute = /^\/dashboard/.test(router.pathname);
-
-  const [isOpen, setIsOpen] = useState(false);
+  const [openInvitationModal, setOpenInvitationModal] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [myInfo, setMyInfo] = useState<{
     nickname: string;
     profileImageUrl: string | null;
@@ -92,6 +93,10 @@ const DashboardGnb = () => {
     }
   }, [currentDashboardId]);
 
+  const handleInvitation = () => {
+    setOpenInvitationModal(true);
+  }
+
   const handleKebab = () => {
     setIsOpen(!isOpen);
   };
@@ -130,7 +135,7 @@ const DashboardGnb = () => {
                 <span>관리</span>
               </button>
             </Link>
-            <button className={clsx(styles.inviteBtn)}>
+            <button className={clsx(styles.inviteBtn)} onClick={handleInvitation}>
               <Image
                 src="/button-icon/sidemenuPlus.svg"
                 width={20}
@@ -138,6 +143,7 @@ const DashboardGnb = () => {
                 alt="plus 버튼"
               />
               <span>초대하기</span>
+              {openInvitationModal && <InvitationModal setModal={setOpenInvitationModal} />}
             </button>
             <div className={clsx(styles.memberWrapper)}>
               {dashMember?.members.slice(0, 4).map(member => (

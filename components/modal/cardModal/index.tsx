@@ -1,17 +1,19 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import Image from "next/image";
-import axios from "@/lib/axios";
 import clsx from "clsx";
 import ModalContainer from "../ModalContainer";
 import ModalPortal from "../ModalPortal";
 import BaseButton from "@/components/button/baseButton/BaseButton";
-import { postComments, getComments } from "@/api/comments";
+import { putComments, deleteComments, getComments } from "@/api/comments";
 import { CardPropsType } from "@/types/cards";
-import { Comment, Content } from "@/types/comments";
+import { Comment, CommentContent } from "@/types/comments";
 import { Time } from "@/utils/time";
+import { generateRandomColorHexCode } from "@/utils/color";
 import { COLORS } from "@/constants/colors";
 import styles from "./CardModale.module.scss";
-import Link from "next/link";
+import axios from "@/lib/axios";
+import TagChips from "@/components/chips/TagChips";
 
 interface CardModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -32,12 +34,27 @@ interface Colors {
 }
 
 const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
+  const { register, handleSubmit, reset } = useForm<CommentForm>({
+    mode: "onBlur",
+  });
   const currentCardId = Number(cardProps.id);
   const [isComment, setIsComment] = useState<Comment>();
+  const [kebabOpen, setKebabOpen] = useState<boolean>(false);
 
-  const postCommentData = async (data: string) => {
+  const handleKebab = () => {
+    setKebabOpen((prevKebabOpen) => !prevKebabOpen);
+  }
+
+  const onSubmit = async (data: any) => {
     try {
-      await axios.post("/comments", { content: data });
+      const response = await axios.post("/comments", {
+        content: data.comment,
+        cardId: cardProps.id,
+        columnId: cardProps.columnId,
+        dashboardId: cardProps.dashboardId,
+      });
+      getCommentData(10, currentCardId);
+      reset();
     } catch (error) {
       console.error("댓글 작성 실패", error);
     }
@@ -49,6 +66,23 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
       setIsComment(response);
     } catch (error) {
       console.error("댓글 불러오기 실패", error);
+    }
+  };
+  const putCommentData = async (commentId: number) => {
+    try {
+      await putComments(commentId);
+      getCommentData(10, currentCardId);
+    } catch (error) {
+      console.error("댓글 수정 실패");
+    }
+  };
+
+  const deleteCommentData = async (commentId: number) => {
+    try {
+      await deleteComments(commentId);
+      getCommentData(10, currentCardId);
+    } catch (error) {
+      console.error("댓글 삭제 실패");
     }
   };
 
@@ -68,24 +102,69 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
       <ModalContainer setIsOpen={setIsOpen}>
         <div className={clsx(styles.modalWrapper)}>
           <div>
-            <h1>{cardProps.title}</h1>
-            <div>
-              {title} | {cardProps.tags}
+            <div className={clsx(styles.titleWrapper)}>
+              <h1>{cardProps.title}</h1>
+              <div className={clsx(styles.buttonWrapper)}>
+                <Image
+                  src="/icons/moreButton.svg"
+                  alt="케밥 버튼"
+                  width={32}
+                  height={32}
+                  onClick={handleKebab}
+                />
+                <Image
+                  src="/icons/close.svg"
+                  alt="닫기 버튼"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              {kebabOpen && <div className={clsx(styles.kebabModal)}>
+                <div className={clsx(styles.kebabItem)}>수정하기</div>
+                <div className={clsx(styles.kebabItem)}>삭제하기</div>
+              </div>}
             </div>
-            <div>{cardProps.description}</div>
+            <div className={clsx(styles.tagWrapper)}>
+              <div className={clsx(styles.columnTitle)}>•{title}</div>
+              <div className={clsx(styles.divide)}></div>
+              <div className={clsx(styles.tags)}>
+                {cardProps.tags.map((tag, index) => (
+                  <TagChips
+                    key={`tags_${index}`}
+                    tagName={tag}
+                    color={generateRandomColorHexCode()}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className={clsx(styles.description)}>
+              {cardProps.description}
+            </div>
             <Image
+              className={clsx(styles.cardImg)}
               src={`${cardProps.imageUrl}`}
               alt="카드 이미지"
               width={450}
               height={263}
             />
-            <form>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className={clsx(styles.commentForm)}
+            >
               <label>댓글</label>
-              <input type="text" placeholder="댓글 작성하기" />
-              <BaseButton type="submit">입력</BaseButton>
+              <input
+                type="text"
+                placeholder="댓글 작성하기"
+                {...register("comment")}
+              />
+              <div className={clsx(styles.submitButton)}>
+                <BaseButton type="submit" comment white>
+                  입력
+                </BaseButton>
+              </div>
             </form>
             <div>
-              {isComment?.comments.map((comment: Content) => (
+              {isComment?.comments.map((comment: CommentContent) => (
                 <div key={comment.id}>
                   <div
                     style={{
@@ -100,6 +179,8 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
                   <div>{comment.author.nickname}</div>
                   <div>{Time(`${comment.updatedAt}`)}</div>
                   <div>{comment.content}</div>
+                  <div>수정</div>
+                  <div onClick={() => deleteCommentData(comment.id)}>삭제</div>
                 </div>
               ))}
             </div>
@@ -130,11 +211,6 @@ const CardModal = ({ setIsOpen, cardProps, title }: CardModalProps) => {
               <span>{Time(`${cardProps.dueDate}`)}</span>
             </div>
           </div>
-        <div className={clsx(styles.kebabModal)}>
-          케밥버튼
-          <div className={clsx(styles.kebabItem)}>수정하기</div>
-          <div className={clsx(styles.kebabItem)}>삭제하기</div>
-        </div>
         </div>
       </ModalContainer>
     </ModalPortal>

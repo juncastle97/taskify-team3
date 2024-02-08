@@ -1,27 +1,19 @@
-export interface Comment {
-  comments: {
-    id: number;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    cardId: number;
-    author: {
-      id: number;
-      nickname: string;
-      profileImageUrl: string | null;
-    };
-  };
+export interface CommentAuthor {
+  id: number;
+  nickname: string;
+  profileImageUrl: string | null;
 }
 
-export interface Content {
+export interface CommentContent {
   id: number;
   content: string;
   createdAt: string;
   updatedAt: string;
   cardId: number;
-  author: {
-    id: number;
-    nickname: string;
-    profileImageUrl: string | null;
-  };
+  author: CommentAuthor;
+}
+
+export interface Comment {
+  comments: CommentContent[];
+  cursorId: number | null;
 }

@@ -8,6 +8,7 @@ interface BaseButtonProps {
   disabled?: boolean;
   small?: boolean;
   white?: boolean;
+  comment?: boolean;
   className?: string;
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void; // 새로 추가된 프로퍼티
 }
@@ -18,6 +19,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
   disabled = false,
   small = false,
   white = false,
+  comment = false,
   onClick,
   ...props
 }) => {
@@ -34,6 +36,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({
           styles.buttonText,
           small && styles.small,
           white && styles.white,
+          comment && styles.comment,
         )}
         {...buttonProps}
       >
