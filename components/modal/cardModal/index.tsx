@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import clsx from "clsx";
+import Spinner from "@/components/spinner";
 import ModalContainer from "../ModalContainer";
 import ModalPortal from "../ModalPortal";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import { putComments, deleteComments, getComments } from "@/api/comments";
-import { getCardinfoList } from "@/api/cards";
+import { getCardinfoList, deleteCard } from "@/api/cards";
 import { CardPropsType } from "@/types/cards";
 import { Comment, CommentContent } from "@/types/comments";
 import { Time } from "@/utils/time";
@@ -17,6 +17,7 @@ import styles from "./CardModale.module.scss";
 import axios from "@/lib/axios";
 import TagChips from "@/components/chips/TagChips";
 import TodoEditModal from "../todoEditModal";
+import AlertModal from "../alertModal";
 
 interface CardModalProps {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -41,10 +42,11 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     mode: "onBlur",
   });
   const watchInput = watch("comment", "");
-  const router = useRouter();
-  const { id } = router.query;
-  const dashboardId = Number(id);
+  const noneImgUrl =
+    "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image";
+
   const currentCardId = Number(cardId);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isComment, setIsComment] = useState<Comment>();
   const [kebabOpen, setKebabOpen] = useState<boolean>(false);
@@ -66,7 +68,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     createdAt: "",
     updatedAt: "",
   });
-  const [editModalOpen, setEditModalOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
   const handleKebab = () => {
@@ -77,10 +78,20 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     try {
       const response = await getCardinfoList(cardId);
       setCardData(response);
+      setIsLoading(false);
     } catch (error) {
       console.error("카드 상세 조회 실패", error);
       console.log(cardId);
       console.log(cardData);
+    }
+  };
+
+  const deleteCardData = async (cardId: number) => {
+    try {
+      await deleteCard(cardId);
+      closeAlertModal();
+    } catch (error) {
+      console.error("카드 삭제 실패", error);
     }
   };
 
@@ -107,6 +118,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
       console.error("댓글 불러오기 실패", error);
     }
   };
+
   // const putCommentData = async (commentId: number) => {
   //   try {
   //     await putComments(commentId);
@@ -128,6 +140,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
   useEffect(() => {
     getCommentData(10, currentCardId);
     getCardData(currentCardId);
+    deleteCardData(currentCardId);
   }, [currentCardId]);
 
   const openEditModal = () => {
@@ -140,9 +153,18 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     const selectedColorKey = colorKeys[randomIndex];
     return COLORS[selectedColorKey];
   };
-  const openModal = () => {
+
+  const openAlertModal = () => {
     setIsAlertOpen(true);
   };
+
+  const closeAlertModal = () => {
+    setIsAlertOpen(false);
+  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <ModalPortal>
@@ -177,7 +199,22 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                   >
                     수정하기
                   </div>
-                  <div className={clsx(styles.kebabItem)}>삭제하기</div>
+                  <div
+                    className={clsx(styles.kebabItem)}
+                    onClick={openAlertModal}
+                  >
+                    삭제하기
+                  </div>
+                  {isAlertOpen && (
+                    <AlertModal
+                      setModal={setIsAlertOpen}
+                      alertMessage="카드의 모든 정보가 삭제됩니다."
+                      isCancelButton
+                      onConfirmClick={() => {
+                        deleteCardData(currentCardId);
+                      }}
+                    />
+                  )}
                 </div>
               )}
             </div>
@@ -199,13 +236,15 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                 {cardData.description}
               </div>
               <div className={clsx(styles.imgWrapper)}>
-                <Image
-                  className={clsx(styles.cardImg)}
-                  src={`${cardData.imageUrl}`}
-                  alt="카드 이미지"
-                  width={450}
-                  height={263}
-                />
+                {cardData.imageUrl !== noneImgUrl && (
+                  <Image
+                    className={clsx(styles.cardImg)}
+                    src={`${cardData.imageUrl}`}
+                    alt="카드 이미지"
+                    width={450}
+                    height={263}
+                  />
+                )}
                 <div>
                   <div className={clsx(styles.assigneeWrapper)}>
                     <span>담당자</span>

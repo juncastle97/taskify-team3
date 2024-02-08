@@ -7,11 +7,7 @@ import { GetDashboardListType } from "@/types/dashboard";
 import { getDashboardList } from "@/api/dashboards";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 
-interface DashboardBtnProps {
-  dashboardList: GetDashboardListType;
-}
-
-const SideMenu: React.FC<DashboardBtnProps> = () => {
+const SideMenu = () => {
   const [dashboardList, setDashboardList] = useState<GetDashboardListType>({
     totalCount: 0,
     cursorId: 0,
@@ -77,8 +73,8 @@ const SideMenu: React.FC<DashboardBtnProps> = () => {
         </Link>
       </div>
       {dashboardList.dashboards.map(item => (
-        <Link href={`/dashboard/${item.id}`}>
-          <div key={item.id} className={clsx(styles.dashboardListWrapper)}>
+        <Link key={item.id} href={`/dashboard/${item.id}`}>
+          <div className={clsx(styles.dashboardListWrapper)}>
             <div
               className={clsx(styles.dashboardColor)}
               style={{ backgroundColor: item.color }}

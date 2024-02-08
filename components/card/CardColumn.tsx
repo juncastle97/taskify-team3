@@ -7,6 +7,7 @@ import { InitialCardData, CardPropsType } from "@/types/cards";
 import ColumnEditModal from "../modal/columnEditModal/ColumnEditModal";
 import TodoCreateModal from "../modal/todoCreateModal";
 import CardModal from "@/components/modal/cardModal";
+import Spinner from "@/components/spinner";
 
 const ELLIPSE_ICON_PATH = "/icons/blueEllipse.svg";
 const SETTING_ICON_PATH = "/icons/setting.svg";
@@ -14,7 +15,7 @@ const PLUS_ICON_PATH = "/icons/plusButton.svg";
 
 interface CardColumnProps {
   id: number;
-  title: string;
+  title: any;
 }
 
 interface CardId {
@@ -22,6 +23,7 @@ interface CardId {
 }
 
 const CardColumn = ({ id, title }: CardColumnProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [cardData, setCardData] = useState<InitialCardData>();
   const [isEditOpen, setIsEditOpen] = useState<boolean>(false);
   const [isAddOpen, setIsAddOpen] = useState<boolean>(false);
@@ -34,11 +36,11 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
     try {
       const response = await getCardList(10, columnId);
       setCardData(response);
+      setIsLoading(false);
     } catch (error) {
       console.error("GET 요청 실패: ", error);
     }
   };
-  console.log(cardData);
 
   useEffect(() => {
     CardListData(10, id);
@@ -60,6 +62,10 @@ const CardColumn = ({ id, title }: CardColumnProps) => {
     setSelectedCard({ id: cardId });
     setIsCardOpen(true);
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>

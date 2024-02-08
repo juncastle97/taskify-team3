@@ -15,10 +15,12 @@ const DashboardCard = ({
   cardProps: CardPropsType;
   onClick: () => void;
 }) => {
-  const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
+  const noneImgUrl =
+    "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image";
+    
   return (
     <div className={styles.container} onClick={onClick}>
-      {cardProps.imageUrl && (
+      {cardProps.imageUrl !== noneImgUrl && (
         <img
           className={styles.cardImage}
           src={cardProps.imageUrl}
