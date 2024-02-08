@@ -104,13 +104,6 @@ const InputDropdown = ({
               <div className={clsx(styles.Assignee)}>
                 <ProfileImage member={item} width={28} height={28} />
                 <span className={clsx(styles.Nickname)}>{item.nickname}</span>
-                <Image
-                  className={clsx(styles.CheckImage)}
-                  src="/icons/checkImg.svg"
-                  alt="체크 이미지"
-                  width={22}
-                  height={22}
-                />
               </div>
             </li>
           ))}

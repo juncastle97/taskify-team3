@@ -119,14 +119,14 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
     }
   };
 
-  // const putCommentData = async (commentId: number) => {
-  //   try {
-  //     await putComments(commentId);
-  //     getCommentData(10, currentCardId);
-  //   } catch (error) {
-  //     console.error("댓글 수정 실패");
-  //   }
-  // };
+  const putCommentData = async (commentId: number) => {
+    try {
+      await putComments(commentId);
+      getCommentData(10, currentCardId);
+    } catch (error) {
+      console.error("댓글 수정 실패");
+    }
+  };
 
   const deleteCommentData = async (commentId: number) => {
     try {
@@ -140,7 +140,6 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
   useEffect(() => {
     getCommentData(10, currentCardId);
     getCardData(currentCardId);
-    deleteCardData(currentCardId);
   }, [currentCardId]);
 
   const openEditModal = () => {
@@ -205,7 +204,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                   >
                     삭제하기
                   </div>
-                  {isAlertOpen && (
+                  {/* {isAlertOpen && (
                     <AlertModal
                       setModal={setIsAlertOpen}
                       alertMessage="카드의 모든 정보가 삭제됩니다."
@@ -214,7 +213,7 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
                         deleteCardData(currentCardId);
                       }}
                     />
-                  )}
+                  )} */}
                 </div>
               )}
             </div>
