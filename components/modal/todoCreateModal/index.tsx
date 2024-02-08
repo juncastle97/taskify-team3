@@ -175,30 +175,30 @@ function TodoCreateModal({ setIsOpen, columnId }: TodoCreateModalProps) {
                 </div>
               </div>
             </div>
-            <div className={clsx(styles.buttons)}>
-              <BaseButton
-                type="button"
-                onClick={() => setIsOpen(false)}
-                small
-                white
-              >
-                취소
-              </BaseButton>
-              <BaseButton
-                type="submit"
-                small
-                disabled={
-                  // !formState.assignee.nickname ||
-                  !formState.title ||
-                  !formState.description ||
-                  !formState.dueDate ||
-                  !formState.tags ||
-                  !formState.imageUrl
-                }
-              >
-                생성
-              </BaseButton>
-            </div>
+          </div>
+          <div className={clsx(styles.buttons)}>
+            <BaseButton
+              type="button"
+              onClick={() => setIsOpen(false)}
+              small
+              white
+            >
+              취소
+            </BaseButton>
+            <BaseButton
+              type="submit"
+              small
+              disabled={
+                // !formState.assignee.nickname ||
+                !formState.title ||
+                !formState.description ||
+                !formState.dueDate ||
+                !formState.tags ||
+                !formState.imageUrl
+              }
+            >
+              생성
+            </BaseButton>
           </div>
         </form>
       </ModalContainer>

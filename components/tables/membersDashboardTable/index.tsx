@@ -79,7 +79,9 @@ function MembersDashboardTable() {
   }, [totalPage]);
 
   useEffect(() => {
-    MemberListData(currentPage);
+    if (router.query.id) {
+      MemberListData(currentPage);
+    }
   }, [dashboardId]);
 
   if (isLoading) {

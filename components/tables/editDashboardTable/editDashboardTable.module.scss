@@ -1,5 +1,8 @@
 .tableForm {
   @include column-flexbox(center, between);
+  @include mobile {
+    width: 100%;
+  }
   max-width: 62rem;
   height: 25.6rem;
   border-radius: 0.8rem;
