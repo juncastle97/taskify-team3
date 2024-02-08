@@ -3,7 +3,7 @@ export interface ColumnDataType {
   data: [
     {
       id: number;
-      title: DataType[];
+      title: string;
       teamId: string;
       createdAt: string;
       updatedAt: string;

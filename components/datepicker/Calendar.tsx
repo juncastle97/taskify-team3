@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { getMonth, getYear } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
-import styles from "./calendar.module.scss";
+import styles from "./Calendar.module.scss";
 import Image from "next/image";
 import { TimeDash } from "@/utils/time";
 
