@@ -20,17 +20,27 @@
   }
 }
 
-.mydashboard {
+.flexRight {
+  @include tablet {
+    justify-content: flex-end;
+  }
+
+  @include mobile {
+    justify-content: flex-end;
+  }
+}
+
+.dashboardTitle {
   @include text-style-20-bold();
   @include mobile {
     font-size: 1.8rem;
   }
 }
 
-.dashboardTitle {
-  @include text-style-20-bold();
-  @include tablet {
-    display: none;
+.showOnlyDesktop {
+  display: none;
+  @include desktop {
+    display: block;
   }
 }
 
@@ -51,21 +61,56 @@
     border-radius: 0.8rem;
     border: 0.1rem solid $gray-300;
     background: $white;
+    @include text-style-16-middle();
+
+    @include tablet {
+      font-size: 1.4rem;
+    }
+
+    @include mobile {
+      padding: 0.7rem 1.2rem;
+    }
+  }
+}
+
+.buttonIcon {
+  @include mobile {
+    display: none;
   }
 }
 
 .manageBtn {
   margin-right: 1.6rem;
+
+  @include tablet {
+    margin-right: 1.2rem;
+  }
+
+  @include mobile {
+    margin-right: 0.6rem;
+  }
 }
 
 .inviteBtn {
   margin-right: 4rem;
+
+  @include tablet {
+    margin-right: 3.2rem;
+  }
+
+  @include mobile {
+    margin-right: 1.6rem;
+  }
 }
 
 .memberWrapper {
   @include text-style-18-middle();
   display: flex;
   margin-right: 2rem;
+
+  @include mobile {
+    margin-right: 1.2rem;
+  }
 
   div {
     display: flex;
@@ -103,6 +148,11 @@
   border: 0.2rem solid $white;
   border-radius: 99rem;
   margin-left: -1rem;
+
+  @include mobile {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
 }
 
 .user {

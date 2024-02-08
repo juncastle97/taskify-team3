@@ -114,10 +114,11 @@ const DashboardGnb = () => {
   };
 
   return (
-    <div className={clsx(styles.gnb)}>
+    <div className={clsx(styles.gnb, isDashboardRoute && styles.flexRight)}>
       <div
         className={clsx(
-          isDashboardRoute ? styles.dashboardTitle : styles.mydashboard,
+          styles.dashboardTitle,
+          isDashboardRoute && styles.showOnlyDesktop,
         )}
       >
         {isDashboardRoute
@@ -136,6 +137,7 @@ const DashboardGnb = () => {
                   width={20}
                   height={20}
                   alt="manage 버튼"
+                  className={clsx(styles.buttonIcon)}
                 />
                 <span>관리</span>
               </button>
@@ -149,6 +151,7 @@ const DashboardGnb = () => {
                 width={20}
                 height={20}
                 alt="plus 버튼"
+                className={clsx(styles.buttonIcon)}
               />
               <span>초대하기</span>
               {openInvitationModal && (
