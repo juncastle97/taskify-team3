@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import ModalContainer from "@/components/modal/ModalContainer";
 import clsx from "clsx";
-import styles from "./alertModal.module.scss";
+import styles from "./AlertModal.module.scss";
 import BaseButton from "@/components/button/baseButton/BaseButton";
 import ModalPortal from "../ModalPortal";
 

@@ -1,4 +1,4 @@
-import InitialCardData from "@/types/cards";
+import { InitialCardData } from "@/types/cards";
 
 export default function mapCardList(initialData: InitialCardData) {
   return initialData.cards.map(
