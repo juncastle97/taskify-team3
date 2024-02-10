@@ -42,7 +42,7 @@ const Dashboard = () => {
           <CardColumn key={column.id} id={column.id} title={column.title} />
         ))}
         <div className={clsx(styles.plusBtn)}>
-          <PlusBtn size={"colum1"} textStyle={"colum16"} onClick={openModal}>
+          <PlusBtn size={"colum"} textStyle={"colum"} onClick={openModal}>
             새로운 컬럼 추가하기
           </PlusBtn>
         </div>
