@@ -3,11 +3,21 @@
   padding: 3.2rem 2.8rem;
   gap: 2.5rem;
   width: 73rem;
-  height: 76.3rem;
+  height: 73.3rem;
   position: relative;
 
+  @include tablet {
+    width: 68rem;
+  }
+
+  @include mobile {
+    width: 34.7rem;
+    height: 70rem;
+    padding: 2rem;
+  }
+
   h1 {
-    @include text-style-24;
+    @include text-style-20-bold;
   }
 }
 
@@ -16,6 +26,15 @@
   width: 66.6rem;
   position: relative;
   margin-bottom: 2.4rem;
+
+  @include tablet {
+    width: 63rem;
+  }
+
+  @include mobile {
+    width: 32rem;
+    margin-bottom: 0.3rem;
+  }
 }
 
 .buttonWrapper {
@@ -36,6 +55,7 @@
   right: 2.5rem;
   border: 1px solid $gray-300;
   border-radius: 0.6rem;
+  z-index: 1;
 }
 
 .kebabItem {
@@ -58,11 +78,24 @@
   padding-right: 1.5rem;
   overflow-y: auto;
   scrollbar-width: thin;
+
+  @include tablet {
+    width: 64.5rem;
+  }
+
+  @include mobile {
+    width: 32rem;
+    padding: 0;
+  }
 }
 
 .tagWrapper {
   @include flexbox($jc: start, $ai: center);
   margin-bottom: 1.6rem;
+
+  @include mobile {
+    margin-bottom: 1rem;
+  }
 }
 
 .columnTitle {
@@ -89,6 +122,10 @@
 .description {
   @include text-style-14-light;
   margin-bottom: 1.6rem;
+
+  @include mobile {
+    margin-bottom: 1rem;
+  }
 }
 
 .imgWrapper {
@@ -96,6 +133,33 @@
   width: 66.6rem;
   margin-bottom: 2.4rem;
   position: relative;
+
+  @include tablet {
+    width: 58rem;
+  }
+
+  @include mobile {
+    display: flex;
+    width: 30rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.image {
+  position: relative;
+  width: 45rem;
+  height: 26.3rem;
+
+  @include tablet {
+    width: 42rem;
+    height: 24.5rem;
+  }
+
+  @include mobile {
+    width: 28.7rem;
+    height: 16.7rem;
+  }
 }
 
 .cardImg {
@@ -103,43 +167,81 @@
 }
 
 .assigneeWrapper {
-  @include column-flexbox(center, start);
+  display: flex;
+  flex-direction: column;
   width: 20rem;
   height: 15.5rem;
   border: 1px solid $gray-300;
   padding: 1.6rem;
   gap: 0.6rem;
   border-radius: 0.8rem;
-  position: absolute;
   right: -1rem;
+
+  @include desktop {
+    position: absolute;
+  }
+
+  @include tablet {
+    width: 18rem;
+    height: 15.5rem;
+    position: absolute;
+    right: -4rem;
+  }
+
+  @include mobile {
+    flex-direction: row;
+    align-items: center;
+    width: 28.7rem;
+    height: 6.4rem;
+    padding: 0;
+    gap: 5rem;
+  }
 
   span {
     @include text-style-12-light;
   }
 }
 
-.profile {
+.profileWrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   gap: 0.8rem;
   margin-bottom: 2rem;
 
-  .invitee {
-    @include text-style-16-middle;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 3.4rem;
-    height: 3.4rem;
-    border-radius: 99rem;
-    color: $white;
-  }
-
-  .user {
-    @include text-style-14-light;
+  @include mobile {
+    padding-left: 2rem;
+    margin-bottom: 0;
+    gap: 0.6rem;
   }
 }
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.invitee {
+  @include text-style-16-middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 99rem;
+  color: $white;
+
+  @include mobile {
+    @include text-style-12-middle;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+}
+
+.user {
+  @include text-style-14-light;
+}
+
 .dueDateWrapper {
   display: flex;
   flex-direction: column;
@@ -160,6 +262,10 @@
     margin-bottom: 0.4rem;
   }
 
+  @include mobile {
+    width: 28rem;
+  }
+
   input {
     @include text-style-16-light;
     width: 45rem;
@@ -177,6 +283,16 @@
     &:focus {
       border: 1px solid $violet-200;
     }
+
+    @include tablet {
+      width: 42rem;
+      height: 9rem;
+    }
+
+    @include mobile {
+      width: 28.7rem;
+      height: 7rem;
+    }
   }
 
   .submitButton {
@@ -185,6 +301,14 @@
     position: absolute;
     right: 1.2rem;
     bottom: 1.2rem;
+
+    @include tablet {
+      right: 4rem;
+    }
+
+    @include mobile {
+      right: 0.5rem;
+    }
   }
 }
 

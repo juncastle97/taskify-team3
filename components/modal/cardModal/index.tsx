@@ -236,32 +236,35 @@ const CardModal = ({ setIsOpen, cardId, title }: CardModalProps) => {
               </div>
               <div className={clsx(styles.imgWrapper)}>
                 {cardData.imageUrl !== noneImgUrl && (
-                  <Image
-                    className={clsx(styles.cardImg)}
-                    src={`${cardData.imageUrl}`}
-                    alt="카드 이미지"
-                    width={450}
-                    height={263}
-                  />
+                  <div className={clsx(styles.image)}>
+                    <Image
+                      className={clsx(styles.cardImg)}
+                      src={`${cardData.imageUrl}`}
+                      alt="카드 이미지"
+                      fill
+                    />
+                  </div>
                 )}
                 <div>
                   <div className={clsx(styles.assigneeWrapper)}>
-                    <span>담당자</span>
-                    <div className={clsx(styles.profile)}>
-                      <div
-                        key={cardData.assignee.id}
-                        className={clsx(styles.invitee)}
-                        style={{
-                          backgroundImage: cardData.assignee.profileImageUrl
-                            ? `url(${cardData.assignee.profileImageUrl})`
-                            : "none",
-                          backgroundColor: getRandomColor(),
-                        }}
-                      >
-                        {cardData.assignee.nickname.charAt(0).toUpperCase()}
-                      </div>
-                      <div className={clsx(styles.user)}>
-                        {cardData.assignee.nickname}
+                    <div className={clsx(styles.profileWrapper)}>
+                      <span>담당자</span>
+                      <div className={clsx(styles.profile)}>
+                        <div
+                          key={cardData.assignee.id}
+                          className={clsx(styles.invitee)}
+                          style={{
+                            backgroundImage: cardData.assignee.profileImageUrl
+                              ? `url(${cardData.assignee.profileImageUrl})`
+                              : "none",
+                            backgroundColor: getRandomColor(),
+                          }}
+                        >
+                          {cardData.assignee.nickname.charAt(0).toUpperCase()}
+                        </div>
+                        <div className={clsx(styles.user)}>
+                          {cardData.assignee.nickname}
+                        </div>
                       </div>
                     </div>
                     <div className={clsx(styles.dueDateWrapper)}>
