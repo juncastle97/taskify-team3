@@ -29,7 +29,6 @@ const SideMenu = () => {
     try {
       const response = await getDashboardList(page, 5);
       setDashboardList(response);
-      // setIsLoading(false);
     } catch (error) {
       console.error("GET 요청 실패: ", error);
     }

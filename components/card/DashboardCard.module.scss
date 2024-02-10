@@ -1,20 +1,21 @@
 .container {
+  @include column-flexbox(start, start);
   width: 100%;
   padding: 2rem;
   border-radius: 0.6rem;
   border: 1px solid $gray-300;
   background-color: $white;
   position: relative;
-
-  @include column-flexbox(start, start);
   gap: 1.2rem;
 
   @include tablet {
     flex-direction: row;
+    width: 54.4rem;
     gap: 2rem;
   }
 
   @include mobile {
+    width: 30.8rem;
     padding: 1.2rem;
     gap: 1rem;
   }

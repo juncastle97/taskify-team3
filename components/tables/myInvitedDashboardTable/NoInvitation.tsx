@@ -8,6 +8,7 @@ const NoInvitation = () => {
   return (
     <div className={styles.noInvitation}>
       <Image
+        priority
         src={NO_INVITATION_ICON_PATH}
         alt="No Invitation"
         width={NO_INVITATION_ICON_SIZE}

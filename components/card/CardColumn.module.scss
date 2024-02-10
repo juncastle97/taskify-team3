@@ -9,6 +9,17 @@
     border-right: 2px solid $gray-200;
     border-bottom: none;
   }
+
+  @include tablet {
+    width: 58.4rem;
+  }
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 34.8rem;
+  }
 }
 
 .head {
@@ -57,7 +68,12 @@
   border: 1px solid $gray-300;
   @include flexbox();
 
+  @include tablet {
+    width: 54.4rem;
+  }
+
   @include mobile {
+    width: 30.8rem;
     height: 3.2rem;
   }
 
