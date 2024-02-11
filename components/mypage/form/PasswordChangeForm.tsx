@@ -80,6 +80,7 @@ function PasswordChangeForm() {
         )}
         <div className={clsx(styles.inputs)}>
           <AuthInput
+            className={clsx(styles.input)}
             label="현재 비밀번호"
             id="password"
             type="password"
@@ -101,6 +102,7 @@ function PasswordChangeForm() {
         </div>
         <div className={clsx(styles.inputs)}>
           <AuthInput
+            className={clsx(styles.input)}
             label="새 비밀번호"
             id="newPassword"
             type="password"
@@ -122,6 +124,7 @@ function PasswordChangeForm() {
         </div>
         <div className={clsx(styles.inputs)}>
           <AuthInput
+            className={clsx(styles.input)}
             label="새 비밀번호 확인"
             id="newPasswordCheck"
             type="password"

@@ -15,7 +15,14 @@
   border-radius: 0.8rem;
   border: 0.1rem solid $gray-300;
   position: relative;
-
+  @include mobile {
+    color: var(--black-black_333236, #333236);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
   &::placeholder {
     @include text-style-16-light();
     color: $gray-400;

@@ -95,6 +95,7 @@ function ProfileChangeForm() {
       <div className={clsx(styles.formContents)}>
         <div className={clsx(styles.inputs)}>
           <AuthInput
+            className={clsx(styles.input)}
             label="이메일"
             id="email"
             type="email"
@@ -106,6 +107,7 @@ function ProfileChangeForm() {
         </div>
         <div className={clsx(styles.inputs)}>
           <AuthInput
+            className={clsx(styles.input)}
             label="닉네임"
             id="nickName"
             type="text"
