@@ -3,7 +3,9 @@ import { MappedInvitations } from "@/types/invitations";
 import SearchBar from "@/components/input/SearchBar";
 import NoInvitation from "@/components/tables/myInvitedDashboardTable/NoInvitation";
 import { ChangeEventHandler, Dispatch, SetStateAction } from "react";
-import AcceptButton from "@/components/tables/myInvitedDashboardTable/AcceptButton";
+import DesktopTable from "@/components/tables/myInvitedDashboardTable/DesktopTable";
+import MobileList from "@/components/tables/myInvitedDashboardTable/MobileList";
+import { useWindowSize } from "usehooks-ts";
 
 interface MyInvitedDashboardTableProps {
   data: MappedInvitations;
@@ -18,6 +20,9 @@ const MyInvitedDashboardTable = ({
   filteredData,
   setFilteredData,
 }: MyInvitedDashboardTableProps) => {
+  const { width = 0 } = useWindowSize();
+  const isMobile = width <= 768;
+
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
     const input = e.target.value;
 
@@ -41,34 +46,17 @@ const MyInvitedDashboardTable = ({
       {data.length ? (
         <div className={styles.tableArea}>
           <SearchBar onChange={handleInputChange} />
-          <table className={styles.table}>
-            <colgroup>
-              <col style={{ width: "30%" }} />
-              <col style={{ width: "30%" }} />
-              <col style={{ width: "30%" }} />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>이름</th>
-                <th>초대자</th>
-                <th>수락 여부</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map(invitation => (
-                <tr key={invitation.id}>
-                  <td>{invitation.dashboard}</td>
-                  <td>{invitation.inviter}</td>
-                  <td>
-                    <AcceptButton
-                      invitationId={invitation.id}
-                      onClick={() => handleButtonClick(invitation.id)}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {isMobile ? (
+            <MobileList
+              datas={filteredData}
+              handleButtonClick={handleButtonClick}
+            />
+          ) : (
+            <DesktopTable
+              datas={filteredData}
+              handleButtonClick={handleButtonClick}
+            />
+          )}
         </div>
       ) : (
         <NoInvitation />

@@ -22,34 +22,32 @@ const DashboardBtn: React.FC<DashboardBtnProps> = ({
       </PlusBtn>
       {dashboardList.dashboards?.map(item => (
         <Link key={item.id} href={`/dashboard/${item.id}`}>
-          <div className={clsx(styles.dashboardBtnButton)}>
-            <button>
-              <div className={clsx(styles.btnContents)}>
-                <div className={clsx(styles.btnContent)}>
-                  <div
-                    style={{ backgroundColor: item.color }}
-                    className={clsx(styles.colorCircle)}
-                  ></div>
-                  <span>{item.title}</span>
-                  {item.createdByMe && (
-                    <Image
-                      src="/button-icon/crown_icon.png"
-                      alt="Crown"
-                      width={20}
-                      height={16}
-                      priority
-                    />
-                  )}
-                </div>
-                <Image
-                  src="/button-icon/arrow.png"
-                  alt="화살표 이미지"
-                  width={18}
-                  height={18}
-                />
+          <button className={clsx(styles.btn)}>
+            <div className={clsx(styles.btnContents)}>
+              <div className={clsx(styles.btnContent)}>
+                <div
+                  style={{ backgroundColor: item.color }}
+                  className={clsx(styles.colorCircle)}
+                ></div>
+                <span className={clsx(styles.title)}>{item.title}</span>
+                {item.createdByMe && (
+                  <Image
+                    src="/button-icon/crown_icon.png"
+                    alt="Crown"
+                    width={20}
+                    height={16}
+                    priority
+                  />
+                )}
               </div>
-            </button>
-          </div>
+              <Image
+                src="/button-icon/arrow.png"
+                alt="화살표 이미지"
+                width={18}
+                height={18}
+              />
+            </div>
+          </button>
         </Link>
       ))}
     </div>

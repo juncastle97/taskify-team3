@@ -5,10 +5,6 @@
   border-radius: 0.8rem;
   background-color: $white;
 
-  @include desktop {
-    width: 102.2rem;
-  }
-
   @include mobile {
     padding: 2.4rem 1.6rem;
   }
@@ -22,24 +18,7 @@
 }
 
 .tableArea {
-  margin-top: 20px;
+  margin-top: 2rem;
   @include column-flexbox(start, stretch);
   gap: 2.4rem;
-}
-
-.table {
-  width: 100%;
-  text-align: left;
-  vertical-align: middle;
-  @include text-style-16-light();
-
-  th {
-    color: $gray-400;
-  }
-
-  td {
-    height: 7.2rem;
-    color: $black-200;
-    border-bottom: 1px solid $gray-200;
-  }
 }

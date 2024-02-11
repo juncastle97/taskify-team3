@@ -1,36 +1,66 @@
 .gridContainer {
-  width: 102.2rem;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
+  margin: 0 auto;
+
+  @include desktop {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1.2rem 1.3rem;
+    margin: 0;
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 0.8rem;
+  }
 }
 
-.dashboardBtnButton {
-  button {
-    .btnContents {
-      margin: 2.6rem 2rem;
-      display: flex;
-      width: 29.2rem;
-      justify-content: space-between;
-    }
-    .btnContent {
-      display: flex;
-      align-items: center;
-    }
-    border-radius: 0.8rem;
-    border: 0.1rem solid $gray-300;
-    background: $white;
+.btn {
+  .btnContents {
+    display: flex;
+    justify-content: space-between;
   }
-  .colorCircle {
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 100%;
+  .btnContent {
+    display: flex;
+    align-items: center;
   }
-  span {
-    @include text-style-16-bold();
-    margin-left: 1.6rem;
-    margin-right: 0.8rem;
-    color: $black-200;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $gray-300;
+  background: $white;
+  height: 7rem;
+  padding: 0 2rem;
+  width: 100%;
+
+  @include tablet {
+    height: 6.8rem;
+  }
+
+  @include mobile {
+    height: 5.8rem;
+    font-size: 1.4rem;
+  }
+}
+.colorCircle {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 100%;
+}
+
+.title {
+  @include text-style-16-bold();
+  margin-left: 1.6rem;
+  margin-right: 0.8rem;
+  color: $black-200;
+
+  @include mobile {
+    font-size: 1.4rem;
   }
 }

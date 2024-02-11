@@ -2,8 +2,7 @@
   border-radius: 8px;
   border: 1px solid $gray-300;
   background: $white;
-  width: 33.4rem;
-  height: 7.5rem;
+  height: 7rem;
   color: $black-200;
   text-align: center;
   @include text-style-16-bold();
@@ -12,6 +11,15 @@
     display: flex;
     gap: 1.2rem;
     justify-content: center;
+  }
+
+  @include tablet {
+    height: 6.8rem;
+  }
+
+  @include mobile {
+    height: 5.8rem;
+    font-size: 1.4rem;
   }
 }
 
@@ -25,7 +33,7 @@
     width: 26rem;
     height: 5.8rem;
   }
-//새로운 컬럼 추가하기
+  //새로운 컬럼 추가하기
   &-colum {
     width: 35.4rem;
     height: 7rem;
