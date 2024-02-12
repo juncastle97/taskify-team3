@@ -2,7 +2,7 @@ import axios from "@/lib/axios";
 import { PutDashboardTitleType } from "@/types/dashboard";
 
 /**
- * 대시보드 목록 조회
+ * 대시보드 목록 조회 (페이지네이션)
  */
 export const getDashboardList = async (page: number, size: number) => {
   const response = await axios.get(
@@ -10,6 +10,17 @@ export const getDashboardList = async (page: number, size: number) => {
   );
   return response.data;
 };
+
+/**
+ * 대시보드 목록 조회 (무한 스크롤)
+ */
+export const getDashboardListInfinite = async (cursorId: number, size: number) => {
+  const response = await axios.get(
+    `/dashboards?navigationMethod=infiniteScroll&cursorId=${cursorId}&size=${size}`,
+  );
+  return response.data;
+};
+
 /**
  * 대시보드 상세 조회
  */

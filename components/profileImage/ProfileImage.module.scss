@@ -3,15 +3,22 @@
   @include text-style-18-bold;
   margin: 0 1rem;
   gap: 1rem;
-  border-radius: 99px;
+  border-radius: 99rem;
   color: $white;
 
-  div {
-    border-radius: 99px;
+  img {
+    border: 2px solid $white;
+    border-radius: 99rem;
+    object-fit: cover;
   }
 
-  img {
-    border-radius: 99px;
-    object-fit: cover;
+  .profileInitial {
+    border: 2px solid $white;
+    @include text-style-16-middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    border-radius: 99rem;
   }
 }

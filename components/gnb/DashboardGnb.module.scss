@@ -109,7 +109,36 @@
   margin-right: 2rem;
 
   @include mobile {
+    display: none;
     margin-right: 1.2rem;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.8rem;
+    height: 3.8rem;
+    color: $white;
+    border: 0.2rem solid $white;
+    border-radius: 99rem;
+    margin-left: -1rem;
+  }
+
+  .totalCount {
+    background-color: $pink-100;
+    color: $pink;
+  }
+}
+
+.memberWrapperMobile {
+  @include text-style-18-middle();
+  display: none;
+  margin-right: 2rem;
+
+  @include mobile {
+    display: flex;
+    margin-right: 0.5rem;
   }
 
   div {
@@ -136,6 +165,10 @@
   gap: 1.2rem;
   position: relative;
   margin-left: 1rem;
+
+  @include mobile {
+    margin: 0;
+  }
 }
 
 .invitee {

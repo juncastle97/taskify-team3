@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,6 +47,8 @@ const DashboardGnb = () => {
   const [dashboardTitle, setDashboardTitle] = useState<{ title: string }>({
     title: "",
   });
+
+  const kebabRef = useRef<HTMLDivElement | null>(null);
 
   //api
   const getMyInfoData = async () => {
@@ -112,6 +114,20 @@ const DashboardGnb = () => {
     const selectedColorKey = colorKeys[randomIndex];
     return COLORS[selectedColorKey];
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (kebabRef.current && !kebabRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+  
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className={clsx(styles.gnb, isDashboardRoute && styles.flexRight)}>
@@ -180,9 +196,31 @@ const DashboardGnb = () => {
                   </div>
                 )}
             </div>
+            <div className={clsx(styles.memberWrapperMobile)}>
+              {dashMember?.members.slice(0, 2).map(member => (
+                <div
+                  key={member.id}
+                  className={clsx(styles.invitee)}
+                  style={{
+                    backgroundImage: member.profileImageUrl
+                      ? `url(${member.profileImageUrl})`
+                      : "none",
+                    backgroundColor: getRandomColor(),
+                  }}
+                >
+                  {member.nickname.charAt(0).toUpperCase()}
+                </div>
+              ))}
+              {(dashMember?.members.length || 0) > 2 &&
+                dashMember?.totalCount !== undefined && (
+                  <div className={clsx(styles.totalCount)}>
+                    +{dashMember.totalCount - 2}
+                  </div>
+                )}
+            </div>
           </div>
         )}
-        <div className={clsx(styles.profile)} onClick={handleKebab}>
+        <div ref={kebabRef} className={clsx(styles.profile)} onClick={handleKebab}>
           <ProfileImage member={myInfo} width={38} height={38} />
           <div className={clsx(styles.user)}>
             {myInfo.nickname && myInfo.nickname.length > 3

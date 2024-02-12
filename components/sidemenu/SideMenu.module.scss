@@ -46,10 +46,10 @@
 
 .dashboardListWrapper {
   display: flex;
+  align-items: center;
   gap: 0.6rem;
   width: 100%;
   border-radius: 0.4rem;
-  align-items: center;
   margin: 0.5rem auto;
   padding: 1.2rem;
   color: $gray-500;
@@ -57,6 +57,18 @@
   flex-wrap: wrap;
 
   &:hover {
+    color: $black-200;
+    background-color: $violet-100;
+  }
+}
+
+.selectedDashboard {
+  @include tablet {
+    color: $black-200;
+    background-color: $violet-100;
+  }
+
+  @include mobile {
     color: $black-200;
     background-color: $violet-100;
   }
@@ -72,12 +84,30 @@
 .dashboardList {
   @include text-style-18-middle();
 
+  @include tablet {
+    @include text-style-14-middle();
+  }
+
   @include mobile {
     display: none;
   }
 }
 
+.dashboardListMobile {
+  display: none;
+
+  @include mobile {
+    @include text-style-16-middle();
+    display: block;
+  }
+}
+
 .crown {
+  @include tablet {
+    width: 1.3rem;
+    height: 1rem;
+  }
+
   @include mobile {
     display: none;
   }
@@ -91,13 +121,15 @@
   position: absolute;
   right: 2rem;
   bottom: 2rem;
+
   @include mobile {
-    display: none;
+    right: 1.2rem;
   }
 }
 
 .pageText {
   display: none;
+
   @include desktop() {
     display: inline;
   }

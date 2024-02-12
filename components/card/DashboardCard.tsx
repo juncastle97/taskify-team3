@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./DashboardCard.module.scss";
 import TagChips from "@/components/chips/TagChips";
 import { generateRandomColorHexCode } from "@/utils/color";
@@ -17,7 +16,7 @@ const DashboardCard = ({
 }) => {
   const noneImgUrl =
     "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image";
-    
+
   return (
     <div className={styles.container} onClick={onClick}>
       {cardProps.imageUrl !== noneImgUrl && (
@@ -56,8 +55,9 @@ const DashboardCard = ({
         }}
       >
         {cardProps.assignee.profileImageUrl ? (
-          <div className={clsx(styles.profileImage)}>
+          <div>
             <Image
+              className={clsx(styles.profileImage)}
               src={`${cardProps.assignee.profileImageUrl}`}
               alt="프로필 이미지"
               width={24}

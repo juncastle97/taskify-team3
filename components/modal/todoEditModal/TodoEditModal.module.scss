@@ -1,11 +1,16 @@
 .modalWrapper {
   @include column-flexbox(start, start);
+  @include tablet {
+    height: 63rem;
+  }
+
   @include mobile {
     max-width: 90vw;
+    height: 60rem;
   }
-  padding: 3.2rem 1.8rem;
-  width: 50rem;
-  height: 80rem;
+  padding: 3.2rem 1.5rem;
+  max-width: 50rem;
+  height: 68rem;
 
   h1 {
     @include text-style-24;
@@ -40,6 +45,10 @@
       display: flex;
       flex-direction: row;
       gap: 1.6rem;
+
+      @include mobile {
+        flex-direction: column;
+      }
     }
 
     p {
@@ -51,15 +60,21 @@
       font-weight: 500;
       line-height: normal;
     }
+
     .inputdropdown {
       width: 21.7rem;
     }
+
     .input {
       @include text-style-16-light;
       border-radius: 6px;
       border: 1px solid $gray-300;
       padding: 1rem;
       width: 45rem;
+
+      @include mobile {
+        width: 90%;
+      }
     }
 
     textarea {

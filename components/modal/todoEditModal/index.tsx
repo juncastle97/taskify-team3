@@ -214,7 +214,7 @@ function TodoEditModal({ setIsOpen, cardId }: TodoEditModalProps) {
               small
               disabled={!formState.title || !formState.description}
             >
-              생성
+              수정
             </BaseButton>
           </div>
         </form>

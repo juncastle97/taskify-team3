@@ -14,8 +14,9 @@ const SideMenu = () => {
     dashboards: [],
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedDashboardId, setSelectedDashboardId] = useState<number | null>(null);
 
-  const ITEMS_PER_PAGE = 5;
+  const ITEMS_PER_PAGE = 10;
   const totalPage = Math.ceil((dashboardList.totalCount || 1) / ITEMS_PER_PAGE);
   const handleLeftButtonClick = () => {
     setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
@@ -27,12 +28,13 @@ const SideMenu = () => {
 
   const DashboardListData = async (page: number) => {
     try {
-      const response = await getDashboardList(page, 5);
+      const response = await getDashboardList(page, 10);
       setDashboardList(response);
     } catch (error) {
       console.error("GET 요청 실패: ", error);
     }
   };
+
   useEffect(() => {
     if (totalPage !== 0 && totalPage < currentPage)
       setCurrentPage(prev => prev - 1);
@@ -73,12 +75,22 @@ const SideMenu = () => {
       </div>
       {dashboardList.dashboards.map(item => (
         <Link key={item.id} href={`/dashboard/${item.id}`}>
-          <div className={clsx(styles.dashboardListWrapper)}>
+          <div className={clsx(styles.dashboardListWrapper, {
+                [styles.selectedDashboard]: selectedDashboardId === item.id,
+              })}
+              onClick={() => setSelectedDashboardId(item.id)}>
             <div
               className={clsx(styles.dashboardColor)}
               style={{ backgroundColor: item.color }}
             ></div>
-            <span className={clsx(styles.dashboardList)}>{item.title}</span>
+            <span className={clsx(styles.dashboardList)}>
+              {item.title.length > 9
+                ? `${item.title.slice(0, 9)}...`
+                : item.title}
+            </span>
+            <span className={clsx(styles.dashboardListMobile)}>
+              {item.title.charAt(0).toUpperCase()}
+            </span>
             {item.createdByMe && (
               <Image
                 src="/button-icon/crown_icon.png"
