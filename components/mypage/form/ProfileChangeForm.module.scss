@@ -1,6 +1,9 @@
 .form {
   display: flex;
   gap: 1.6rem;
+  @include mobile {
+    display: block;
+  }
 
   .addImage {
     width: 18.2rem;
@@ -8,16 +11,39 @@
     background-color: #f5f5f5;
     position: relative;
     border-radius: 6%;
+    @include mobile {
+      width: 10rem;
+      height: 10rem;
+      margin-bottom: 2.4rem;
+    }
   }
   .formContents {
     .inputs {
       width: 36.6rem;
+      @include tablet {
+        width: 29rem;
+      }
+      @include mobile {
+        width: 24.4rem;
+      }
+      .input {
+        @include mobile {
+          margin-bottom: 1.6rem;
+        }
+      }
     }
     .button {
       width: 8.4rem;
       height: 3.2rem;
       margin-top: 2.4rem;
       margin-left: 28.2rem;
+      @include tablet {
+        margin-left: 20.6rem;
+      }
+      @include mobile {
+        margin-left: 16rem;
+        margin-top: 0;
+      }
     }
   }
 }

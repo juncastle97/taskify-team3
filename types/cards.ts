@@ -29,7 +29,7 @@ export interface CardPropsType {
   tags: string[];
   dueDate: string;
   assignee: {
-    profileImageUrl?: string | null;
+    profileImageUrl: string | null;
     nickname: string;
     id: number;
   };

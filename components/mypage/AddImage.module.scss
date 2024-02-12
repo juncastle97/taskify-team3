@@ -19,8 +19,6 @@
     transform: translate(-50%, -50%);
 
     @include mobile {
-      top: 35%;
-      right: 40%;
       width: 20px;
     }
   }
@@ -42,5 +40,13 @@
       width: 7.6rem;
       height: 7.6rem;
     }
+  }
+}
+.upload,
+.previeImage {
+  @include mobile {
+    border-radius: 0.6rem;
+    width: 10rem;
+    height: 10rem;
   }
 }

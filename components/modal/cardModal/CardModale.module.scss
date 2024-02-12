@@ -12,7 +12,7 @@
 
   @include mobile {
     width: 34.7rem;
-    height: 70rem;
+    height: 65rem;
     padding: 2rem;
   }
 
@@ -40,6 +40,11 @@
 .buttonWrapper {
   @include flexbox($jc: start, $ai: center);
   gap: 2rem;
+
+  @include mobile {
+   gap: 0.8rem;
+   padding-right: 1.8em;
+  }
 }
 
 .kebabModal {
@@ -56,6 +61,11 @@
   border: 1px solid $gray-300;
   border-radius: 0.6rem;
   z-index: 1;
+
+  @include mobile {
+    width: 8rem;
+    height: 6.8rem;
+   }
 }
 
 .kebabItem {
@@ -69,6 +79,12 @@
   &:hover {
     color: $violet-200;
     background-color: $violet-100;
+  }
+
+  @include mobile {
+    @include text-style-12-light;
+    width: 7rem;
+    height: 2.5rem;
   }
 }
 
@@ -85,6 +101,7 @@
 
   @include mobile {
     width: 32rem;
+    height: 60rem;
     padding: 0;
   }
 }
@@ -232,7 +249,7 @@
   color: $white;
 
   @include mobile {
-    @include text-style-12-middle;
+    @include text-style-12-light;
     width: 1.6rem;
     height: 1.6rem;
   }

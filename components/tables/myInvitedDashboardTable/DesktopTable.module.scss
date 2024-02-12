@@ -1,0 +1,22 @@
+.table {
+  width: 100%;
+  text-align: left;
+  vertical-align: middle;
+  @include text-style-16-light();
+
+  thead {
+    color: $gray-400;
+  }
+
+  tbody {
+    color: $black-200;
+
+    tr {
+      height: 7.2rem;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $gray-200;
+      }
+    }
+  }
+}

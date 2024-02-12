@@ -16,7 +16,7 @@ function ProfileChangeForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<FieldValues>({});
 
   const [userInfo, setUserInfo] = useState<GetUserInfoType>({
@@ -95,6 +95,7 @@ function ProfileChangeForm() {
       <div className={clsx(styles.formContents)}>
         <div className={clsx(styles.inputs)}>
           <AuthInput
+            className={clsx(styles.input)}
             label="이메일"
             id="email"
             type="email"
@@ -106,6 +107,7 @@ function ProfileChangeForm() {
         </div>
         <div className={clsx(styles.inputs)}>
           <AuthInput
+            className={clsx(styles.input)}
             label="닉네임"
             id="nickName"
             type="text"
@@ -124,7 +126,12 @@ function ProfileChangeForm() {
         </div>
 
         <div className={clsx(styles.button)}>
-          <BaseButton onClick={handleSaveButtonClick}>저장</BaseButton>
+          <BaseButton
+            disabled={!isDirty || !isValid}
+            onClick={handleSaveButtonClick}
+          >
+            저장
+          </BaseButton>
         </div>
       </div>
     </form>

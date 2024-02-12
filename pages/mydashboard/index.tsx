@@ -10,7 +10,7 @@ import { getDashboardList } from "@/api/dashboards";
 import PagingButton from "@/components/button/pagingButton/PagingButton";
 import { getInvitedDashboardList } from "@/api/invitations";
 import CreateDashboardModal from "@/components/modal/createDashboardModal/CreateDashboardModal";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 function MyDashboard() {
   const [dashboardList, setDashboardList] = useState<GetDashboardListType>({
@@ -22,10 +22,9 @@ function MyDashboard() {
   const [invitations, setInvitations] = useState<MappedInvitations>([]);
   const [filteredInvitations, setFilteredInvitations] =
     useState<MappedInvitations>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const router = useRouter();
-  const { create } = router.query;
-  const [isModalOpen, setIsModalOpen] = useState(create ? true : false);
+  const createRequired = useSearchParams().get("create");
 
   const ITEMS_PER_PAGE = 5;
   const totalPage = Math.ceil((dashboardList.totalCount || 1) / ITEMS_PER_PAGE);
@@ -57,10 +56,6 @@ function MyDashboard() {
     }
   };
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
   useEffect(() => {
     if (totalPage !== 0 && totalPage < currentPage)
       setCurrentPage(prev => prev - 1);
@@ -74,34 +69,40 @@ function MyDashboard() {
     getInvitations();
   }, []);
 
+  useEffect(() => {
+    setIsModalOpen(createRequired ? true : false);
+  }, [createRequired]);
+
   return (
     <div className={clsx(styles.bg)}>
       <div className={clsx(styles.container)}>
-        <DashboardBtn
-          onClick={() => setIsModalOpen(true)}
-          dashboardList={dashboardList}
-        />
-        <div className={clsx(styles.pageBtnWrapper)}>
-          <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
-          <PagingButton
-            onClick={{
-              left: handleLeftButtonClick,
-              right: handleRightButtonClick,
-            }}
-            disabled={{
-              left: currentPage === 1,
-              right: currentPage === totalPage,
-            }}
-            small
+        <div className={clsx(styles.buttonContainer)}>
+          <DashboardBtn
+            onClick={() => setIsModalOpen(true)}
+            dashboardList={dashboardList}
           />
+          <div className={clsx(styles.pageBtnWrapper)}>
+            <p>{`${totalPage} 페이지 중 ${currentPage}`}</p>
+            <PagingButton
+              onClick={{
+                left: handleLeftButtonClick,
+                right: handleRightButtonClick,
+              }}
+              disabled={{
+                left: currentPage === 1,
+                right: currentPage === totalPage,
+              }}
+              small
+            />
+          </div>
         </div>
+        <MyInvitedDashboardTable
+          data={invitations}
+          setData={setInvitations}
+          filteredData={filteredInvitations}
+          setFilteredData={setFilteredInvitations}
+        />
       </div>
-      <MyInvitedDashboardTable
-        data={invitations}
-        setData={setInvitations}
-        filteredData={filteredInvitations}
-        setFilteredData={setFilteredInvitations}
-      />
       {isModalOpen && <CreateDashboardModal setIsOpen={setIsModalOpen} />}
     </div>
   );

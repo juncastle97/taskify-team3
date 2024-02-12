@@ -78,4 +78,10 @@
     background-color: $violet-200;
     color: $white;
   }
+
+  .disabled {
+    background-color: $gray-400;
+    color: $white;
+    cursor: default;
+  }
 }

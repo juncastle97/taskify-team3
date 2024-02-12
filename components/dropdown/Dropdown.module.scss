@@ -9,6 +9,7 @@
   align-items: center;
   cursor: pointer;
 
+
   &:hover {
     border: 0.1rem solid $violet-200;
   }
@@ -25,6 +26,7 @@
     padding: 1.3rem 0;
     position: absolute;
     top: 5rem;
+    z-index: 1;
   }
 
   li {

@@ -13,23 +13,25 @@ interface ProfileImageProps {
 
 function ProfileImage({ member, width, height }: ProfileImageProps) {
   return (
-    <div
-      className={clsx(styles.profileImage)}
-      style={{
-        background: member.profileImageUrl ? "" : "#9fa6b2",
-        width: width,
-        height: height,
-      }}
-    >
+    <div className={clsx(styles.profileImage)}>
       {member.profileImageUrl ? (
         <Image
           src={`${member.profileImageUrl}`}
           alt="프로필 이미지"
-          width={height}
-          height={width}
+          width={width}
+          height={height}
         />
       ) : (
-        member.nickname?.charAt(0).toUpperCase()
+        <div
+          className={styles.profileInitial}
+          style={{
+            background: member.profileImageUrl ? "" : "#9fa6b2",
+            width : width,
+            height : height,
+          }}
+        >
+          {member.nickname?.charAt(0).toUpperCase()}
+        </div>
       )}
     </div>
   );

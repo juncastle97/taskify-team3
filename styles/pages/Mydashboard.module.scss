@@ -3,6 +3,19 @@
 }
 
 .container {
+  width: 100%;
+  padding: 0 4rem 4rem 0;
+
+  @include desktop {
+    max-width: 106.2rem;
+  }
+
+  @include mobile {
+    padding: 0 2.4rem 4rem 2.4rem;
+  }
+}
+
+.buttonContainer {
   margin-bottom: 9.6rem;
 }
 
@@ -12,4 +25,13 @@
   justify-content: flex-end;
   align-items: center;
   gap: 1rem;
+  margin-top: 1.2rem;
+
+  @include desktop {
+    margin-top: 1rem;
+  }
+
+  @include mobile {
+    margin-top: 0.8rem;
+  }
 }

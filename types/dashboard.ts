@@ -43,8 +43,8 @@ export interface PostDashboardInvitationType {
 }
 
 export interface GetDashboardListType {
-  cursorId: number;
   totalCount: number;
+  cursorId: number;
   dashboards: DashboardType[];
 }
 

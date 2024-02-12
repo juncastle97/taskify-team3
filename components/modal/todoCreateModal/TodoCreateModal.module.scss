@@ -1,11 +1,18 @@
 .modalWrapper {
   @include column-flexbox(start, start);
+
+  @include tablet {
+    height: 63rem;
+  }
+
   @include mobile {
     max-width: 90vw;
+    height: 60rem;
   }
   padding: 3.2rem 2.8rem;
   max-width: 50rem;
   height: 68rem;
+
 
   h1 {
     @include text-style-24;
